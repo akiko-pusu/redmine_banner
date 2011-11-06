@@ -1,0 +1,10 @@
+= Redmine Banner Plugin 
+
+Plugin to show site-wide message, such as maintenacne informations or notifications.
+
+=== Plugin installation
+
+1. Copy the plugin directory into the vendor/plugins directory.
+2. Go to plugin's page and click "Settings" link of Redmine Banner Plugin.
+   You can edit banner message. 
+ 

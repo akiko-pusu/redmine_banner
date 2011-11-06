@@ -1,0 +1,26 @@
+<p>
+  <%=content_tag(:label, "プラグインを有効にする")%>
+  <%=check_box_tag 'settings[enable]', true, @settings['enable'] == "true" %>
+</p>
+
+<p>
+  <%=content_tag(:label, "メッセージのタイプ")%>
+  <%= radio_button_tag 'settings[type]', "info", @settings['type'] == "info" %> <span class="banner_info">Info</span><br>
+  <%= radio_button_tag 'settings[type]', "warn", @settings['type'] == "warn" %> <span class="banner_warn">Warn</span><br>
+  <%= radio_button_tag 'settings[type]', "alert", @settings['type'] == "alert" %> <span class="banner_alert">Alert </span>
+</p>
+
+<p>
+  <%=content_tag(:label, "バナーメッセージ") %>
+  <%=text_area_tag 'settings[banner_description]',  @settings['banner_description'],  :size =>"40x3", 
+        :class => 'wiki-edit' ,:required => true  %><br/>
+ <%= wikitoolbar_for "settings_banner_description" %>
+  <%= link_to_remote l(:label_preview),
+                       { :url => { :controller => 'banner', :action => 'preview'},
+                         :method => 'post',
+                         :id => 'banner_preview',
+                         :update => 'banner_description_preview',
+                         :with => "Form.serialize('plugin')",
+                         :complete => "Element.scrollTo('banner_description_preview')"
+                       }, :accesskey => accesskey(:preview) %>
+<div id="banner_description_preview" class="wiki"></div>

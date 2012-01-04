@@ -3,14 +3,14 @@ class BannerApplicationHooks < Redmine::Hook::ViewListener
     return '' unless Setting.plugin_redmine_banner['enable'] == "true"
     o = ''
     o << stylesheet_link_tag('banner', :plugin => 'redmine_banner')
-    o << '<script type="text/javascript">'
-    o << 'Event.observe(window, \'load\', window_onload);'
-    o << '  function window_onload(evt){'
-    o << "    $( \'top-menu\' ).insert({after:\'"
-    o << textilize_banner(Setting.plugin_redmine_banner['banner_description'])
-    o << '\'});'
-    o << '}'
-    o << '</script>'
+#    o << '<script type="text/javascript">'
+#    o << 'Event.observe(window, \'load\', window_onload);'
+#    o << '  function window_onload(evt){'
+#    o << "    $( \'top-menu\' ).insert({after:\'"
+#    o << textilize_banner(Setting.plugin_redmine_banner['banner_description'])
+#    o << '\'});'
+#    o << '}'
+#    o << '</script>'
 
    return o
   end
@@ -20,6 +20,13 @@ class BannerApplicationHooks < Redmine::Hook::ViewListener
     o = ''
     o << textilize_banner(Setting.plugin_redmine_banner['banner_description'])
     return o 
+  end
+
+  def view_layouts_base_after_top_menu(context = {})
+    return '' unless Setting.plugin_redmine_banner['enable'] == "true"
+    o = ''
+    o << textilize_banner(Setting.plugin_redmine_banner['banner_description'])
+    return o
   end
 
   private

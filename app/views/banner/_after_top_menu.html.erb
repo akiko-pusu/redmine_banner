@@ -1,0 +1,7 @@
+<% 
+-%>
+<% if Setting.plugin_redmine_banner['enable'] == "true" -%>
+<div class="banner banner_<%= Setting.plugin_redmine_banner['type'] %>">
+  <%= textilizable Setting.plugin_redmine_banner['banner_description'] %>
+</div>
+<% end %>

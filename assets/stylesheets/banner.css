@@ -1,14 +1,10 @@
 .banner {
         border-style: solid;
         border-width: 1px;
-/*
-        background-image: url(/plugin_assets/redmine_banner/images/info.png);
-        background-repeat: no-repeat; 
-        background-position: left;
-*/
-        margin: 5px 10px;
-        padding-left: 34px;
-        padding: 5px 20px;
+        margin: 2px 0px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding: 2px 20px;
 }
 
 div.banner_info {
@@ -27,24 +23,7 @@ div.banner_alert {
         background: #ffe3e3 url(/plugin_assets/redmine_banner/images/alert.png) no-repeat left center;
 }
 
-span.banner_info {
-        background-image: url(/plugin_assets/redmine_banner/images/info.png);
-        background-repeat: no-repeat;
-        background-position: left center;
-        padding-left: 26px;
+div.banner_normal {
+        background-color: #ffffff;
+        border-color: #ffffff;
 }
-
-span.banner_warn {
-        background-image: url(/plugin_assets/redmine_banner/images/warn.png);
-        background-repeat: no-repeat;
-        background-position: left center;
-        padding-left: 26px;
-}
-
-span.banner_alert {
-        background-image: url(/plugin_assets/redmine_banner/images/alert.png);
-        background-repeat: no-repeat;
-        background-position: left center;
-        padding-left: 26px;
-}
-

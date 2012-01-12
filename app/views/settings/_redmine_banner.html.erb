@@ -5,9 +5,10 @@
 
 <p>
   <%=content_tag(:label, "メッセージのタイプ")%>
-  <%= radio_button_tag 'settings[type]', "info", @settings['type'] == "info" %> <span class="banner_info">Info</span><br>
-  <%= radio_button_tag 'settings[type]', "warn", @settings['type'] == "warn" %> <span class="banner_warn">Warn</span><br>
-  <%= radio_button_tag 'settings[type]', "alert", @settings['type'] == "alert" %> <span class="banner_alert">Alert </span>
+  <%= radio_button_tag 'settings[type]', "info", @settings['type'] == "info" %> <span class="banner_info">Info</span><br/>
+  <%= radio_button_tag 'settings[type]', "warn", @settings['type'] == "warn" %> <span class="banner_warn">Warn</span><br/>
+  <%= radio_button_tag 'settings[type]', "alert", @settings['type'] == "alert" %> <span class="banner_alert">Alert </span><br/>
+  <%= radio_button_tag 'settings[type]', "normal", @settings['type'] == "normal" %> <span class="banner_normal">Normal </span>
 </p>
 
 <p>

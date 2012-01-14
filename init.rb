@@ -7,6 +7,7 @@ Redmine::Plugin.register :redmine_banner do
   description 'Plugin to show site-wide message, such as maintenacne informations or notifications.'
   version '0.0.1'
   requires_redmine :version_or_higher => '1.2.0'
+  url 'https://github.com/akiko-pusu/redmine_banner'
 
   settings :partial => 'settings/redmine_banner',
     :default => {

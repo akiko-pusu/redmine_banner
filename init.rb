@@ -13,7 +13,8 @@ Redmine::Plugin.register :redmine_banner do
     :default => {
       'enable' => 'false',
       'banner_description' => 'exp. Information about upcoming Service Interruption.',
-      'type' => 'info'
+      'type' => 'info',
+      'display_part' => 'both'
     }
 
 end

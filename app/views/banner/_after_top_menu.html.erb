@@ -1,6 +1,6 @@
 <% 
 -%>
-<% if Setting.plugin_redmine_banner['enable'] == "true" -%>
+<% if Setting.plugin_redmine_banner['enable'] == "true" && Setting.plugin_redmine_banner['display_part'] != "footer" -%>
 <div class="banner banner_<%= Setting.plugin_redmine_banner['type'] %>">
   <%= textilizable Setting.plugin_redmine_banner['banner_description'] %>
 </div>

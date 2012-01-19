@@ -1,3 +1,8 @@
 # English strings go here for Rails i18n
 en:
   banner: "Banner"
+  setting_banner_display_part: "Display Location" 
+  label_header_only: "Header only"
+  label_footer_only: "Footer only"
+  label_both: "Both Header / Footer"
+  label_banner_message: "Banner message"

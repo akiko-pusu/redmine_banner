@@ -12,7 +12,12 @@
 </p>
 
 <p>
-  <%=content_tag(:label, "バナーメッセージ") %>
+<%=content_tag(:label, l(:setting_banner_display_part))%>
+<%= select_tag('settings[display_part]',
+               options_for_select([[l(:label_header_only),'header'],[l(:label_footer_only),'footer'],[l(:label_both),'both']],@settings['display_part'])) %>
+
+<p>
+  <%=content_tag(:label, l(:label_banner_message)) %>
   <%=text_area_tag 'settings[banner_description]',  @settings['banner_description'],  :size =>"40x3", 
         :class => 'wiki-edit' ,:required => true  %><br/>
  <%= wikitoolbar_for "settings_banner_description" %>

@@ -27,3 +27,27 @@ div.banner_normal {
         background-color: #ffffff;
         border-color: #ffffff;
 }
+
+span.banner_info {
+        background-image: url(/plugin_assets/redmine_banner/images/info.png);
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding-left: 26px;
+        background-size:contain;
+}
+
+span.banner_warn {
+        background-image: url(/plugin_assets/redmine_banner/images/warn.png);
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding-left: 26px;
+        background-size:contain;
+}
+
+span.banner_alert {
+        background-image: url(/plugin_assets/redmine_banner/images/alert.png);
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding-left: 26px;
+        background-size:contain;
+}

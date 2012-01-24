@@ -1,6 +1,6 @@
 class BannerApplicationHooks < Redmine::Hook::ViewListener
   def view_layouts_base_html_head(context = {})
-    return '' unless Setting.plugin_redmine_banner['enable'] == "true"
+    # return '' unless Setting.plugin_redmine_banner['enable'] == "true"
     o = stylesheet_link_tag('banner', :plugin => 'redmine_banner')
     return o
   end

@@ -1,10 +1,10 @@
 <p>
-  <%=content_tag(:label, "プラグインを有効にする")%>
+  <%=content_tag(:label, l(:button_activate))%>
   <%=check_box_tag 'settings[enable]', true, @settings['enable'] == "true" %>
 </p>
 
 <p>
-  <%=content_tag(:label, "メッセージのタイプ")%>
+  <%=content_tag(:label, l(:label_message_type))%>
   <%= radio_button_tag 'settings[type]', "info", @settings['type'] == "info" %> <span class="banner_info">Info</span><br/>
   <%= radio_button_tag 'settings[type]', "warn", @settings['type'] == "warn" %> <span class="banner_warn">Warn</span><br/>
   <%= radio_button_tag 'settings[type]', "alert", @settings['type'] == "alert" %> <span class="banner_alert">Alert </span><br/>

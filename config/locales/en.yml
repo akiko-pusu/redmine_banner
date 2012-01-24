@@ -6,3 +6,4 @@ en:
   label_footer_only: "Footer only"
   label_both: "Both Header / Footer"
   label_banner_message: "Banner message"
+  label_message_type: "Message type"

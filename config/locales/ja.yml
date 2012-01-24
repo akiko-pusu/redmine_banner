@@ -6,3 +6,4 @@ ja:
   label_footer_only: "フッタのみ"
   label_both: "ヘッダ / フッタ両方とも"
   label_banner_message: "バナーメッセージ"
+  label_message_type: "メッセージタイプ"

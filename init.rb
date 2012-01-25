@@ -16,5 +16,6 @@ Redmine::Plugin.register :redmine_banner do
       'type' => 'info',
       'display_part' => 'both'
     }
+  menu :admin_menu, :redmine_banner, { :controller => 'settings', :action => 'plugin', :id => :redmine_banner }, :caption => :banner
 
 end

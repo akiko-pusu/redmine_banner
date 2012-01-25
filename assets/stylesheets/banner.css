@@ -57,3 +57,5 @@ span.banner_alert {
         padding-left: 26px;
         background-size:contain;
 }
+
+#admin-menu a.redmine-banner { background-image: url(../images/alert.png); }

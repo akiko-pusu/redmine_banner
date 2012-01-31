@@ -5,8 +5,9 @@ Plugin to show site-wide message from site administrator, such as maintenacne in
 === Plugin installation
 
 1. Copy the plugin directory into the vendor/plugins directory.
-2. Migrate plugin: rake db:migrate_plugins RAILS_ENV=production
-3. (Re)Start Redmine.
+2. (Re)Start Redmine.
+
+Corrently migration task is not required.
 
 === Usage
 

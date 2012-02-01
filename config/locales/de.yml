@@ -1,0 +1,8 @@
+de:
+  banner: "Banner"
+  setting_banner_display_part: "Anzeigeposition"
+  label_header_only: "Nur Kopfzeile"
+  label_footer_only: "Nur Fußzeile"
+  label_both: "Kopf und Fußzeile"
+  label_banner_message: "Banner Nachricht"
+  label_message_type: "Nachrichtenart"

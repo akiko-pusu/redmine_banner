@@ -21,6 +21,11 @@ Corrently migration task is not required.
  So something wrong may be happened with later version of Redmine.
  I've made request about this, ref. http://www.redmine.org/issues/9915. 
 
+=== Note
+
+ To use this plugin previous version (1.xx, 1.0.x...), please see this instruction.
+ https://github.com/akiko-pusu/redmine_banner/wiki/How-to-use-this-plugin-previous-version-(1.xx,-1.0.x...)
+
 == Changelog
 
 === 0.0.2
@@ -30,6 +35,15 @@ Corrently migration task is not required.
 === 0.0.1
 
 * First release
+
+=== Repository
+
+* https://github.com/akiko-pusu/redmine_banner
+
+=== WebPage
+
+* http://www.r-labs.org/projects/banner (Project Page)
+
 
 === License
 

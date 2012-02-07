@@ -1,0 +1,9 @@
+# Russian strings go here for Rails i18n
+ru:
+  banner: "Баннер"
+  setting_banner_display_part: "Отображать" 
+  label_header_only: "Сверху"
+  label_footer_only: "Снизу"
+  label_both: "Сверху и снизу"
+  label_banner_message: "Сообщение"
+  label_message_type: "Тип сообщения"

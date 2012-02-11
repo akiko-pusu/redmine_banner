@@ -15,18 +15,21 @@ Corrently migration task is not required.
    You can edit banner message and select style for message.
    Also You can access setting page from administration menu, click "banner" icon. 
 
-=== To-do
-
- Enabled to show banner on just after top-menu, I've override the view file. (app/views/layouts/base.rhtml)
- So something wrong may be happened with later version of Redmine.
- I've made request about this, ref. http://www.redmine.org/issues/9915. 
-
 === Note
 
  To use this plugin previous version (1.xx, 1.0.x...), please see this instruction.
  https://github.com/akiko-pusu/redmine_banner/wiki/How-to-use-this-plugin-previous-version-(1.xx,-1.0.x...)
 
 == Changelog
+
+=== 0.0.3
+
+* Code refactoring. Stop to override base.rhtml and use javascript.
+  Great thanks, Haru Iida-san.
+  Also, remove some "To-Do" section of README.
+
+* Add translations. Russian, German, Brazilian Portugues.
+  Thak you so much, Александр Ананьев, Denny Schäfer, Maiko de Andrade!
 
 === 0.0.2
 

@@ -1,0 +1,10 @@
+# Brazilian Portugues strings go here for Rails i18n
+# Author: Maiko de Andrade <maikovisky@gmail.com>
+pt-BR:
+  banner: "Banner"
+  setting_banner_display_part: "Local da exibição" 
+  label_header_only: "Somente no cabeçalho"
+  label_footer_only: "Somente no rodapé"
+  label_both: "Ambos Cabeçalho / Rodapé"
+  label_banner_message: "Mensagem do Banner"
+  label_message_type: "Tipo de Mensagem"

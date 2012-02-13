@@ -1,3 +1,15 @@
+<!-- confirmation popup -->
+<script type="text/javascript">
+  Event.observe(window, 'load', function() {
+    var confirm_msg = "<%= l(:text_are_you_sure) %>";
+    Event.observe("plugin", "submit", function(event){
+      var response = confirm(confirm_msg); 
+      if(!response){
+        event.stop();
+      }
+    })
+  });
+</script>
 <p>
   <%=content_tag(:label, l(:button_activate))%>
   <%=check_box_tag 'settings[enable]', true, @settings['enable'] == "true" %>

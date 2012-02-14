@@ -1,0 +1,19 @@
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+
+require File.dirname(__FILE__) + '/../test_helper'
+
+class BannerHelperTest < Test::Unit::TestCase
+  include BannerHelper
+  
+  def test_get_time
+    y = "2012"
+    m = "12"
+    d = "31"
+    h = "11"
+    min = "59"
+    ymd = "#{y}-#{m}-#{d}"
+    t = Time.mktime(y,m,d,h,min)
+    assert_equal true, t == get_time(ymd,h,min) 
+  end
+end

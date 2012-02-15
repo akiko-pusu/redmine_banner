@@ -45,7 +45,9 @@
 
 <p>
   <%=content_tag(:label, l(:label_use_timer))%>
-  <span class="use_timer"><%=check_box_tag 'settings[use_timer]', true, @settings['use_timer'] == "true" %></span>
+  <span class="use_timer">
+<%=check_box_tag 'settings[use_timer]', true, @settings['use_timer'] == "true" , :onclick => "changeView(this);"%>
+  </span>
 </p>
 
 <div id="banner_timer_setting" style="display: <%= @settings['use_timer'] == 'true' ? 'block' : 'none' %>">

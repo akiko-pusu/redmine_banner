@@ -1,12 +1,6 @@
 /* Code for Banner UI */
-Event.observe(window, "load", switchTimerField, false);
-
-function switchTimerField(){
-	Event.observe("settings_use_timer", "click", changeView, false);
-}
-
 function changeView(evt){
-    var vis = (settings_use_timer.checked) ? "block" : "none"; 
+    var vis = evt.checked ? "block" : "none"; 
     banner_timer_setting.style.display = vis;
 }
 

@@ -7,7 +7,7 @@ Redmine::Plugin.register :redmine_banner do
   name 'Redmine Banner plugin'
   author 'Akiko Takano'
   description 'Plugin to show site-wide message, such as maintenacne informations or notifications.'
-  version '0.0.3'
+  version '0.0.3-dev'
   requires_redmine :version_or_higher => '1.2.0'
   url 'https://github.com/akiko-pusu/redmine_banner'
 

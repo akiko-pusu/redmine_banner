@@ -34,6 +34,12 @@ div.banner_normal {
         border-color: #ffffff;
 }
 
+div.banner_edit {
+        background-image: none;
+        text-align: right;
+        font-size: smaller;
+}
+
 span.banner_info {
         background-image: url(../images/info.png);
         background-repeat: no-repeat;
@@ -59,6 +65,9 @@ span.banner_alert {
 }
 
 #admin-menu a.redmine-banner { background-image: url(../images/alert-msg.png); }
+
+#top-menu a.redmine-banner { background-image: url(../images/alert-msg.png); 
+        background-repeat: no-repeat; color: transparent; }
 
 span.use_timer {
         background-image: url(../images/icon-timer.png);

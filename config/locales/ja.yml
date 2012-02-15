@@ -11,3 +11,5 @@ ja:
   label_end_datetime: "表示終了時刻"
   label_use_timer: "タイマーを利用する"
   error_banner_date_range: "日付の範囲が正しく設定されていません。"
+  redmine_banner_title: "バナーの設定画面へ"
+  

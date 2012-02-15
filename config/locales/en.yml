@@ -11,3 +11,4 @@ en:
   label_end_datetime: "End datetime"
   label_use_timer: "Use timer"
   error_banner_date_range: "Start date should be prior to End date."  
+  redmine_banner_title: "Go to Banner Setting."

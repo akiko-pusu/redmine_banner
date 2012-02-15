@@ -1,5 +1,7 @@
 require 'redmine'
 require 'banner_application_hooks'
+require 'dispatcher'
+require 'settings_controller_patch'
 
 Redmine::Plugin.register :redmine_banner do
   name 'Redmine Banner plugin'
@@ -14,8 +16,20 @@ Redmine::Plugin.register :redmine_banner do
       'enable' => 'false',
       'banner_description' => 'exp. Information about upcoming Service Interruption.',
       'type' => 'info',
-      'display_part' => 'both'
+      'display_part' => 'both',
+      'use_timer' => 'false',
+      'start_ymd' => nil,
+      'start_hour' => nil,
+      'start_min' => nil,
+      'end_ymd' => nil,
+      'end_hour' => nil,
+      'end_min' => nil
     }
   menu :admin_menu, :redmine_banner, { :controller => 'settings', :action => 'plugin', :id => :redmine_banner }, :caption => :banner
 
+  
+Dispatcher.to_prepare do
+  #include our code
+  SettingsController.send(:include, SettingsControllerPatch)
+end  
 end

@@ -1,12 +1,9 @@
 <% 
 -%>
-<% if Setting.plugin_redmine_banner['enable'] == "true" && Setting.plugin_redmine_banner['display_part'] != "footer" -%>
-<div class="banner banner_<%= Setting.plugin_redmine_banner['type'] %>" id="banner_for_header">
-  <%= textilizable Setting.plugin_redmine_banner['banner_description'] %>
-</div>
+<%= render :partial=>'banner/body_bottom' %>
 <script type="text/javascript">
   document.observe("dom:loaded", function() {
-    new Insertion.After($('top-menu'), $('banner_for_header'));
+    new Insertion.After($('top-menu'), $('banner_content'));
   });
 </script>
-<% end %>
+

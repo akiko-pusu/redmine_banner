@@ -42,3 +42,32 @@
                          :complete => "Element.scrollTo('banner_description_preview')"
                        }, :accesskey => accesskey(:preview) %>
 <div id="banner_description_preview" class="wiki"></div>
+
+<p>
+  <%=content_tag(:label, l(:label_use_timer))%>
+  <span class="use_timer"><%=check_box_tag 'settings[use_timer]', true, @settings['use_timer'] == "true" %></span>
+</p>
+
+<div id="banner_timer_setting" style="display: <%= @settings['use_timer'] == 'true' ? 'block' : 'none' %>">
+  <p>
+    <%=content_tag(:label, l(:label_start_datetime))%>
+    <%= text_field_tag 'settings[start_ymd]', @start_datetime.strftime("%Y-%m-%d"), :size => 10 %>
+    <%= select_hour @start_datetime, :prefix => 'settings', :field_name => 'start_hour', 
+      :time_separator => ':', :include_seconds => false %>:
+    <%= select_minute @start_datetime, :prefix => 'settings', :field_name => 'start_min', :time_separator => ':', :include_seconds => false %>
+    <%= calendar_for('settings_start_ymd') %> (exp. 2012-12-31 11:00)
+    <br/>
+  </p>
+
+<p>
+  <%=content_tag(:label, l(:label_end_datetime))%>
+    <%= text_field_tag 'settings[end_ymd]', @end_datetime.strftime("%Y-%m-%d"), :size => 10 %>
+    <%= select_hour @end_datetime, :prefix => 'settings',:field_name => 'end_hour', 
+      :time_separator => ':', :include_seconds => false,:disabled => !@settings['use_timer'] == "true" %>:
+    <%= select_minute @end_datetime, :prefix => 'settings',:field_name => 'end_min', 
+      :time_separator => ':', :include_seconds => false,:disabled => !@settings['use_timer'] == "true" %>
+    <%= calendar_for('settings_end_ymd') %> (exp. 2013-01-01 11:00)
+    <br/>  
+</p>
+</div>
+

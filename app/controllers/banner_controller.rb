@@ -8,11 +8,15 @@ class BannerController < ApplicationController
   end
   
   def off
-    @plugin = Redmine::Plugin.find("redmine_banner")
-    @settings = Setting["plugin_#{@plugin.id}"]
-    @settings["enable"] = "false"
-    Setting["plugin_#{@plugin.id}"] = @settings
-    render :text => "<script type=\"text/javascript\">hideBanner();</script>"
+    begin
+      @plugin = Redmine::Plugin.find("redmine_banner")
+      @settings = Setting["plugin_#{@plugin.id}"]
+      @settings["enable"] = "false"
+      Setting["plugin_#{@plugin.id}"] = @settings
+      render :text => "<script type=\"text/javascript\">hideBanner();</script>"
+    rescue
+      render :text => ""
+    end  
   end
 
   def show

@@ -1,77 +1,112 @@
 .banner {
-        border-style: solid;
-        border-width: 1px;
-        margin: 2px 0px;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        padding: 2px 20px;
+    border-style: solid;
+    border-width: 1px;
+    margin: 2px 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding: 2px 20px;
 }
 
 div.banner_info {
-        border-color: #b0c4de;
-        background: #f0f8ff url(../images/info.png) no-repeat left center;
-        background-position-x: 4px;
-        padding-left: 26px;
+    border-color: #b0c4de;
+    background: #f0f8ff url(../images/info.png) no-repeat left center;
+    background-position-x: 4px;
+    padding-left: 26px;
 }
 
 div.banner_warn {
-        border-color: #f3d51a;
-        background: #f9f99e url(../images/warn.png) no-repeat left center;
-        background-position-x: 4px;
-        padding-left: 26px;
+    border-color: #f3d51a;
+    background: #f9f99e url(../images/warn.png) no-repeat left center;
+    background-position-x: 4px;
+    padding-left: 26px;
 }
 
 div.banner_alert {
-        background-color: #ffe3e3;
-        border-color: #dd0000;
-        background: #ffe3e3 url(../images/alert.png) no-repeat left center;
-        background-position-x: 4px;
-        padding-left: 26px;
+    background-color: #ffe3e3;
+    border-color: #dd0000;
+    background: #ffe3e3 url(../images/alert.png) no-repeat left center;
+    background-position-x: 4px;
+    padding-left: 26px;
 }
 
 div.banner_normal {
-        background-color: #ffffff;
-        border-color: #ffffff;
+    background-color: #ffffff;
+    border-color: #ffffff;
 }
 
 div.banner_edit {
-        background-image: none;
-        text-align: right;
-        font-size: smaller;
+    background-image: none;
+    text-align: right;
+    font-size: smaller;
 }
 
 span.banner_info {
-        background-image: url(../images/info.png);
-        background-repeat: no-repeat;
-        background-position: left center;
-        padding-left: 26px;
-        background-size:contain;
+    background-image: url(../images/info.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 26px;
+    background-size:contain;
 }
 
 span.banner_warn {
-        background-image: url(../images/warn.png);
-        background-repeat: no-repeat;
-        background-position: left center;
-        padding-left: 26px;
-        background-size:contain;
+    background-image: url(../images/warn.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 26px;
+    background-size:contain;
 }
 
 span.banner_alert {
-        background-image: url(../images/alert.png);
-        background-repeat: no-repeat;
-        background-position: left center;
-        padding-left: 26px;
-        background-size:contain;
+    background-image: url(../images/alert.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 26px;
+    background-size:contain;
 }
 
-#admin-menu a.redmine-banner { background-image: url(../images/alert-msg.png); }
+#admin-menu a.redmine-banner { 
+    background-image: url(../images/alert-msg.png); 
+}
 
-#top-menu a.redmine-banner { background-image: url(../images/alert-msg.png); 
-        background-repeat: no-repeat; color: transparent; }
+#top-menu a.redmine-banner { 
+    background-image: url(../images/alert-msg.png); 
+    background-repeat: no-repeat; 
+    color: transparent; 
+}
 
 span.use_timer {
-        background-image: url(../images/icon-timer.png);
-        background-repeat: no-repeat;
-        background-position: right center;
-        padding-right: 20px;
+    background-image: url(../images/icon-timer.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 20px;
+}
+
+div#banner_area {
+    position:relative;
+}
+  
+div#banner_area div#banner_edit {
+    display:block;
+    position:absolute;
+    bottom:5px;
+    right:10px;
+    font-size:smaller;
+    background:none;
+    color:#000;
+    filter: alpha(opacity=30);
+    -moz-opacity: 0.3;
+    opacity: 0.3;    
+}
+
+div#banner_area div#banner_edit:hover {
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    opacity: 0.8;    
+}
+
+.banner-icon-off { 
+    background-image: url(../images/close.png);  
+}
+.banner-icon-edit { 
+    background-image: url(../images/edit.png);  
 }

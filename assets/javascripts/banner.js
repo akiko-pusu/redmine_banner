@@ -1,9 +1,29 @@
 /* Code for Banner UI */
+function hideBanner(){
+  $$(".banner_area").each(function(obj){ obj.remove(); });
+}
+
 function setBannerTitle(banner_title){    
   $$('.redmine-banner').each(function(obj){
     obj.setAttribute("title", banner_title); 
   });
 };
+
+function checkDateRange(event, confirm_msg, date_range_error_msg){
+  var s = $F('settings_start_ymd') + " " + $F('settings_start_hour') + ":" + $F('settings_start_min');
+  var e = $F('settings_end_ymd') + " " + $F('settings_end_hour') + ":" + $F('settings_end_min');
+  if (e.replace(/\-\s:/gi,"") < s.replace(/\-\s:/gi,"")) {
+    window.alert(date_range_error_msg + " (From " + s + " to " + e + ")");
+    event.stop();
+    return false;
+  }
+  var response = confirm(confirm_msg); 
+  if(!response){
+    event.stop();
+    return false;
+  }
+  return true;
+}
 
 function changeView(evt){
     var vis = evt.checked ? "block" : "none"; 

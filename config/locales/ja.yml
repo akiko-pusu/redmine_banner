@@ -12,4 +12,6 @@ ja:
   label_use_timer: "タイマーを利用する"
   error_banner_date_range: "日付の範囲が正しく設定されていません。"
   redmine_banner_title: "バナーの設定画面へ"
+  button_off: "表示オフ"
+  banner_off: "バナーの表示を停止します。"
   

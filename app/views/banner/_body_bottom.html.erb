@@ -12,6 +12,7 @@
 <%= link_to_remote l(:button_off), 
    :url => {:controller => 'banner', :action => 'off', :moderate => 'yes', 
   :id => nil}, :update => "banner_area", 
+  :confirm => l(:text_are_you_sure),
   :html => {:class => 'icon banner-icon-off', :title => l(:banner_off)} %> 
   </div>
 <% end %>  

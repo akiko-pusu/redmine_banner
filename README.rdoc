@@ -22,6 +22,11 @@ Corrently migration task is not required.
 
 == Changelog
 
+=== 0.0.4
+
+* Support timer function.
+* Add links to tunrn off or modify banner message quickly. (Links are shown to Administrator only) 
+
 === 0.0.3
 
 * Code refactoring. Stop to override base.rhtml and use javascript.

@@ -2,11 +2,9 @@
 <script type="text/javascript">
   Event.observe(window, 'load', function() {
     var confirm_msg = "<%= l(:text_are_you_sure) %>";
-    Event.observe("plugin", "submit", function(event){
-      var response = confirm(confirm_msg); 
-      if(!response){
-        event.stop();
-      }
+    var date_range_error_msg = "<%=  l(:error_banner_date_range) %>";
+    Event.observe("plugin", "submit", function(event) {
+      checkDateRange(event, confirm_msg, date_range_error_msg);    
     })
   });
 </script>

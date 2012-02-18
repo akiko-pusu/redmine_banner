@@ -1,6 +1,19 @@
 <% 
 -%>
+<div id="banner_area" class="banner_area">
 <div class="banner banner_<%= Setting.plugin_redmine_banner['type'] %>" id="banner_content">
   <%= textilizable Setting.plugin_redmine_banner['banner_description'] %>
+</div>
+<% if User.current.admin? %>
+  <div id="banner_edit">
+<%= link_to l(:button_edit), 
+   {:controller => 'settings', :action => 'plugin', :id => 'redmine_banner'}, 
+    {:class => 'icon banner-icon-edit', :title => l(:button_edit)} %>
+<%= link_to_remote l(:button_off), 
+   :url => {:controller => 'banner', :action => 'off', :moderate => 'yes', 
+  :id => nil}, :update => "banner_area", 
+  :html => {:class => 'icon banner-icon-off', :title => l(:banner_off)} %> 
+  </div>
+<% end %>  
 </div>
 

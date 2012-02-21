@@ -6,6 +6,7 @@ require 'settings_controller_patch'
 Redmine::Plugin.register :redmine_banner do
   name 'Redmine Banner plugin'
   author 'Akiko Takano'
+  author_url 'http://twitter.com/akiko_pusu'  
   description 'Plugin to show site-wide message, such as maintenacne informations or notifications.'
   version '0.0.4'
   requires_redmine :version_or_higher => '1.2.0'

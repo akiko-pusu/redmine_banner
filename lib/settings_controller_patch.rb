@@ -31,25 +31,35 @@ module SettingsControllerPatch
       @start_datetime = current_time
       @end_datetime = current_time
 
-      if !@settings['start_ymd'].blank?
-        s = Date.strptime(@settings['start_ymd'], "%Y-%m-%d")
-        s_year = s.year.to_i
-        s_month = s.month.to_i
-        s_day = s.day.to_i
-        s_hour = @settings['start_hour'].blank? ? current_time.hour.to_i : @settings['start_hour'].to_i 
-        s_min = @settings['start_min'].blank? ? current_time.min.to_i : @settings['start_min'].to_i 
-        @start_datetime = Time.mktime(s_year,s_month, s_day, s_hour, s_min)
-      end
+      begin
+        if !@settings['start_ymd'].blank?
+          s = Date.strptime(@settings['start_ymd'], "%Y-%m-%d")
+          s_year = s.year.to_i
+          s_month = s.month.to_i
+          s_day = s.day.to_i
+          s_hour = @settings['start_hour'].blank? ? current_time.hour.to_i : @settings['start_hour'].to_i 
+          s_min = @settings['start_min'].blank? ? current_time.min.to_i : @settings['start_min'].to_i 
+          @start_datetime = Time.mktime(s_year,s_month, s_day, s_hour, s_min)
+        end
 
-      if !@settings['end_ymd'].blank?
-        e = Date.strptime(@settings['end_ymd'], "%Y-%m-%d")
-        e_year = e.year.to_i
-        e_month = e.month.to_i
-        e_day = e.day.to_i
-        e_hour = @settings['end_hour'].blank? ? current_time.hour.to_i : @settings['end_hour'].to_i 
-        e_min = @settings['end_min'].blank? ? current_time.min.to_i : @settings['end_min'].to_i 
-        @end_datetime = Time.mktime(e_year,e_month,e_day, e_hour, e_min)
-      end        
+        if !@settings['end_ymd'].blank?
+          e = Date.strptime(@settings['end_ymd'], "%Y-%m-%d")
+          e_year = e.year.to_i
+          e_month = e.month.to_i
+          e_day = e.day.to_i
+          e_hour = @settings['end_hour'].blank? ? current_time.hour.to_i : @settings['end_hour'].to_i 
+          e_min = @settings['end_min'].blank? ? current_time.min.to_i : @settings['end_min'].to_i 
+          @end_datetime = Time.mktime(e_year,e_month,e_day, e_hour, e_min)
+        end
+      rescue => ex
+          # TODO:
+          # Ref. https://github.com/akiko-pusu/redmine_banner/issues/11 
+          # Logging when Argument Error
+          logger.warn "Redmine Banner Warning:   #{ex} / Invalid date setting / From #{@settings['start_ymd']} to #{@settings['end_ymd']}. Reset to current datetime. "if logger
+          @start_datetime = current_time
+          @end_datetime = current_time
+          @settings['use_timer'] = "false"
+      end
       
       if request.post?
         return plugin_without_banner_date_validation unless params[:settings][:use_timer] == "true"

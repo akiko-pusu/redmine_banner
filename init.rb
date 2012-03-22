@@ -27,8 +27,6 @@ Redmine::Plugin.register :redmine_banner do
       'end_min' => nil
     }
   menu :admin_menu, :redmine_banner, { :controller => 'settings', :action => 'plugin', :id => :redmine_banner }, :caption => :banner
-  menu :top_menu, :redmine_banner, { :controller => 'settings', :action => 'plugin', :id => :redmine_banner }, 
-    :caption => :banner, :last => true, :if => Proc.new { User.current.admin? }
   
 Dispatcher.to_prepare do
   #include our code

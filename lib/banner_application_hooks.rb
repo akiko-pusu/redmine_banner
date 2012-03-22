@@ -5,11 +5,6 @@ class BannerHeaderHooks < Redmine::Hook::ViewListener
   def view_layouts_base_html_head(context = {})
     o = stylesheet_link_tag('banner', :plugin => 'redmine_banner')
     o << javascript_include_tag('banner', :plugin => 'redmine_banner')
-    o << '<script type="text/javascript">'
-    o << "Event.observe(window, 'load', function(){ setBannerTitle('"
-    o << l(:redmine_banner_title)
-    o << "'); });"
-    o << '</script>'
     return o
   end
 end

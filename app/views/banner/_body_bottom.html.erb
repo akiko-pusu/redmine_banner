@@ -11,11 +11,13 @@ if User.current.admin? && (params[:controller] != 'settings' &&  params[:action]
 <%= link_to l(:button_edit), 
   {:controller => 'settings', :action => 'plugin', :id => 'redmine_banner'}, 
   {:class => 'icon banner-icon-edit', :title => l(:button_edit)} %>
-<%= link_to_remote l(:button_off), 
-  :url => {:controller => 'banner', :action => 'off', :moderate => 'yes', 
-  :id => nil}, :update => "banner_area", 
-  :confirm => l(:text_are_you_sure),
-  :html => {:class => 'icon banner-icon-off', :title => l(:banner_off)} %> 
+    
+<a class="icon banner-icon-off" 
+   href="#" 
+   onclick="if (confirm('<%= l(:text_are_you_sure) %> ')) { new Ajax.Updater('banner_area', 
+     '<%= url_for(:controller => :banner, :action => 'off', :moderate => 'yes') %>', 
+     {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>')}); }; hideBanner(); return false;" 
+   title="<%= l(:banner_off) %>"><%= l(:button_off) %></a> 
   </div>
 <% end %>  
 </div>

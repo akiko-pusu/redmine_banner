@@ -25,9 +25,7 @@
 
 <p>
 <%=content_tag(:label, l(:setting_banner_display_part))%>
-<%= select_tag('settings[display_part]',
-               options_for_select([[l(:label_header_only),'header'],[l(:label_footer_only),'footer'],[l(:label_both),'both']],@banner['display_part'])) %>
-
+Now project top only.
 <p>
   <%=content_tag(:label, l(:label_banner_message)) %>
   <%=text_area_tag 'settings[banner_description]',  @banner['banner_description'],  :size =>"40x3", 

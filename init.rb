@@ -2,6 +2,7 @@ require 'redmine'
 require 'banner_application_hooks'
 require 'dispatcher'
 require 'settings_controller_patch'
+require 'banner_projects_helper_patch'
 
 Redmine::Plugin.register :redmine_banner do
   name 'Redmine Banner plugin'
@@ -26,10 +27,21 @@ Redmine::Plugin.register :redmine_banner do
       'end_hour' => nil,
       'end_min' => nil
     }
-  menu :admin_menu, :redmine_banner, { :controller => 'settings', :action => 'plugin', :id => :redmine_banner }, :caption => :banner
+  menu :admin_menu, :redmine_banner, { :controller => 'settings', 
+    :action => 'plugin', :id => :redmine_banner }, :caption => :banner
   
-Dispatcher.to_prepare do
-  #include our code
-  SettingsController.send(:include, SettingsControllerPatch)
-end  
+  project_module :banner do
+    permission :manage_banner, 
+      {:banner => [:show, :edit]}, :require => :member
+  end
+  
+  
+  Dispatcher.to_prepare :redmine_banner do
+    #include our code
+    SettingsController.send(:include, SettingsControllerPatch)
+    require_dependency 'projects_helper'
+    unless ProjectsHelper.included_modules.include? BannerProjectsHelperPatch
+      ProjectsHelper.send(:include, BannerProjectsHelperPatch)
+    end    
+  end  
 end

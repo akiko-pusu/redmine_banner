@@ -14,3 +14,5 @@ en:
   redmine_banner_title: "Go to Banner Setting."
   button_off: "Off"
   banner_off: "Turn off banner message."
+  permission_manage_banner: "Manage Banner"
+  project_module_banner: "Banner"

@@ -14,4 +14,6 @@ ja:
   redmine_banner_title: "バナーの設定画面へ"
   button_off: "表示オフ"
   banner_off: "バナーの表示を停止します。"
+  permission_manage_banner: "バナーの管理"
+  project_module_banner: "バナー"
   

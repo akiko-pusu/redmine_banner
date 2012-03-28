@@ -114,3 +114,22 @@ div#banner_area div#banner_edit:hover {
 .banner-icon-edit { 
     background-image: url(../images/edit.png);  
 }
+
+div#project_banner_area div#banner_edit {
+    display:block;
+    position:absolute;
+    bottom:5px;
+    right:10px;
+    font-size:smaller;
+    background:none;
+    color:#000;
+    filter: alpha(opacity=30);
+    -moz-opacity: 0.3;
+    opacity: 0.3;    
+}
+
+div#project_banner_area div#banner_edit:hover {
+    filter: alpha(opacity=80);
+    -moz-opacity: 0.8;
+    opacity: 0.8;    
+}

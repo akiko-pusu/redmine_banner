@@ -10,10 +10,7 @@
     <%= error_messages_for 'banner' %>
     <div class="box">
 
-<p>
-  <%=content_tag(:label, l(:button_activate))%>
-  <%=check_box_tag 'settings[enabled]', true, @banner['enabled'] %>
-</p>
+<p><%= f.check_box :enabled, :label => l(:button_activate) %></p>     
 
 <p>
   <%=content_tag(:label, l(:label_message_type))%>
@@ -42,8 +39,8 @@ Now project top only.
                        }, :accesskey => accesskey(:preview) %>
 <div id="banner_description_preview" class="wiki"></div>
 
-
-    <%= submit_tag l(:button_update) %>
+    </div>
+    <%= submit_tag l(:button_save) %>
 <% end %>
 </div>
 

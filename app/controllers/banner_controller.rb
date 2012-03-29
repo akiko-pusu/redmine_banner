@@ -8,11 +8,6 @@ class BannerController < ApplicationController
     render :partial => 'common/preview'
   end
   
-  def banner_preview
-    @text = params[:settings][:description]
-    render :partial => 'common/preview'
-  end
-  
   def off
     begin
       @plugin = Redmine::Plugin.find("redmine_banner")

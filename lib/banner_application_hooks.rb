@@ -11,12 +11,6 @@ end
 
 class ProjectBannerMessageHooks < Redmine::Hook::ViewListener
   def view_layouts_base_content(context={})
-#    if (context[:controller].class.name == 'ProjectsController')
-#      project_id = context[:request].parameters[:id]  
-#    else
-#      project_id = context[:request].parameters[:project_id]
-#    end
-#    return '' unless !project_id.blank?
     context[:controller].send(
       :render_to_string,
       {

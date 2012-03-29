@@ -26,6 +26,18 @@ class BannerController < ApplicationController
     end  
   end
 
+    def project_banner_off
+    begin
+      @banner = Banner.find_or_create(@project.id)
+      @banner.enabled = false
+      @banner.save
+      render :text => ""
+    rescue Exception => exc
+      logger.warn("Message for the log file / When off banner #{exc.message}")
+      render :text => ""
+    end  
+  end
+  
   def show
     @banner = Banner.find_or_create(@project.id)
   end
@@ -53,5 +65,5 @@ class BannerController < ApplicationController
       render_404
     end
   end
-  
+
 end

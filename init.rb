@@ -32,7 +32,7 @@ Redmine::Plugin.register :redmine_banner do
   
   project_module :banner do
     permission :manage_banner, 
-      {:banner => [:show, :edit]}, :require => :member
+      {:banner => [:show, :edit, :project_banner_off]}, :require => :member
   end
   
   

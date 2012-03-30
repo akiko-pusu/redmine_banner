@@ -2,7 +2,9 @@ class Banner < ActiveRecord::Base
   include Redmine::SafeAttributes
   unloadable
   belongs_to :project
-  validates_presence_of :project
+
+  validates_uniqueness_of :project_id
+  validates_presence_of :project_id
   # project should be stable.
   safe_attributes 'banner_description', 'style', 'start_date', 'end_date', 'enabled', 'use_timer'
   

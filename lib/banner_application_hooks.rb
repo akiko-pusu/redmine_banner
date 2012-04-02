@@ -9,21 +9,16 @@ class BannerHeaderHooks < Redmine::Hook::ViewListener
   end
 end
 
-#
-# for Project Banner
-#
 class ProjectBannerMessageHooks < Redmine::Hook::ViewListener
   def view_layouts_base_content(context={})
-
     context[:controller].send(
       :render_to_string,
       {
         :partial => 'banner/project_body_bottom' 
       }
     )
-  end    
-end  
-
+  end
+end
 
 class BannerMessageHooks < Redmine::Hook::ViewListener
   include BannerHelper

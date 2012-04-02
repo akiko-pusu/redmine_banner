@@ -1,7 +1,20 @@
 <% 
     return if @project == nil
     banner = Banner.find(:first, :conditions => ['project_id = ?', @project.id])
-    return '' unless banner && banner.enable_banner? 
+    return '' unless banner && banner.enable_banner?
+       
+    display_part = banner.display_part
+    
+    if display_part == "overview"
+      return '' unless current_page?(:controller => 'projects', :action => 'show') 
+    end
+    
+    if display_part == "overview_and_issues"
+      if !current_page?(:controller => 'projects', :action => 'show') && @controller.controller_name != 'issues'
+        return ''
+      end
+    end
+
 %>
 <% return '' unless (banner != nil && banner.enabled == true) %>
 <div id="project_banner_area" class="banner_area">

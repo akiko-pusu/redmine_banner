@@ -6,7 +6,7 @@ class Banner < ActiveRecord::Base
   validates_uniqueness_of :project_id
   validates_presence_of :project_id
   # project should be stable.
-  safe_attributes 'banner_description', 'style', 'start_date', 'end_date', 'enabled', 'use_timer', 'display_part'
+  safe_attributes 'banner_description', 'style', 'start_date', 'end_date', 'enabled', 'use_timer'
   
   def self.find_or_create(project_id)	
     banner = Banner.find(:first, :conditions => ['project_id = ?', project_id])

@@ -6,16 +6,6 @@
     display_part = banner.display_part
     
     return '' unless is_action_to_display?(@controller, display_part)
-    #if display_part == "overview"
-      #return '' unless current_page?(:controller => 'projects', :action => 'show') 
-    #end
-    
-    #if display_part == "overview_and_issues"
-      #if !current_page?(:controller => 'projects', :action => 'show') && @controller.controller_name != 'issues'
-        #return ''
-      #end
-    #end
-
 %>
 <% return '' unless (banner != nil && banner.enabled == true) %>
 <div id="project_banner_area" class="banner_area">
@@ -34,7 +24,7 @@ if authorize_for(:banner, :edit)
 <a class="icon banner-icon-off" 
    href="#" 
    onclick="if (confirm('<%= l(:text_are_you_sure) %> ')) { new Ajax.Updater('banner_area', 
-     '<%= url_for(:controller => :banner, :action => 'off', :banner_id => banner.id, :project_id => @roject) %>', 
+     '<%= url_for(:controller => :banner, :action => 'project_banner_off', :project_id => @project) %>', 
      {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>')}); }; hideBanner(); return false;" 
    title="<%= l(:banner_off) %>"><%= l(:button_off) %></a> 
   </div>

@@ -43,9 +43,9 @@ end
     context "with permission" do
       setup do
         @request.session[:user_id] = 2
-        # Enabled Template module
+        # Enabled Banner module
         @project = Project.find(1)
-        @project.enabled_modules << EnabledModule.new(:name => 'issue_templates')
+        @project.enabled_modules << EnabledModule.new(:name => 'banner')
         @project.save!          
         Role.find(1).add_permission! :manage_banner          
       end

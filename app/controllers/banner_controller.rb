@@ -33,10 +33,6 @@ class BannerController < ApplicationController
     end  
   end
   
-  def show
-    @banner = Banner.find_or_create(@project.id)
-  end
-  
   def edit
     if (params[:settings] != nil)
       @banner = Banner.find_or_create(@project.id)

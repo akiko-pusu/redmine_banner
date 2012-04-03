@@ -8,7 +8,7 @@ class BannerControllerTest < ActionController::TestCase
     :members, 
     :member_roles, 
     :enabled_modules, 
-    :issue_templates
+    :banners
   
   def setup
   end
@@ -37,7 +37,7 @@ class BannerControllerTest < ActionController::TestCase
       assert_template "common/_preview.html.erb"
       assert_select 'h1', /Test data\./, "#{@response.body}"
     end
-end
+  end
   
   context "#project_admin" do
     context "with permission" do

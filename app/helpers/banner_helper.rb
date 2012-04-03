@@ -5,26 +5,20 @@ module BannerHelper
   end
 
 
-  def is_action_to_display?(controller, action, project_id)
-    begin
-      project = Project.find(project_id)
-      banner = Banner.find(:first, :conditions => ['project_id = ?', project.id])
-      display_part = banner.display_part
-    rescue
-      return false
-    end
-      
-    return true if display_part == "all"
-    if display_part == "overview" and action == "show" and contloller == "ProjectsController"
-      return true
-    end
-    
-    if display_part == "overview_and_issues"
-      if (action == "show" and contloller == "ProjectsController") || 
-          (contloller == "IssuesController")
-        return true
+  def is_action_to_display?(controller, display_part)
+    action_name = controller.action_name
+    controller_name = controller.controller_name
+    case display_part
+    when "overview" then
+      return false unless controller_name == 'projects' && action_name == 'show' 
+    when "overview_and_issues" then
+      if controller_name != 'issues' && !(controller_name == 'projects' && action_name == 'show' )
+        return false
       end
-    end   
-    return false
-  end  
+    when "all" then
+      return true
+    else
+      return false  
+    end
+  end
 end

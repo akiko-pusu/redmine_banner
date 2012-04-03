@@ -5,15 +5,16 @@
        
     display_part = banner.display_part
     
-    if display_part == "overview"
-      return '' unless current_page?(:controller => 'projects', :action => 'show') 
-    end
+    return '' unless is_action_to_display?(@controller, display_part)
+    #if display_part == "overview"
+      #return '' unless current_page?(:controller => 'projects', :action => 'show') 
+    #end
     
-    if display_part == "overview_and_issues"
-      if !current_page?(:controller => 'projects', :action => 'show') && @controller.controller_name != 'issues'
-        return ''
-      end
-    end
+    #if display_part == "overview_and_issues"
+      #if !current_page?(:controller => 'projects', :action => 'show') && @controller.controller_name != 'issues'
+        #return ''
+      #end
+    #end
 
 %>
 <% return '' unless (banner != nil && banner.enabled == true) %>

@@ -21,18 +21,18 @@ class BannerControllerTest < ActionController::TestCase
       @settings["enable"] = "true";
     end  
 
-    test "should off banner" do
+    should "should off banner" do
       get :off
       assert_response :success, "returned #{@response}"
       assert_equal "false", @settings["enable"]
     end
 
-    test "routing check" do
+    should "routing check" do
       assert_generates('banner/preview', { :controller => 'banner', :action => 'preview'})
       assert_generates('banner/off', { :controller => 'banner', :action => 'off'})
     end
 
-    test "should preview banner" do
+    should "should preview banner" do
       get :preview, {:settings => {:banner_description=> "h1. Test data."}}
       assert_template "common/_preview.html.erb"
       assert_select 'h1', /Test data\./, "#{@response.body}"

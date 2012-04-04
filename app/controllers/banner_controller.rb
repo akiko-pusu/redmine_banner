@@ -21,7 +21,7 @@ class BannerController < ApplicationController
     end  
   end
 
-    def project_banner_off
+  def project_banner_off
     begin
       @banner = Banner.find_or_create(@project.id)
       @banner.enabled = false

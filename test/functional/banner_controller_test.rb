@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 class BannerControllerTest < ActionController::TestCase
-  fixtures :users
+  fixtures :projects, :users, :roles, :trackers, :members, :member_roles, :enabled_modules, :banners
   def setup
     User.current = nil
     @request.session[:user_id] = 1 # Do test as admin

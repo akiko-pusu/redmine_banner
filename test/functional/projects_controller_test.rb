@@ -6,7 +6,7 @@ class ProjectsController; def rescue_action(e) raise e end; end
 
 class ProjectsControllerTest < ActionController::TestCase
   fixtures :projects, :users, :roles, :members, :member_roles,
-           :trackers, :projects_trackers, :enabled_modules
+           :trackers, :projects_trackers, :enabled_modules, :banners
   def setup
     @controller = ProjectsController.new
     @request    = ActionController::TestRequest.new
@@ -17,7 +17,11 @@ class ProjectsControllerTest < ActionController::TestCase
     # Enabled Banner module
     @project = Project.find(1)
     @project.enabled_modules << EnabledModule.new(:name => 'banner')
-    @project.save!    
+    @project.save!
+
+    @banner = Banner.find_or_create(1)
+    @banner.display_part = "overview"
+    @banner.save!
   end
   
   def test_settings
@@ -25,6 +29,16 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'settings'
     assert_select 'a#tab-banner'
-  end  
+    assert_select 'div#project_banner_area div.banner_info', false, 'Banner should be displayed Overview only.'
+  end
+
+  # project 1 is enabled banner and type is info, display_part is overview only.
+  def test_show_overview
+    get :show, :id => 1
+    assert_response :success
+    assert_select 'div#project_banner_area div.banner_info'    
+  end
+
+  
 end
 

@@ -5,6 +5,8 @@ class Banner < ActiveRecord::Base
 
   validates_uniqueness_of :project_id
   validates_presence_of :project_id
+  validates_inclusion_of :display_part, :in=> ['all','overview','overview_and_issues']
+  validates_inclusion_of :style, :in=> ['info','warn','alert', 'normal', 'nodata']
   # project should be stable.
   safe_attributes 'banner_description', 'style', 'start_date', 'end_date', 'enabled', 'use_timer', 'display_part'
   

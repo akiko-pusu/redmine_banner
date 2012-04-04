@@ -21,7 +21,7 @@ function checkDateRange(event, confirm_msg, date_range_error_msg){
 
 function changeView(evt){
     var vis = evt.checked ? "block" : "none"; 
-    banner_timer_setting.style.display = vis;
+    $("banner_timer_setting").setStyle({'display': vis});
 }
 
 function checkDateValue(event, confirm_msg, error_msg) {

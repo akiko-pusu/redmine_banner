@@ -38,18 +38,11 @@ class BannerControllerTest < ActionController::TestCase
     end
     
      should "edit without manage permission return 403" do
-       Role.find(1).remove_permission! :manage_banner
-       post :edit, :project_id => 1, 
-         :settings => { :enabled => "1", :description => "Edit test", :use_timer => false, 
-         :display_part => "all", :style => 'alert'}
-       assert_response 403
-     end
-     
-     should "banner_off without manage permission return 403" do
-       Role.find(1).remove_permission! :manage_banner
-       get :banner_off, :project_id => 1
-       assert_response 403
-      end
+      Role.find(1).remove_permission! :manage_banner
+      post :edit, :project_id => 1, 
+        :settings => { :enabled => "1", :description => "Edit test", :use_timer => false, 
+        :display_part => "all", :style => 'alert'}
+      assert_response 403
     end
 
     context "with permission" do	

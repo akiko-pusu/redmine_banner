@@ -1,0 +1,38 @@
+<% 
+    return if @project == nil
+    banner = Banner.find(:first, :conditions => ['project_id = ?', @project.id])
+    return '' unless banner && banner.enable_banner?
+       
+    display_part = banner.display_part
+    
+    return '' unless is_action_to_display?(@controller, display_part)
+%>
+<% return '' unless (banner != nil && banner.enabled == true) %>
+<div id="project_banner_area" class="banner_area">
+<div class="banner banner_<%= banner.style %>" id="banner_content">
+  <%= textilizable banner.banner_description %>
+</div>
+ 
+<% 
+if authorize_for(:banner, :edit)
+%> 
+  <div id="banner_edit">
+<%= link_to l(:button_edit), 
+  {:controller => 'projects', :action => "settings", :id => @project, :tab => 'banner'}, 
+  {:class => 'icon banner-icon-edit', :title => l(:button_edit)} %>
+    
+<a class="icon banner-icon-off" 
+   href="#" 
+   onclick="if (confirm('<%= l(:text_are_you_sure) %> ')) { new Ajax.Updater('banner_area', 
+     '<%= url_for(:controller => :banner, :action => 'project_banner_off', :project_id => @project) %>', 
+     {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>')}); }; hideBanner(); return false;" 
+   title="<%= l(:banner_off) %>"><%= l(:button_off) %></a> 
+  </div>
+<% end %>
+  
+</div>
+<script type="text/javascript">
+  document.observe("dom:loaded", function() {
+    new Insertion.Top($('content'), $('project_banner_area'));
+  });
+</script>

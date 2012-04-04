@@ -46,22 +46,22 @@ class BannerApplicationHooksTest < Test::Unit::TestCase
 
   end
 
-  def test_is_pass_timer_rais_error
-    target = BannerMessageHooks.instance
-    context = {}
-    Setting.plugin_redmine_banner['use_timer'] = "true"
-
-    Setting.plugin_redmine_banner['start_ymd'] = "1999-12-31"
-    Setting.plugin_redmine_banner['start_hour'] = "01"
-    Setting.plugin_redmine_banner['start_min'] = "01"
-
-    # Set 2050 (Will be thrown Argument Error)
-    Setting.plugin_redmine_banner['end_ymd'] = "2050-12-31"
-    Setting.plugin_redmine_banner['end_hour'] = "01"
-    Setting.plugin_redmine_banner['end_min'] = "01"       
-    assert_raise(ArgumentError){ target.is_pass_timer?(context) }   
-
-  end
+# This should not be happened in 64bit.
+#  def test_is_pass_timer_rais_error
+#    target = BannerMessageHooks.instance
+#    context = {}
+#    Setting.plugin_redmine_banner['use_timer'] = "true"
+#
+#    Setting.plugin_redmine_banner['start_ymd'] = "1999-12-31"
+#    Setting.plugin_redmine_banner['start_hour'] = "01"
+#    Setting.plugin_redmine_banner['start_min'] = "01"
+#
+#    # Set 2050 (Will be thrown Argument Error)
+#    Setting.plugin_redmine_banner['end_ymd'] = "2050-12-31"
+#    Setting.plugin_redmine_banner['end_hour'] = "01"
+#    Setting.plugin_redmine_banner['end_min'] = "01"       
+#    assert_raise(ArgumentError){ target.is_pass_timer?(context) }   
+#  end
 
   def  test_should_not_display_header?
     target = BannerMessageHooks.instance

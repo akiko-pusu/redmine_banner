@@ -1,0 +1,36 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  project_id: 1
+  banner_description: Test banner message.
+  style: info
+  enabled: true
+  use_timer: false
+  start_date: <%= 1.day.ago.to_date.to_s(:db) %>
+  end_date: <%= 10.day.from_now.to_date.to_s(:db) %>
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %>
+  display_part: overview
+
+two:
+  id: 2
+  project_id: 2
+  banner_description: Test banner message for Project2.
+  style: warn
+  enabled: true
+  use_timer: false
+  start_date: <%= 1.day.ago.to_date.to_s(:db) %>
+  end_date: <%= 10.day.from_now.to_date.to_s(:db) %>
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %>
+  display_part: overview_and_issues
+
+three:
+  id: 3
+  project_id: 3
+  banner_description: Test banner message for Project3.
+  style: none
+  enabled: false
+  use_timer: false
+  start_date: <%= 1.day.ago.to_date.to_s(:db) %>
+  end_date: <%= 10.day.from_now.to_date.to_s(:db) %>
+  updated_on: <%= 2.days.ago.to_date.to_s(:db) %>
+  display_part: all

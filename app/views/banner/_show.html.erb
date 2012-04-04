@@ -1,0 +1,52 @@
+<div id="banner_settings">
+<%
+@banner = Banner.find_or_create(@project.id)
+ %>
+<% labelled_tabular_form_for :settings, @banner,
+                             :url => {:controller => 'banner',
+                             :action => 'edit', :project_id => @project, :tab => 'banner',
+                             :setting_id => @banner.id}, 
+                             :html => {:id => 'banner' } do |f| %>
+    <%= error_messages_for 'banner' %>
+    <div class="box">
+
+<p><%= f.check_box :enabled, :label => l(:button_activate) %></p>     
+
+<p>
+  <%=content_tag(:label, l(:label_message_type))%>
+  <%= radio_button_tag 'settings[style]', "info", @banner['style'] == "info" %> <span class="banner_info">Info</span><br/>
+  <%= radio_button_tag 'settings[style]', "warn", @banner['style'] == "warn" %> <span class="banner_warn">Warn</span><br/>
+  <%= radio_button_tag 'settings[style]', "alert", @banner['style'] == "alert" %> <span class="banner_alert">Alert </span><br/>
+  <%= radio_button_tag 'settings[style]', "normal", @banner['style'] == "normal" %> <span class="banner_normal">Normal </span>
+</p>
+
+<p>
+<%=content_tag(:label, l(:setting_banner_display_part))%>
+<%= select_tag('settings[display_part]',
+               options_for_select([[l(:page_overview_only),'overview'],
+                [l(:page_overview_and_issues),'overview_and_issues'],[l(:page_all),'all']],
+              @banner['display_part'])) %>
+<br/>Now project banner is displayed at the top only, but you can select which page to show banner.  
+</p>
+
+<p>
+  <%=content_tag(:label, l(:label_banner_message)) %>
+  <%=text_area_tag 'settings[banner_description]',  @banner['banner_description'],  :size =>"40x3", 
+        :class => 'wiki-edit' ,:required => true  %><br/>
+ <%= wikitoolbar_for "settings_banner_description" %>
+  <%= link_to_remote l(:label_preview),
+{ :url => { :controller => 'banner', 
+                         :action => 'preview', :project_id => @project},
+                         :method => 'post',
+                         :id => 'banner_preview',
+                         :update => 'banner_description_preview',
+                         :with => "Form.serialize('banner')",
+                         :complete => "Element.scrollTo('banner_description_preview')"
+                       }, :accesskey => accesskey(:preview) %>
+<div id="banner_description_preview" class="wiki"></div>
+
+    </div>
+    <%= submit_tag l(:button_save) %>
+<% end %>
+</div>
+

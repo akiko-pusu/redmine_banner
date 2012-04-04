@@ -17,7 +17,8 @@
   <%= radio_button_tag 'settings[style]', "info", @banner['style'] == "info" %> <span class="banner_info">Info</span><br/>
   <%= radio_button_tag 'settings[style]', "warn", @banner['style'] == "warn" %> <span class="banner_warn">Warn</span><br/>
   <%= radio_button_tag 'settings[style]', "alert", @banner['style'] == "alert" %> <span class="banner_alert">Alert </span><br/>
-  <%= radio_button_tag 'settings[style]', "normal", @banner['style'] == "normal" %> <span class="banner_normal">Normal </span>
+  <%= radio_button_tag 'settings[style]', "normal", @banner['style'] == "normal" %> <span class="banner_normal">Normal </span><br/>
+  <%= radio_button_tag 'settings[style]', "nodata", @banner['style'] == "nodata" %> <span class="banner_normal">Nodata (Like Redmine.org style) </span>
 </p>
 
 <p>

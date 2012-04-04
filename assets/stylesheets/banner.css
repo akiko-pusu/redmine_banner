@@ -34,6 +34,13 @@ div.banner_normal {
     border-color: #ffffff;
 }
 
+div.banner_nodata {
+    text-align: center;
+    background-color: #FFEBC1;
+    border-color: #FDBF3B;
+    color: #A6750C;
+}
+
 div.banner_edit {
     background-image: none;
     text-align: right;

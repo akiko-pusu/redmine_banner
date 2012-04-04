@@ -47,7 +47,7 @@ class BannerControllerTest < ActionController::TestCase
     
     should "banner_off without manage permission return 403" do
       Role.find(1).remove_permission! :manage_banner
-      post :banner_off, :project_id => 1
+      post :project_banner_off, :project_id => 1
       assert_response 403
     end
     
@@ -73,6 +73,16 @@ class BannerControllerTest < ActionController::TestCase
         assert_response :redirect          
         assert_redirected_to :controller => 'projects', 
           :action => "settings", :id => @project, :tab => 'banner'
+      end
+
+      should "return success when banner_off without manage permission" do
+        post :project_banner_off, :project_id => 1
+        assert_response :success
+      end 
+      
+      should "return 404 when banner_off without manage permission  with non existing project" do
+        post :project_banner_off, :project_id => 100
+        assert_response 404
       end      
     end
   end

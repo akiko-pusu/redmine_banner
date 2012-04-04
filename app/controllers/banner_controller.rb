@@ -22,15 +22,10 @@ class BannerController < ApplicationController
   end
 
   def project_banner_off
-    begin
-      @banner = Banner.find_or_create(@project.id)
-      @banner.enabled = false
-      @banner.save
-      render :text => ""
-    rescue Exception => exc
-      logger.warn("Message for the log file / When off banner #{exc.message}")
-      render :text => ""
-    end  
+    @banner = Banner.find_or_create(@project.id)
+    @banner.enabled = false
+    @banner.save
+    render :text => "" 
   end
   
   def edit

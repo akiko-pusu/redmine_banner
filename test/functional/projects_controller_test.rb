@@ -39,6 +39,31 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_select 'div#project_banner_area div.banner_info'    
   end
 
-  
+  def test_show_all
+    @banner.display_part = "all"
+    @banner.style = "warn"
+    @banner.save!    
+    get :settings, :id => 1
+    assert_response :success
+    assert_select 'div#project_banner_area div.banner_warn'    
+  end
+ 
+  def test_show_overview_and_issues
+    @banner.display_part = "overview_and_issues"
+    @banner.style = "alert"
+    @banner.save!    
+    get :show, :id => 1
+    assert_response :success
+    assert_select 'div#project_banner_area div.banner_alert'   
+  end
+
+  def test_show_unexpected_deisplay_part
+    @banner.display_part = "unexpected_display_part"
+    @banner.style = "normal"
+    @banner.save!    
+    get :show, :id => 1
+    assert_response :success
+    assert_select 'div#project_banner_area div.banner_normal', false   
+  end  
 end
 

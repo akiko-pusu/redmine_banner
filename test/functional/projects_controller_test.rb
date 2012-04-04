@@ -60,10 +60,20 @@ class ProjectsControllerTest < ActionController::TestCase
   def test_show_unexpected_deisplay_part
     @banner.display_part = "unexpected_display_part"
     @banner.style = "normal"
-    @banner.save!    
+    
+    assert_raise(ActiveRecord::RecordInvalid) {@banner.save!} 
     get :show, :id => 1
     assert_response :success
     assert_select 'div#project_banner_area div.banner_normal', false   
+  end
+
+  def test_show_new_issue
+    @banner.display_part = 'new_issue'
+    @banner.style = "alert"
+    @banner.save!    
+    get :show, :id => 1
+    assert_response :success
+    assert_select 'div#project_banner_area div.banner_alert', false   
   end  
 end
 

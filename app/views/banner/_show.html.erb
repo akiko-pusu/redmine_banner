@@ -25,6 +25,7 @@
 <%=content_tag(:label, l(:setting_banner_display_part))%>
 <%= select_tag('settings[display_part]',
                options_for_select([[l(:page_overview_only),'overview'],
+                [l(:page_new_issue_only),'new_issue'],   
                 [l(:page_overview_and_issues),'overview_and_issues'],[l(:page_all),'all']],
               @banner['display_part'])) %>
 <br/>Now project banner is displayed at the top only, but you can select which page to show banner.  

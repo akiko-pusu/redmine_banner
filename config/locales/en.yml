@@ -18,4 +18,6 @@ en:
   project_module_banner: "Banner"
   page_overview_only: "Overview only"
   page_all: "All the page"
-  page_overview_and_issues: "Overview and Issues"  
+  page_overview_and_issues: "Overview and Issues"
+  page_new_issue_only: "New issue only"  
+    

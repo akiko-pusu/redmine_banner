@@ -28,10 +28,5 @@ class BannerTest < ActiveSupport::TestCase
     # safe_attributes prevent overwrite project id.
     assert banner.save, 'Safe attribute settings has something wrong.'   
     assert_equal 2, banner.project.id
-
-    # test which has the same proect id
-    banner2 = Banner.find_or_create(6)
-    banner2.attributes = {:project_id => 4, :enabled => true, :banner_description => 'Banner for 4'}
-    assert banner2.save
   end  
 end

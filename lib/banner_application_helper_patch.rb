@@ -14,6 +14,10 @@ module BannerApplicationHelperPatch
         if controller_name == 'issues' || (controller_name == 'projects' && action_name == 'show' )
           return true
         end
+      when "new_issue" then
+        if controller_name == 'issues' && action_name == 'new'
+          return true
+        end        
       when "all" then
         return true
       else

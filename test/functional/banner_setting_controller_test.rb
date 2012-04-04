@@ -32,9 +32,10 @@ class BannerSettingControllerTest < ActionController::TestCase
     get :plugin, :id => "redmine_banner"   
     assert_response :success 
     assert_template 'settings/plugin'
-    assert_select "input#settings_use_timer" do
-      assert_select "[checked='checked']", false
-    end
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox',
+                                                 :name => 'settings[use_timer]',
+                                                 :checked => nil
+                                                  }     
     assert_select 'h2', /Redmine Banner plugin/, "#{@response.body}"
   end
   
@@ -47,9 +48,10 @@ class BannerSettingControllerTest < ActionController::TestCase
     get :plugin, :id => "redmine_banner"   
     assert_response :success 
     assert_template 'settings/plugin'
-    assert_select "input#settings_use_timer" do
-      assert_select "[checked='checked']"
-    end
+    assert_tag :tag => 'input', :attributes => { :type => 'checkbox',
+                                                 :name => 'settings[use_timer]',
+                                                 :checked => 'checked'
+                                                  }    
     assert_select 'h2', /Redmine Banner plugin/
   end
   

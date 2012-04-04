@@ -50,7 +50,7 @@ class BannerSettingControllerTest < ActionController::TestCase
     assert_template 'settings/plugin'
     assert_tag :tag => 'input', :attributes => { :type => 'checkbox',
                                                  :name => 'settings[use_timer]',
-                                                 :checked => 'checked'
+                                                 :value => 'true'
                                                   }    
     assert_select 'h2', /Redmine Banner plugin/
   end

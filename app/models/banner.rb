@@ -16,6 +16,10 @@ class Banner < ActiveRecord::Base
       banner = Banner.new
       banner.project_id = project_id
       banner.enabled = false
+      
+      # Set default (Also set default by migration file)
+      banner.display_part = "all"
+      banner.style = "info"
       banner.save!      
     end
     return banner

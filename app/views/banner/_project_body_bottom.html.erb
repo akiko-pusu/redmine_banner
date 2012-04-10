@@ -1,13 +1,11 @@
 <% 
-    return if @project == nil
+    return unless BannerHelper.is_enabled?(@project)
     banner = Banner.find(:first, :conditions => ['project_id = ?', @project.id])
     return '' unless banner && banner.enable_banner?
        
     display_part = banner.display_part
-    
-    return '' unless is_action_to_display?(@controller, display_part)
+    return '' unless BannerHelper.is_action_to_display?(@controller, display_part)
 %>
-<% return '' unless (banner != nil && banner.enabled == true) %>
 <div id="project_banner_area" class="banner_area">
 <div class="banner banner_<%= banner.style %>" id="banner_content">
   <%= textilizable banner.banner_description %>

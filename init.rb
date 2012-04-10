@@ -3,7 +3,6 @@ require 'banner_application_hooks'
 require 'dispatcher'
 require 'settings_controller_patch'
 require 'banner_projects_helper_patch'
-require 'banner_application_helper_patch'
 
 Redmine::Plugin.register :redmine_banner do
   name 'Redmine Banner plugin'

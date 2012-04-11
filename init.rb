@@ -9,7 +9,7 @@ Redmine::Plugin.register :redmine_banner do
   author 'Akiko Takano'
   author_url 'http://twitter.com/akiko_pusu'  
   description 'Plugin to show site-wide message, such as maintenacne informations or notifications.'
-  version '0.0.5'
+  version '0.0.6'
   requires_redmine :version_or_higher => '1.2.0'
   url 'https://github.com/akiko-pusu/redmine_banner'
 

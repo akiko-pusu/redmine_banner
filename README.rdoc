@@ -45,6 +45,13 @@ Do following command:
 
 == Changelog
 
+=== 0.0.6
+
+* Fixed Bug / Project banner should be off when module turned disabled.
+* Fixed Bug / In some situation, "ActionView::TemplateError undefined method is_action_to_display" is happened.
+* Update Russian Translation.
+  Thak you so much, Александр Ананьев.
+
 === 0.0.5
 
 * Support banner for each project.

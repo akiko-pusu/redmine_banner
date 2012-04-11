@@ -1,4 +1,4 @@
-# Bulgarian strings go here for Rails i18n
+# Bulgarian strings go here for Rails i18n, translated by Ivan Cenov i_cenov@botevgrad.com
 bg:
   banner: "Банер"
   setting_banner_display_part: "Място за показване" 
@@ -14,3 +14,9 @@ bg:
   redmine_banner_title: "Банер"
   button_off: "Изключване"
   banner_off: "Изключване на банера"
+  permission_manage_banner: "Управление на банерите"
+  project_module_banner: "Банер"
+  page_overview_only: "Само общ изглед"
+  page_all: "Навсякъде"
+  page_overview_and_issues: "Общ изглед и задачи"
+  page_new_issue_only: "Само нови задачи"  

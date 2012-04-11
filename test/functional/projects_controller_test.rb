@@ -21,6 +21,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
     @banner = Banner.find_or_create(1)
     @banner.display_part = "overview"
+    @banner.enabled = true
     @banner.save!
   end
   
@@ -74,6 +75,19 @@ class ProjectsControllerTest < ActionController::TestCase
     get :show, :id => 1
     assert_response :success
     assert_select 'div#project_banner_area div.banner_alert', false   
+  end
+
+  def test_banner_should_be_off_with_banner_module_disabled
+    @banner.display_part = "all"
+    @banner.style = "warn"
+    @banner.save!
+    # turn off banner module
+    @project.disable_module!(:banner)
+    assert ! @project.reload.enabled_module_names.include?(:banner)
+    
+    get :settings, :id => 1
+    assert_response :success
+    assert_select 'div#project_banner_area div.banner_warn', false, "Banner should not be displayed when module is diabled!"  
   end  
 end
 

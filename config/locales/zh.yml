@@ -14,5 +14,11 @@ zh:
   redmine_banner_title: "Banner设置"
   button_off: "关闭"
   banner_off: "关闭 Banner 信息。"
+  permission_manage_banner: "管理 Banner"
+  project_module_banner: "Banner"
+  page_overview_only: "仅概述页面"
+  page_all: "所有页面"
+  page_overview_and_issues: "概述页面和问题页面"
+  page_new_issue_only: "仅新建问题页面"  
 
   

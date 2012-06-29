@@ -5,10 +5,14 @@ Plugin to show site-wide message from site administrator, such as maintenacne in
 === Plugin installation
 
 1. Copy the plugin directory into the vendor/plugins directory.
-2. Do migration task. (e.g. rake db:migrate_plugins RAILS_ENV=production)
+2. Do migration task. 
+   e.g. rake redmine:plugins:migrate RAILS_ENV=production  (For Redmine 2.x)
+   e.g. rake db:migrate_plugins RAILS_ENV=production (For Redmine 1.x)
 3. (Re)Start Redmine.
 
 Version 0.0.5 later, migration is required.
+For Redmine1.x, please use version 0.0.6.
+For Redmine2.0, please use Version 0.0.7 or later.
 
 === Uninstall
 
@@ -44,6 +48,10 @@ Do following command:
  https://github.com/akiko-pusu/redmine_banner/wiki/How-to-use-this-plugin-previous-version-(1.xx,-1.0.x...)
 
 == Changelog
+
+=== 0.0.7-dev
+
+* Compatible with Redmine 2.0.0
 
 === 0.0.6
 

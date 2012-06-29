@@ -2,7 +2,7 @@
 <%
 @banner = Banner.find_or_create(@project.id)
  %>
-<% labelled_tabular_form_for :settings, @banner,
+<%= labelled_form_for :settings, @banner,
                              :url => {:controller => 'banner',
                              :action => 'edit', :project_id => @project, :tab => 'banner',
                              :setting_id => @banner.id}, 
@@ -22,7 +22,7 @@
 </p>
 
 <p>
-<%=content_tag(:label, l(:setting_banner_display_part))%>
+<%= content_tag(:label, l(:setting_banner_display_part))%>
 <%= select_tag('settings[display_part]',
                options_for_select([[l(:page_overview_only),'overview'],
                 [l(:page_new_issue_only),'new_issue'],   

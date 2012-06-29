@@ -1,6 +1,5 @@
 require 'redmine'
 require 'banner_application_hooks'
-require 'dispatcher'
 require 'settings_controller_patch'
 require 'banner_projects_helper_patch'
 
@@ -9,8 +8,8 @@ Redmine::Plugin.register :redmine_banner do
   author 'Akiko Takano'
   author_url 'http://twitter.com/akiko_pusu'  
   description 'Plugin to show site-wide message, such as maintenacne informations or notifications.'
-  version '0.0.6'
-  requires_redmine :version_or_higher => '1.2.0'
+  version '0.0.7-dev'
+  requires_redmine :version_or_higher => '2.0.0'
   url 'https://github.com/akiko-pusu/redmine_banner'
 
   settings :partial => 'settings/redmine_banner',
@@ -35,13 +34,14 @@ Redmine::Plugin.register :redmine_banner do
       {:banner => [:show, :edit, :project_banner_off]}, :require => :member
   end
   
-  
-  Dispatcher.to_prepare :redmine_banner do
-    #include our code
-    SettingsController.send(:include, SettingsControllerPatch)
+  Rails.configuration.to_prepare do
     require_dependency 'projects_helper'
+    unless SettingsController.included_modules.include?(SettingsControllerPatch)   
+      SettingsController.send(:include, SettingsControllerPatch)
+    end  
     unless ProjectsHelper.included_modules.include? BannerProjectsHelperPatch
       ProjectsHelper.send(:include, BannerProjectsHelperPatch)
     end    
-  end  
+  end
+ 
 end

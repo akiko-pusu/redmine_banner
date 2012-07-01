@@ -49,7 +49,7 @@ Do following command:
 
 == Changelog
 
-=== 0.0.7-dev
+=== 0.0.7
 
 * Compatible with Redmine 2.0.0
 

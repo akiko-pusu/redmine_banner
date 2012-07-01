@@ -4,7 +4,7 @@ class Banner < ActiveRecord::Base
   belongs_to :project
 
   validates_uniqueness_of :project_id
-  validates_presence_of :project_id
+  validates :project_id, :presence => true
   validates_inclusion_of :display_part, :in=> ['all', 'new_issue', 'overview','overview_and_issues']
   validates_inclusion_of :style, :in=> ['info','warn','alert', 'normal', 'nodata']
   # project should be stable.

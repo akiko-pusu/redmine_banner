@@ -1,4 +1,4 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 require 'projects_controller'
 
 # Re-raise errors caught by the controller.
@@ -30,7 +30,8 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'settings'
     assert_select 'a#tab-banner'
-    assert_select 'div#project_banner_area div.banner_info', false, 'Banner should be displayed Overview only.'
+    assert_select 'div#project_banner_area div.banner_info', false, 
+      'Banner should be displayed Overview only.'
   end
 
   # project 1 is enabled banner and type is info, display_part is overview only.
@@ -87,7 +88,8 @@ class ProjectsControllerTest < ActionController::TestCase
     
     get :settings, :id => 1
     assert_response :success
-    assert_select 'div#project_banner_area div.banner_warn', false, "Banner should not be displayed when module is diabled!"  
-  end  
+    assert_select 'div#project_banner_area div.banner_warn', false, 
+      "Banner should not be displayed when module is diabled!"  
+  end
 end
 

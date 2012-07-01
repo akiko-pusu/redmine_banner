@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 
 class BannerTest < ActiveSupport::TestCase
   fixtures :banners
@@ -28,5 +28,12 @@ class BannerTest < ActiveSupport::TestCase
     # safe_attributes prevent overwrite project id.
     assert banner.save, 'Safe attribute settings has something wrong.'   
     assert_equal 2, banner.project.id
-  end  
+  end
+  
+  def test_banner_find_or_create
+    banner = Banner.find_or_create(2)
+    banner.destroy
+    banner = Banner.find_or_create(2)
+    assert_equal false, banner.enabled
+  end
 end

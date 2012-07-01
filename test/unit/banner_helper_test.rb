@@ -1,7 +1,4 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
-require File.dirname(__FILE__) + '/../test_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 
 class BannerHelperTest < Test::Unit::TestCase
   include BannerHelper

@@ -1,6 +1,7 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 class BannerControllerTest < ActionController::TestCase
-  fixtures :projects, :users, :roles, :trackers, :members, :member_roles, :enabled_modules, :banners
+  fixtures :projects, :users, :roles, :trackers, :members, :member_roles, 
+    :enabled_modules, :banners
   def setup
     User.current = nil
     @request.session[:user_id] = 1 # Do test as admin
@@ -21,7 +22,7 @@ class BannerControllerTest < ActionController::TestCase
   
   test "should preview banner" do
     get :preview, {:settings => {:banner_description=> "h1. Test data."}}
-    assert_template "common/_preview.html.erb"
+    assert_template "common/_preview"
     assert_select 'h1', /Test data\./, "#{@response.body}"
   end
   

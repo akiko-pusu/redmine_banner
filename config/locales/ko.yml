@@ -1,0 +1,23 @@
+# Translation by Ki Won Kim (http://xyz37.blog.me, xyz37@naver.com, http://x10.mine.nu/redmine)
+ko:
+  banner: "배너 광고"
+  setting_banner_display_part: "표시 위치" 
+  label_header_only: "머리말 만"
+  label_footer_only: "꼬리말 만"
+  label_both: "머리말/꼬리말"
+  label_banner_message: "배너 메세지"
+  label_message_type: "메세지 종류"
+  label_start_datetime: "시작 일시"
+  label_end_datetime: "종료 일시"
+  label_use_timer: "타이머 사용"
+  error_banner_date_range: "시작일시가 종료일시 보다 먼저 와야 합니다."  
+  redmine_banner_title: "배너 설정으로 이동"
+  button_off: "끄기"
+  banner_off: "배너 메세지 끄기"
+  permission_manage_banner: "배너 관리"
+  project_module_banner: "배너 광고"
+  page_overview_only: "초기화면만"
+  page_all: "모든 페이지"
+  page_overview_and_issues: "초기화면과 일감"
+  page_new_issue_only: "새로운 일감만"  
+    

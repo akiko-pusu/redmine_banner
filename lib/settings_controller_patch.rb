@@ -55,7 +55,7 @@ module SettingsControllerPatch
           # TODO:
           # Ref. https://github.com/akiko-pusu/redmine_banner/issues/11 
           # Logging when Argument Error
-          logger.warn "Redmine Banner Warning:   #{ex} / Invalid date setting / From #{@settings['start_ymd']} to #{@settings['end_ymd']}. Reset to current datetime. "if logger
+          logger.warn "Redmine Banner Warning:   #{ex} / Invalid date setting / From #{@settings['start_ymd']} to #{@settings['end_ymd']}. Reset to current datetime. " if logger
           @start_datetime = current_time
           @end_datetime = current_time
           @settings['use_timer'] = "false"

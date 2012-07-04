@@ -2,7 +2,7 @@
 # and open the template in the editor.
 
 require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
-require File.dirname(__FILE__) + '/../../lib/banner_application_hooks'
+require File.expand_path(File.dirname(__FILE__) + '/../../lib/banner_application_hooks')
 
 class BannerApplicationHooksTest < Test::Unit::TestCase
   

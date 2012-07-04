@@ -25,11 +25,12 @@
 <%=content_tag(:label, l(:setting_banner_display_part))%>
 <%= select_tag('settings[display_part]',
                options_for_select([[l(:label_header_only),'header'],[l(:label_footer_only),'footer'],[l(:label_both),'both']],@settings['display_part'])) %>
-
+</p>
 <p>
   <%=content_tag(:label, l(:label_banner_message)) %>
   <%=text_area_tag 'settings[banner_description]',  @settings['banner_description'],  :size =>"40x3", 
-        :class => 'wiki-edit' ,:required => true  %><br/>
+        :class => 'wiki-edit' ,:required => true  %><br/> 
+</p>       
  <%= wikitoolbar_for "settings_banner_description" %>
   <%= link_to_remote l(:label_preview),
                        { :url => { :controller => 'banner', :action => 'preview'},
@@ -39,8 +40,8 @@
                          :with => "Form.serialize('plugin')",
                          :complete => "Element.scrollTo('banner_description_preview')"
                        }, :accesskey => accesskey(:preview) %>
+                       
 <div id="banner_description_preview" class="wiki"></div>
-
 <p>
   <%=content_tag(:label, l(:label_use_timer))%>
   <span class="use_timer">

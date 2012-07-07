@@ -11,33 +11,37 @@ class LayoutTest < ActionController::IntegrationTest
            :workflows, 
            :banners
 
-  def setup
-    # plugin setting
-    @settings = Setting.send "plugin_redmine_banner"
-    @settings["enable"] = "true"
-    @project = Project.find(1)
-    @project.enabled_modules << EnabledModule.new(:name => 'banner')
-    @project.save!
-
-    @banner = Banner.find_or_create(1)
-    @banner.display_part = "new_issue"
-    @banner.style = "alert"
-    @banner.enabled = true
-    @banner.save!    
- 
-  end
-
-  def test_project_banner_not_visible_when_issue_index_page
-    log_user('jsmith', 'jsmith')
+  def test_project_banner_not_visible_when_module_off
+    # style info, enabled true, display_part: overview, module -> disabled
+    
     get '/projects/ecookbook/issues'
-    assert_select 'div#project_banner_area div.banner_alert', false 
+    assert_response :success
+    assert_select 'div#project_banner_area div.banner_info', 0
+    
+    get '/projects/ecookbook'
+    assert_response :success
   end
 
-  def test_project_banner_visible_when_issue_new_page
-    log_user('jsmith', 'jsmith')
-    get '/projects/ecookbook/issues/new'
-    assert_select 'div#project_banner_area'
-    #assert_select 'div#project_banner_area div.banner_alert'
-    #assert_select 'div#project_banner_area div.banner_info', false
-  end
+  def test_project_banner_visible_when_module_on
+    log_user('admin', 'admin')
+    get '/projects/ecookbook/settings'
+    assert_response :success
+    post '/projects/ecookbook/modules',
+      :enabled_module_names => ['issue_tracking',  'banner'], :commit => 'Save', :id => 'ecookbook'
+      
+    # overview page  
+    get '/projects/ecookbook'   
+    assert_select 'div#project_banner_area div.banner_info'
+    
+    get '/projects/ecookbook/issues'   
+    assert_select 'div#project_banner_area div.banner_info', 0
+       
+    put '/projects/ecookbook/banner/edit', 
+      :settings => {:enabled =>"1", :style => "warn", :display_part => "all",:banner_description => "Test banner message."}, 
+      :project_id => "ecookbook"
+    assert_response :redirect  
+
+    get '/projects/ecookbook/issues'   
+    assert_select 'div#project_banner_area div.banner_warn'      
+  end       
 end

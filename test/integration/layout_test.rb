@@ -24,8 +24,6 @@ class LayoutTest < ActionController::IntegrationTest
 
   def test_project_banner_visible_when_module_on
     log_user('admin', 'admin')
-    get '/projects/ecookbook/settings'
-    assert_response :success
     post '/projects/ecookbook/modules',
       :enabled_module_names => ['issue_tracking',  'banner'], :commit => 'Save', :id => 'ecookbook'
       

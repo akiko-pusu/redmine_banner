@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 
-class BannerHelperTest < Test::Unit::TestCase
+class BannerHelperTest < ActiveSupport::TestCase
   include BannerHelper
   
   def test_get_time

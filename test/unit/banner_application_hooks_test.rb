@@ -4,7 +4,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 require File.expand_path(File.dirname(__FILE__) + '/../../lib/banner_application_hooks')
 
-class BannerApplicationHooksTest < Test::Unit::TestCase
+class BannerApplicationHooksTest < ActiveSupport::TestCase
   
   def test_is_pass_timer_false_should_be_true
     target = BannerMessageHooks.instance

@@ -1,6 +1,8 @@
 require 'simplecov'
 require 'simplecov-rcov'
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+if ENV['JENKINS'] == "true"
+  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+end 
 
 # NOTE: Remove 'rails' because same issue is happened when run test on CI environment.
 #    Ref. https://github.com/colszowka/simplecov/issues/82

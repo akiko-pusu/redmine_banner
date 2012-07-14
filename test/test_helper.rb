@@ -7,6 +7,6 @@ end
 # NOTE: Remove 'rails' because same issue is happened when run test on CI environment.
 #    Ref. https://github.com/colszowka/simplecov/issues/82
 #SimpleCov.start 'rails'
-SimpleCov.start { add_filter "/test/" }
+SimpleCov.start
 
 require File.expand_path(File.dirname(__FILE__) + '/../../../test/test_helper')

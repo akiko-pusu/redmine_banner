@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 
 class BannerTest < ActiveSupport::TestCase
-  fixtures :banners
+  fixtures :projects, :banners
 
   def setup
     @banner = Banner.find(1)

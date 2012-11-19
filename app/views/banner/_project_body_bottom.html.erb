@@ -21,16 +21,24 @@ if authorize_for(:banner, :edit)
     
 <a class="icon banner-icon-off" 
    href="#" 
-   onclick="if (confirm('<%= l(:text_are_you_sure) %> ')) { new Ajax.Updater('banner_area', 
-     '<%= url_for(:controller => :banner, :action => 'project_banner_off', :project_id => @project) %>', 
-     {asynchronous:true, evalScripts:true, parameters:'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>')}); }; hideBanner(); return false;" 
+   onclick="if (confirm('<%= l(:text_are_you_sure) %> ')) {  
+   $.ajax({
+          url: '<%= url_for(:controller => :banner, :action => 'project_banner_off', :project_id => @project) %>',
+          type: 'get',
+          success: function(data){
+              $('#project_banner_area').remove(); return false;
+          }
+          //data: 'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>')
+        });
+   }" 
    title="<%= l(:banner_off) %>"><%= l(:button_off) %></a> 
   </div>
 <% end %>
   
 </div>
 <script type="text/javascript">
-  document.observe("dom:loaded", function() {
-    new Insertion.Top($('content'), $('project_banner_area'));
-  });
+  $(document).ready(function(){
+    console.info("project body bottom");
+    ($('#content')).prepend($('#project_banner_area'));
+  });  
 </script>

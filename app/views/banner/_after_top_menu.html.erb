@@ -2,8 +2,8 @@
 -%>
 <%= render :partial=>'banner/body_bottom' %>
 <script type="text/javascript">
-  document.observe("dom:loaded", function() {
-    new Insertion.After($('top-menu'), $('banner_area'));
+  $(document).ready(function(){
+    $('#banner_area').insertAfter($('#top-menu'));
   });
 </script>
 

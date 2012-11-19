@@ -32,14 +32,9 @@
         :class => 'wiki-edit' ,:required => true  %><br/> 
 </p>       
  <%= wikitoolbar_for "settings_banner_description" %>
-  <%= link_to_remote l(:label_preview),
-                       { :url => { :controller => 'banner', :action => 'preview'},
-                         :method => 'post',
-                         :id => 'banner_preview',
-                         :update => 'banner_description_preview',
-                         :with => "Form.serialize('plugin')",
-                         :complete => "Element.scrollTo('banner_description_preview')"
-                       }, :accesskey => accesskey(:preview) %>
+
+<%= preview_link url_for(:controller => 'banner', :action => 'preview'), 'plugin', 
+  target='banner_description_preview' %>
                        
 <div id="banner_description_preview" class="wiki"></div>
 <p>

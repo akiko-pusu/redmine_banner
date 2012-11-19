@@ -1,8 +1,4 @@
 /* Code for Banner UI */
-function hideBanner(){
-  $$(".banner_area").each(function(obj){ obj.remove(); });
-}
-
 function checkDateRange(event, confirm_msg, date_range_error_msg){
   var s = $F('settings_start_ymd') + " " + $F('settings_start_hour') + ":" + $F('settings_start_min');
   var e = $F('settings_end_ymd') + " " + $F('settings_end_hour') + ":" + $F('settings_end_min');
@@ -21,7 +17,7 @@ function checkDateRange(event, confirm_msg, date_range_error_msg){
 
 function changeView(evt){
     var vis = evt.checked ? "block" : "none"; 
-    $("banner_timer_setting").setStyle({'display': vis});
+    $("#banner_timer_setting").toggle();
 }
 
 function checkDateValue(event, confirm_msg, error_msg) {
@@ -45,4 +41,5 @@ function checkDateValue(event, confirm_msg, error_msg) {
     if(!response){
       event.stop();
     }
+    return true;
 }

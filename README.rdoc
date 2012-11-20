@@ -49,6 +49,11 @@ Do following command:
 
 == Changelog
 
+=== 0.0.8
+
+* Supprt Redmine 2.1.
+  (Now unsupport Redmine 2.0.x. Please use ver 0.0.7 for Redmine2.0.x) 
+
 === 0.0.7
 
 * Compatible with Redmine 2.0.0

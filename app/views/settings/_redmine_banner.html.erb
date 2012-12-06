@@ -1,12 +1,15 @@
 <!-- confirmation popup -->
 <script type="text/javascript">
-  Event.observe(window, 'load', function() {
+
+$("#plugin").submit(function(event) {
     var confirm_msg = "<%= l(:text_are_you_sure) %>";
     var date_range_error_msg = "<%=  l(:error_banner_date_range) %>";
-    Event.observe("plugin", "submit", function(event) {
-      checkDateRange(event, confirm_msg, date_range_error_msg);    
-    })
-  });
+    if (!checkDateRange(event, confirm_msg, date_range_error_msg)) {
+       return false;
+    } else {
+       this.submit();
+    }
+});
 </script>
 <p>
   <%=content_tag(:label, l(:button_activate))%>

@@ -1,18 +1,17 @@
 /* Code for Banner UI */
-function checkDateRange(event, confirm_msg, date_range_error_msg){
-  var s = $F('settings_start_ymd') + " " + $F('settings_start_hour') + ":" + $F('settings_start_min');
-  var e = $F('settings_end_ymd') + " " + $F('settings_end_hour') + ":" + $F('settings_end_min');
-  if (e.replace(/\-\s:/gi,"") < s.replace(/\-\s:/gi,"")) {
-    window.alert(date_range_error_msg + " (From " + s + " to " + e + ")");
-    event.stop();
+function checkDateRange(event, confirm_msg, date_range_error_msg) {
+    var s = $('#settings_start_ymd').val() + " " + $('#settings_start_hour').val() + ":" + $('#settings_start_min').val();
+    var e = $('#settings_end_ymd').val() + " " + $('#settings_end_hour').val() + ":" + $('#settings_end_min').val();
+    if (e.replace(/\-\s:/gi, "") < s.replace(/\-\s:/gi, "")) {
+        window.alert(date_range_error_msg + " (From " + s + " to " + e + ")");
+        return false;
+    } else {
+        var response = confirm(confirm_msg);
+        if (response) {
+            return true;
+        }
+    }
     return false;
-  }
-  var response = confirm(confirm_msg); 
-  if(!response){
-    event.stop();
-    return false;
-  }
-  return true;
 }
 
 function changeView(evt){

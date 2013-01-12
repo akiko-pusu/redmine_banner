@@ -81,6 +81,17 @@ class BannerSettingControllerTest < ActionController::TestCase
     assert_equal I18n.t(:error_banner_date_range), flash[:error] 
   end
 
+  def test_post_banner_setting_with_non_number_format
+    post :plugin, :id => "redmine_banner",
+      :settings => {:end_ymd => "end_ymd", :end_min => "end_min", :start_min => "start_min", :start_hour => "start_hour",
+      :enable => "true", :type => "warn", :display_part => "both",
+      :start_ymd => "start_ymd", :use_timer => "true",
+      :banner_description => "exp. Information about upcoming Service Interruption.",
+      :end_hour => "end_hour"}
+    assert_response :redirect
+    assert_not_nil flash[:error]
+  end
+
 # This should not be happened in 64bit.
 #  def test_post_banner_settings_with_out_of_range_format
 #    # set bad format

@@ -47,7 +47,7 @@ $("#plugin").submit(function(event) {
 <p>
   <%=content_tag(:label, l(:label_use_timer))%>
   <span class="use_timer">
-<%=check_box_tag 'settings[use_timer]', true, @settings['use_timer'] == "true" , :onclick => "changeView(this);"%>
+<%=check_box_tag 'settings[use_timer]', true, @settings['use_timer'] == "true" , :onclick => '$("#banner_timer_setting").toggle(); return false' %>
   </span>
 </p>
 

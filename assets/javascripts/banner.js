@@ -14,11 +14,6 @@ function checkDateRange(event, confirm_msg, date_range_error_msg) {
     return false;
 }
 
-function changeView(evt){
-    var vis = evt.checked ? "block" : "none"; 
-    $("#banner_timer_setting").toggle();
-}
-
 function checkDateValue(event, confirm_msg, error_msg) {
     var start_ymd = $("settings_start_ymd").value;
     var start_hour = $("settings_start_hour").value;

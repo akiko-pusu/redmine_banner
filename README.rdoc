@@ -1,41 +1,57 @@
 = Redmine Banner Plugin 
 
-Plugin to show site-wide message from site administrator, such as maintenacne informations or notifications.
+Plugin to show site-wide message from site administrator, such as maintenance information or notifications.
 
 === Plugin installation
 
+==== For Redmine 1.x:
+
+For Redmine 1.x, please use version 0.0.6.
+
 1. Copy the plugin directory into the vendor/plugins directory.
-2. Do migration task. 
-   e.g. rake redmine:plugins:migrate RAILS_ENV=production  (For Redmine 2.x)
+2. Run the migration task. 
    e.g. rake db:migrate_plugins RAILS_ENV=production (For Redmine 1.x)
-3. (Re)Start Redmine.
+3. (Re)start Redmine.
+
+==== For Redmine 2.x:
+
+For Redmine 2.1 or later, please use Version 0.0.8 or later.
+For Redmine 2.0, please use Version 0.0.7.
+
+1. Copy the plugin directory into the plugins directory.
+2. Run the migration task. 
+   e.g. rake redmine:plugins:migrate RAILS_ENV=production  (For Redmine 2.x)
+3. (Re)start Redmine.
 
 Version 0.0.5 later, migration is required.
-For Redmine1.x, please use version 0.0.6.
-For Redmine2.0, please use Version 0.0.7 or later.
+
 
 === Uninstall
 
-Do following command:
+For Redmine 1.x, use the following command:
 
 * rake db:migrate_plugins NAME=redmine_banner VERSION=0 RAILS_ENV=production
+
+For Redmine 2.x, use the following command:
+
+* rake redmine:plugins:migrate NAME=redmine_banner VERSION=0 RAILS_ENV=production
 
 === Usage for site wide banner
 
 1. Go to plugin's page and click "Settings" link of Redmine Banner Plugin.
    You can edit banner message and select style for message.
-   Also You can access setting page from administration menu, click "banner" icon. 
+   Also you can access setting page from administration menu, click "banner" icon. 
 
 === Usage for project scope banner
 
-1. Banner can use as project module.
+1. Banner can be used as project module.
    If you want to manage the banner for your project, "Manage Banner" permission is required
    to your role.
 
 2. Go to project settings tab and check "Banner" as project module.
 3. Then you can see "Banner" tab on project settings page.
 
-=== Current restrictions
+=== Current limitations
 
 1. Banner for each project does not support timer.
 2. Banner for each project is located at the top of the project only. (Not support footer)
@@ -44,15 +60,15 @@ Do following command:
 
 === Note
 
- To use this plugin previous version (1.xx, 1.0.x...), please see this instruction.
+ To use this plugin with older Redmine versions (1.xx, 1.0.x...), please see this instruction.
  https://github.com/akiko-pusu/redmine_banner/wiki/How-to-use-this-plugin-previous-version-(1.xx,-1.0.x...)
 
 == Changelog
 
 === 0.0.8
 
-* Supprt Redmine 2.1.
-  (Now unsupport Redmine 2.0.x. Please use ver 0.0.7 for Redmine2.0.x) 
+* Support Redmine 2.1.
+  (Redmine 2.0.x is no longer supported. Please use version 0.0.7 for Redmine 2.0.x) 
 
 === 0.0.7
 
@@ -60,20 +76,20 @@ Do following command:
 
 === 0.0.6
 
-* Fixed Bug / Project banner should be off when module turned disabled.
-* Fixed Bug / In some situation, "ActionView::TemplateError undefined method is_action_to_display" is happened.
+* Fixed bug: Project banner should be off when module turned disabled.
+* Fixed bug: In some situation, "ActionView::TemplateError undefined method is_action_to_display" is happened.
 * Update Russian Translation.
-  Thak you so much, Александр Ананьев.
+  Thank you so much, Александр Ананьев.
 
 === 0.0.5
 
 * Support banner for each project.
-  Thak you so much, Denny Schäfer, Haru Iida.
+  Thank you so much, Denny Schäfer, Haru Iida.
 
 === 0.0.4
 
 * Support timer function.
-* Add links to tunrn off or modify banner message quickly. (Links are shown to Administrator only) 
+* Add links to turn off or modify banner message quickly. (Links are shown to Administrator only) 
 
 === 0.0.3
 
@@ -82,7 +98,7 @@ Do following command:
   Also, remove some "To-Do" section of README.
 
 * Add translations. Russian, German, Brazilian Portugues.
-  Thak you so much, Александр Ананьев, Denny Schäfer, Maiko de Andrade!
+  Thank you so much, Александр Ананьев, Denny Schäfer, Maiko de Andrade!
 
 === 0.0.2
 

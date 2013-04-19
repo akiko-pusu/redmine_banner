@@ -1,6 +1,6 @@
 require 'rake'
 require 'rake/testtask'
-require 'rdoc/task'
+require 'yard'
 
 desc 'Default: run unit tests.'
 task :default => :test
@@ -12,13 +12,8 @@ Rake::TestTask.new(:test) do |t|
   t.verbose = true
 end
 
-desc 'Generate documentation for the redmine_banner plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'Redmine Banner'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README.rdoc')
-  rdoc.rdoc_files.include('app/**/*.rb')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-  rdoc.options = ["--charset", "utf-8"] 
+YARD::Rake::YardocTask.new(:yardoc) do |t|
+  files = ['lib/**/*.rb', 'app/**/*.rb'] #exclude test file
+  t.files = files
+  t.options += ['--output-dir', './doc']
 end

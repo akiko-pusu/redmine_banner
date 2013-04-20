@@ -1,0 +1,23 @@
+# Italian strings go here for Rails i18n
+it:
+  banner: "Banner"
+  setting_banner_display_part: "Posizione sullo schermo"
+  label_header_only: "Solo testata"
+  label_footer_only: "Solo piè di pagina"
+  label_both: "Testata / Piè di pagina"
+  label_banner_message: "Messaggio sul banner"
+  label_message_type: "Tipo di messaggio"
+  label_start_datetime: "Data/ora inizio"
+  label_end_datetime: "Data/ora fine"
+  label_use_timer: "Usa timer"
+  error_banner_date_range: "La data di inizio deve precedere quella di fine."
+  redmine_banner_title: "Vai alle impostazioni del banner."
+  button_off: "Spento"
+  banner_off: "Disattiva messaggio banner."
+  permission_manage_banner: "Gestione Banner"
+  project_module_banner: "Banner"
+  page_overview_only: "Solo visione"
+  page_all: "Tutta la pagina"
+  page_overview_and_issues: "Visione e segnalazioni"
+  page_new_issue_only: "Solo nuova segnalazione"
+    

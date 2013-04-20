@@ -1,0 +1,23 @@
+# French strings go here for Rails i18n - Laurent HADJADJ 08/04/2013
+fr:
+  banner: "Bannière"
+  setting_banner_display_part: "Affiche la localisation" 
+  label_header_only: "En-tête uniquement"
+  label_footer_only: "Bas de page uniquement"
+  label_both: "Les deux en-tête / bas de page"
+  label_banner_message: "Message de la bannière"
+  label_message_type: "Type de message"
+  label_start_datetime: "Début"
+  label_end_datetime: "Fin"
+  label_use_timer: "Utilisez un programateur"
+  error_banner_date_range: "La date de début doit être inférieure à la date de fin."  
+  redmine_banner_title: "Allez au paramétrage de la bannière."
+  button_off: "Désactivé"
+  banner_off: "Désactiver la bannière."
+  permission_manage_banner: "Configurer la bannière"
+  project_module_banner: "Bannière"
+  page_overview_only: "Prévisualiser seulement"
+  page_all: "Sur toutes les pages"
+  page_overview_and_issues: "Conception et questions"
+  page_new_issue_only: "Nouvelle question seulement"
+    

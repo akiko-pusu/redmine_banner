@@ -65,6 +65,15 @@ For Redmine 2.x, use the following command:
 
 == Changelog
 
+=== 0.0.9
+
+* Authenticated users can turn off global banner in their session.
+* Add option to show global banner only for authenticated users.
+* Add option to show only at the login page.
+* Code refactoring.
+* Italian translation was contributed by @R-i-c-k-y.
+* French translation was contributed by Laurent HADJADJ.
+
 === 0.0.8
 
 * Support Redmine 2.1.

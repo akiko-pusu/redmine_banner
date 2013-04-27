@@ -31,6 +31,11 @@ module SettingsControllerPatch
       @start_datetime = current_time
       @end_datetime = current_time
 
+      @banner_updated_on = nil
+      unless Setting.find_by_name('plugin_redmine_banner').blank?
+        @banner_updated_on =  Setting.find_by_name('plugin_redmine_banner').updated_on.localtime
+      end
+
       begin
         if !@settings['start_ymd'].blank?
           s = Date.strptime(@settings['start_ymd'], "%Y-%m-%d")
@@ -52,8 +57,7 @@ module SettingsControllerPatch
           @end_datetime = Time.mktime(e_year,e_month,e_day, e_hour, e_min)
         end
       rescue => ex
-          # TODO:
-          # Ref. https://github.com/akiko-pusu/redmine_banner/issues/11 
+          # Ref. https://github.com/akiko-pusu/redmine_banner/issues/11
           # Logging when Argument Error
           logger.warn "Redmine Banner Warning:   #{ex} / Invalid date setting / From #{@settings['start_ymd']} to #{@settings['end_ymd']}. Reset to current datetime. " if logger
           @start_datetime = current_time
@@ -78,6 +82,7 @@ module SettingsControllerPatch
             redirect_to :action => 'plugin', :id => @plugin.id
             return
           end
+
         rescue => ex
           # Argument Error
           # TODO: Exception will happen about 2038 problem. (Fixed on Ruby1.9)
@@ -86,6 +91,7 @@ module SettingsControllerPatch
           return        
         end     
       end
+
       # Continue to do default action
       plugin_without_banner_date_validation
     end

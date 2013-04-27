@@ -4,15 +4,21 @@ class BannerControllerTest < ActionController::TestCase
     :enabled_modules, :banners
   def setup
     User.current = nil
-    @request.session[:user_id] = 1 # Do test as admin
     @settings = Setting["plugin_redmine_banner"]
     @settings["enable"] = "true";
-  end  
+    t = Setting.find_by_name('plugin_redmine_banner')
+  end
+
+  test "should banner off with nologin return required login" do
+    get :off
+    assert_response 302
+    assert_redirected_to '/login?back_url=http%3A%2F%2Ftest.host%2Fbanner%2Foff'
+  end
   
   test "should off banner" do
+    @request.session[:user_id] = 1 # Do test as admin
     get :off
     assert_response :success, "returned #{@response}"
-    assert_equal "false", @settings["enable"]
   end
   
   test "routing check" do
@@ -51,7 +57,6 @@ class BannerControllerTest < ActionController::TestCase
       post :project_banner_off, :project_id => 1
       assert_response 403
     end
-    
 
     context "with permission" do	
       setup do
@@ -79,7 +84,7 @@ class BannerControllerTest < ActionController::TestCase
       should "return success when banner_off without manage permission" do
         post :project_banner_off, :project_id => 1
         assert_response :success
-      end 
+      end
       
       should "return 404 when banner_off without manage permission  with non existing project" do
         post :project_banner_off, :project_id => 100

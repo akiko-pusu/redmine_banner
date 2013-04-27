@@ -1,19 +1,23 @@
 class BannerController < ApplicationController
   unloadable
-  before_filter :require_admin, :only => [:off]
-  before_filter :find_user, :find_project, :authorize, :except => [ :preview, :off ]
+  #
+  # NOTE: Authorized user can turn off banner while their in session. (Changed from version 0.0.9)
+  #       If Administrator hope to disable site wide banner, please go to settings page and uncheck
+  #       eabned checkbox.
+  before_filter :require_login, :only => [:off]
+  before_filter :find_user, :find_project, :authorize, :except => [ :preview, :off]
   
   def preview
     @text = params[:settings][:banner_description]
     render :partial => 'common/preview'
   end
-  
+
+  #
+  # Turn off (hide) banner while in user's session.
+  #
   def off
     begin
-      @plugin = Redmine::Plugin.find("redmine_banner")
-      @settings = Setting["plugin_#{@plugin.id}"]
-      @settings["enable"] = "false"
-      Setting["plugin_#{@plugin.id}"] = @settings
+      session[:pref_banner_off] = Time.now.to_i
       render :text => ""
     rescue Exception => exc
       logger.warn("Message for the log file / When off banner #{exc.message}")

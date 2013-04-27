@@ -21,6 +21,11 @@ $("#plugin").submit(function(event) {
 </p>
 
 <p>
+  <%=content_tag(:label, l(:label_display_authenticated_user_only))%>
+  <%=check_box_tag 'settings[only_authenticated]', true, @settings['only_authenticated'] == "true" %>
+</p>
+
+<p>
   <%=content_tag(:label, l(:label_message_type))%>
   <%= radio_button_tag 'settings[type]', "info", @settings['type'] == "info" %> <span class="banner_info">Info</span><br/>
   <%= radio_button_tag 'settings[type]', "warn", @settings['type'] == "warn" %> <span class="banner_warn">Warn</span><br/>
@@ -31,8 +36,12 @@ $("#plugin").submit(function(event) {
 <p>
 <%=content_tag(:label, l(:setting_banner_display_part))%>
 <%= select_tag('settings[display_part]',
-               options_for_select([[l(:label_header_only),'header'],[l(:label_footer_only),'footer'],[l(:label_both),'both']],@settings['display_part'])) %>
+               options_for_select([[l(:label_header_only),'header'],
+          [l(:label_footer_only),'footer'],[l(:label_both),'both']],@settings['display_part'])) %>
+   <%=check_box_tag 'settings[display_only_login_page]', true, @settings['display_only_login_page'] == "true" %>
+  <%=  l(:lalel_check_if_banner_show_only_login_page) %>
 </p>
+
 <p>
   <%=content_tag(:label, l(:label_banner_message)) %>
   <%=text_area_tag 'settings[banner_description]',  banner_description,  :size =>"40x3", 

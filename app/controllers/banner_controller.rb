@@ -18,7 +18,7 @@ class BannerController < ApplicationController
   def off
     begin
       session[:pref_banner_off] = Time.now.to_i
-      render :text => ""
+      render
     rescue Exception => exc
       logger.warn("Message for the log file / When off banner #{exc.message}")
       render :text => ""

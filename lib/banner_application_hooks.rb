@@ -40,32 +40,31 @@ class BannerMessageHooks < Redmine::Hook::ViewListener
   end
 
   def is_pass_timer?(context)
-    return true unless Setting.plugin_redmine_banner['use_timer'] == "true"    
+    banner_setting = Setting.plugin_redmine_banner
+    return true unless banner_setting['use_timer'] == "true"
 
     now = Time.now
     start_date = get_time(
-      Setting.plugin_redmine_banner['start_ymd'],
-      Setting.plugin_redmine_banner['start_hour'],
-      Setting.plugin_redmine_banner['start_min'])
+      banner_setting['start_ymd'],
+      banner_setting['start_hour'],
+      banner_setting['start_min'])
 
     end_date = get_time(
-      Setting.plugin_redmine_banner['end_ymd'],
-      Setting.plugin_redmine_banner['end_hour'],
-      Setting.plugin_redmine_banner['end_min']
+      banner_setting['end_ymd'],
+      banner_setting['end_hour'],
+      banner_setting['end_min']
     )
     now.between?(start_date,end_date)
   end
   
   def should_display_header?(context)
-    # When Disabled, false.  
-    return false unless Setting.plugin_redmine_banner['enable'] == "true"
+    # When Disabled, false.
     return false if Setting.plugin_redmine_banner['display_part'] == "footer"
     return is_pass_timer?(context)    
   end
   
   def should_display_footer?(context)
-    # When Disabled, false.  
-    return false unless Setting.plugin_redmine_banner['enable'] == "true"
+    # When Disabled, false.
     return false if Setting.plugin_redmine_banner['display_part'] == "header"
     return is_pass_timer?(context)        
   end  
@@ -75,12 +74,25 @@ class BannerMessageHooks < Redmine::Hook::ViewListener
 
   private
   def evaluate_if_option(if_option, context)
+    return false if !should_display(context)
     case if_option
     when Symbol
       send(if_option, context)
     when Method, Proc
       if_option.call(context)
     end        
+  end
+
+  def should_display(context)
+    banner_setting = Setting.plugin_redmine_banner
+    return false if (context[:controller].class.name != 'AccountController' and
+        context[:controller].action_name != 'login') and
+        banner_setting['display_only_login_page'] == "true"
+
+    return false if !User.current.logged? && banner_setting['only_authenticated'] == "true"
+    return false unless banner_setting['enable'] == "true"
+    return true
+
   end
 end
 

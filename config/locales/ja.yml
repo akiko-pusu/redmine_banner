@@ -13,12 +13,14 @@ ja:
   error_banner_date_range: "日付の範囲が正しく設定されていません。"
   redmine_banner_title: "バナーの設定画面へ"
   button_off: "表示オフ"
-  banner_off: "バナーの表示を停止します。"
+  banner_off: "セッションが有効な間、バナーの表示をオフにします。(バナーの内容に変更があった場合は、再度表示されます）"
   permission_manage_banner: "バナーの管理"
   project_module_banner: "バナー"
   page_overview_only: "概要ページ"
   page_all: "全てのページ"
   page_overview_and_issues: "概要とチケットトラッキングのページ"
-  page_new_issue_only: "新規チケットのページ"  
+  page_new_issue_only: "新規チケットのページ"
+  label_display_authenticated_user_only: "ログインユーザのみ表示"
+  lalel_check_if_banner_show_only_login_page: "オプション: ログインページのみ表示"
   
   

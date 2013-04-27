@@ -2,7 +2,7 @@
    # TODO: Display logic should be moved from view....
    s = session[:pref_banner_off]
    t = Setting.find_by_name('plugin_redmine_banner')
-   if !t.blank? && !session[:pref_banner_off].blank? && t.updated_on.to_i < s
+   if !t.blank? && !s.blank? && t.updated_on.to_i < s
      return ''
    end
 
@@ -14,26 +14,13 @@
 <div class="banner banner_<%= Setting.plugin_redmine_banner['type'] %>" id="banner_content">
   <%= textilizable banner_description %>
 </div>
-<% 
-if User.current.admin? && (params[:controller] != 'settings' &&  params[:action] != 'settings' && params[:id]  != 'redmine_banner') 
-%>
   <div id="banner_edit">
-<%= link_to l(:button_edit), 
+<%= link_to l(:button_edit),
   {:controller => 'settings', :action => 'plugin', :id => 'redmine_banner'}, 
-  {:class => 'icon banner-icon-edit', :title => l(:button_edit)} %>
+  {:class => 'icon banner-icon-edit', :title => l(:button_edit)} if User.current.admin? %>
+<%= link_to  l(:button_off),
+  {:controller => 'banner', :action => 'off',:moderate => 'yes', :remote=>true},
+  {:class => 'icon banner-icon-off', :title => l(:banner_off)}  if User.current.logged? %>
 
-    <a class="icon banner-icon-off" 
-   href="#" 
-   onclick="
-   $.ajax({
-          url: '<%= url_for(:controller => :banner, :action => 'off', :moderate => 'yes') %>',
-          type: 'get',
-          success: function(data){
-              $('.global_banner').each(function() {$(this).slideUp();});; return false;
-          }
-        });
-   "
-   title="<%= l(:banner_off) %>"><%= l(:button_off) %></a>
   </div>
-<% end %>  
 </div>

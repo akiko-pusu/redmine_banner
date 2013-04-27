@@ -10,14 +10,14 @@
 div.banner_info {
     border-color: #b0c4de;
     background: #f0f8ff url(../images/info.png) no-repeat left center;
-    background-position-x: 4px;
+    background-position: 4px;
     padding-left: 26px;
 }
 
 div.banner_warn {
     border-color: #f3d51a;
     background: #f9f99e url(../images/warn.png) no-repeat left center;
-    background-position-x: 4px;
+    background-position: 4px;
     padding-left: 26px;
 }
 
@@ -25,7 +25,7 @@ div.banner_alert {
     background-color: #ffe3e3;
     border-color: #dd0000;
     background: #ffe3e3 url(../images/alert.png) no-repeat left center;
-    background-position-x: 4px;
+    background-position: 4px;
     padding-left: 26px;
 }
 

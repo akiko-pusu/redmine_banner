@@ -1,6 +1,6 @@
 <% 
     return unless BannerHelper.is_enabled?(@project)
-    banner = Banner.find(:first, :conditions => ['project_id = ?', @project.id])
+    banner = Banner.where(:project_id => @project.id).first
     return '' unless banner && banner.enable_banner?
        
     display_part = banner.display_part
@@ -28,7 +28,6 @@ if authorize_for(:banner, :edit)
           success: function(data){
               $('#project_banner_area').remove(); return false;
           }
-          //data: 'authenticity_token=' + encodeURIComponent('<%= form_authenticity_token %>')
         });
    }" 
    title="<%= l(:banner_off) %>"><%= l(:button_off) %></a> 

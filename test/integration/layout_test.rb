@@ -41,5 +41,43 @@ class LayoutTest < ActionController::IntegrationTest
 
     get '/projects/ecookbook/issues'   
     assert_select 'div#project_banner_area div.banner_warn'      
-  end       
+  end
+
+  ### test for global banner
+  def test_display_only_for_login_page
+    User.current = nil
+    log_user('admin', 'admin')
+
+    post "/settings/plugin/redmine_banner",
+         :settings => {
+                       :enable => "true", :type => "warn", :display_part => "both",
+                       :use_timer => "false",
+                       :banner_description => "h1. Test data.",
+                       :display_only_login_page => "true"
+                       }
+
+    # Session is cleared
+    reset!
+    User.current = nil
+
+    get "/login"
+    assert_select 'div#banner_area'
+    get "/projects"
+    assert_select 'div#banner_area',0
+
+    log_user('admin', 'admin')
+    post "/settings/plugin/redmine_banner",
+         :settings => {
+             :only_authenticated => "true"
+         }
+
+    # Session is cleared
+    reset!
+    User.current = nil
+
+    get "/login"
+    assert_select 'div#banner_area',0
+    get "/projects"
+    assert_select 'div#banner_area',0
+  end
 end

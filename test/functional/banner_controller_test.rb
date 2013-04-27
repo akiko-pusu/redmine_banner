@@ -5,7 +5,7 @@ class BannerControllerTest < ActionController::TestCase
   def setup
     User.current = nil
     @settings = Setting["plugin_redmine_banner"]
-    @settings["enable"] = "true";
+    @settings["enable"] = "true"
     t = Setting.find_by_name('plugin_redmine_banner')
   end
 
@@ -31,7 +31,7 @@ class BannerControllerTest < ActionController::TestCase
     assert_template "common/_preview"
     assert_select 'h1', /Test data\./, "#{@response.body}"
   end
-  
+
   ### test for project banner
   context "#project_banner" do
     setup do

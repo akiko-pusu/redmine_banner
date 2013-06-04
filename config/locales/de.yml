@@ -1,3 +1,4 @@
+# German strings go here for Rails i18n
 de:
   banner: "Banner"
   setting_banner_display_part: "Anzeigeposition"
@@ -18,4 +19,6 @@ de:
   page_overview_only: "Nur auf der Übersichtsseite"
   page_all: "Auf allen Seiten"
   page_overview_and_issues: "Auf der Übersichtsseite und Ticketübersicht"
-  page_new_issue_only: "Nur auf der Seite für neue Tickets"
+  page_new_issue_only: "Nur auf der Seite für neue Tickets"  
+  label_display_authenticated_user_only: "Banner nur bei authentifizierten Benutzern anzeigen."
+  lalel_check_if_banner_show_only_login_page: "Option: Banner nur auf der Login Seite anzeigen."

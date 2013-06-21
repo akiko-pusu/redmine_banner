@@ -37,7 +37,6 @@ if authorize_for(:banner, :edit)
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-    console.info("project body bottom");
-    ($('#content')).prepend($('#project_banner_area'));
+    $('#project_banner_area').prependTo('div#content');
   });  
 </script>

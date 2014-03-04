@@ -1,7 +1,7 @@
 # Bulgarian strings go here for Rails i18n, translated by Ivan Cenov i_cenov@botevgrad.com
 bg:
   banner: "Банер"
-  setting_banner_display_part: "Място за показване" 
+  setting_banner_display_part: "Място за показване"
   label_header_only: "Заглавна част"
   label_footer_only: "Основа"
   label_both: "Заглавна част и основа"
@@ -10,7 +10,7 @@ bg:
   label_start_datetime: "Начална дата и час"
   label_end_datetime: "Крайна дата и час"
   label_use_timer: "Използване на таймер"
-  error_banner_date_range: "Началният момент трябва да бъде преди крайния."  
+  error_banner_date_range: "Началният момент трябва да бъде преди крайния."
   redmine_banner_title: "Банер"
   button_off: "Изключване"
   banner_off: "Изключване на банера"
@@ -19,4 +19,6 @@ bg:
   page_overview_only: "Само общ изглед"
   page_all: "Навсякъде"
   page_overview_and_issues: "Общ изглед и задачи"
-  page_new_issue_only: "Само нови задачи"  
+  page_new_issue_only: "Само нови задачи"
+  label_display_authenticated_user_only: "Показване на банери само за регистрирани потребители (logged in)."
+  lalel_check_if_banner_show_only_login_page: "По избор: Показване само на страницата за вход в Redmine."

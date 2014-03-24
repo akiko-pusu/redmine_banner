@@ -22,5 +22,3 @@ module ProjectsHelperMethodsBanner
     tabs
   end
 end
-
-ProjectsHelper.send(:include, BannerProjectsHelperPatch)

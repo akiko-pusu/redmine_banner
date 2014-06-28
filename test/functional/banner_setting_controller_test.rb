@@ -65,7 +65,26 @@ class BannerSettingControllerTest < ActionController::TestCase
       :end_hour => "23"}
     assert_response :redirect
     assert_redirected_to :controller => 'settings', :action => 'plugin', :id => "redmine_banner"
-    assert_equal I18n.t(:notice_successful_update), flash[:notice] 
+    assert_equal I18n.t(:notice_successful_update), flash[:notice]
+
+    get :plugin, :id => "redmine_banner"
+    assert_response :success
+    assert_select 'div#banner_area' do
+      assert_select 'div.banner_warn' do
+          assert_select "p", {:text=>"exp. Information about upcoming Service Interruption."}
+      end
+    end
+
+    post :plugin, :id => "redmine_banner",
+         :settings => {:end_ymd => "2012-12-31", :end_min => "03", :start_min => "03", :start_hour => "20",
+                       :enable => "true", :type => "warn", :display_part => "both",
+                       :start_ymd => "2012-03-12", :use_timer => "true",
+                       :banner_description => "exp. Information about upcoming Service Interruption.",
+                       :end_hour => "23"}
+    assert_response :redirect
+    get :plugin, :id => "redmine_banner"
+    assert_response :success
+    assert_select  'div#banner_area', false, "Banner should be off."
   end
   
   def test_post_banner_settings_with_bad_format

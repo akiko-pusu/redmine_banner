@@ -1,4 +1,4 @@
-# Translation by Ki Won Kim (http://xyz37.blog.me, xyz37@naver.com, http://x10.mine.nu/redmine)
+# Translation by Ki Won Kim (http://x10.iptime.org/redmine, http://xyz37.blog.me, xyz37@naver.com)
 ko:
   banner: "배너 광고"
   setting_banner_display_part: "표시 위치" 
@@ -20,4 +20,5 @@ ko:
   page_all: "모든 페이지"
   page_overview_and_issues: "초기화면과 일감"
   page_new_issue_only: "새로운 일감만"  
-    
+  label_display_authenticated_user_only: "인증된 사용자만 배너 보임"
+  lalel_check_if_banner_show_only_login_page: "옵션: 로그인 페이지에서만 보임"

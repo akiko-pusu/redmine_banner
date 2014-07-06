@@ -15,12 +15,18 @@
   <%= textilizable banner_description %>
 </div>
   <div id="banner_edit">
-<%= link_to l(:button_edit),
+    <%= link_to l(:button_edit),
   {:controller => 'settings', :action => 'plugin', :id => 'redmine_banner'}, 
   {:class => 'icon banner-icon-edit', :title => l(:button_edit)} if User.current.admin? %>
 <%= link_to  l(:button_off),
   {:controller => 'banner', :action => 'off',:moderate => 'yes', :remote=>true},
   {:class => 'icon banner-icon-off', :title => l(:banner_off)}  if User.current.logged? %>
-
   </div>
+
+  <% if Setting.plugin_redmine_banner['related_link'].present? %>
+  <div id="banner_more_info">
+    <%= link_to l(:more_info), Setting.plugin_redmine_banner['related_link'],
+           {:class => 'icon external', :title => l(:label_more_info)} %>
+  </div>
+  <% end %>
 </div>

@@ -15,7 +15,7 @@
   <%= textilizable banner_description %>
 </div>
   <div id="banner_edit">
-<%= link_to l(:button_edit),
+    <%= link_to l(:button_edit),
   {:controller => 'settings', :action => 'plugin', :id => 'redmine_banner'}, 
   {:class => 'icon banner-icon-edit', :title => l(:button_edit)} if User.current.admin? %>
 <%= link_to  l(:button_off),

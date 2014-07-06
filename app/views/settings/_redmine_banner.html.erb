@@ -51,8 +51,15 @@ $("#plugin").submit(function(event) {
 
 <%= preview_link url_for(:controller => 'banner', :action => 'preview'), 'plugin', 
   target='banner_description_preview' %>
-                       
+
 <div id="banner_description_preview" class="wiki"></div>
+
+<p>
+  <%=content_tag(:label, l(:setting_banner_related_link))%>
+  <%= text_field_tag 'settings[related_link]', @settings['related_link'], :size => 40 %><br/>
+  <span class=""><%= l(:setting_banner_related_link_description) %></span>
+</p>
+
 <p>
   <%=content_tag(:label, l(:label_use_timer))%>
   <span class="use_timer">
@@ -87,3 +94,5 @@ $("#plugin").submit(function(event) {
   <%=content_tag(:label, l(:field_updated_on))%>
   <%= @banner_updated_on %>
 </p>
+
+

@@ -67,9 +67,13 @@ class LayoutTest < ActionController::IntegrationTest
 
     log_user('admin', 'admin')
     post "/settings/plugin/redmine_banner",
-         :settings => {
-             :only_authenticated => "true"
-         }
+      :settings => {
+        :enable => "true", :type => "warn", :display_part => "both",
+        :use_timer => "false",
+        :banner_description => "h1. Test data.",
+        :display_only_login_page => "true",
+        :only_authenticated => "true"
+    }
 
     # Session is cleared
     reset!
@@ -79,5 +83,40 @@ class LayoutTest < ActionController::IntegrationTest
     assert_select 'div#banner_area',0
     get "/projects"
     assert_select 'div#banner_area',0
+  end
+
+  ### test for global banner / More Link
+  def test_display_more_link
+    User.current = nil
+    log_user('admin', 'admin')
+
+    post "/settings/plugin/redmine_banner",
+         :settings => {
+             :enable => "true", :type => "warn", :display_part => "both",
+             :use_timer => "false",
+             :banner_description => "h1. Test data.",
+             :display_only_login_page => "false",
+             :only_authenticated => "false",
+             :related_link => ""
+         }
+
+    get "/"
+    assert_select 'div#banner_more_info',0
+
+    # Update setting.
+    post "/settings/plugin/redmine_banner",
+         :settings => {
+             :enable => "true", :type => "warn", :display_part => "both",
+             :use_timer => "false",
+             :banner_description => "h1. Test data.",
+             :display_only_login_page => "false",
+             :only_authenticated => "false",
+             :related_link => "http://www.redmine.org/"
+         }
+
+    # Should include more link.
+    get "/"
+    assert_select 'div#banner_more_info'
+    assert_select 'div#banner_more_info a[href=http://www.redmine.org/]'
   end
 end

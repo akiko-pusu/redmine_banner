@@ -4,15 +4,6 @@ Plugin to show site-wide message from site administrator, such as maintenance in
 
 === Plugin installation
 
-==== For Redmine 1.x:
-
-For Redmine 1.x, please use version 0.0.6.
-
-1. Copy the plugin directory into the vendor/plugins directory.
-2. Run the migration task. 
-   e.g. rake db:migrate_plugins RAILS_ENV=production (For Redmine 1.x)
-3. (Re)start Redmine.
-
 ==== For Redmine 2.x:
 
 For Redmine 2.1 or later, please use Version 0.0.8 or later.
@@ -25,16 +16,26 @@ For Redmine 2.0, please use Version 0.0.7.
 
 Version 0.0.5 later, migration is required.
 
+==== For Redmine 1.x:
+
+For Redmine 1.x, please use version 0.0.6.
+
+1. Copy the plugin directory into the vendor/plugins directory.
+2. Run the migration task.
+   e.g. rake db:migrate_plugins RAILS_ENV=production (For Redmine 1.x)
+3. (Re)start Redmine.
+
 
 === Uninstall
+
+For Redmine 2.x, use the following command:
+
+* rake redmine:plugins:migrate NAME=redmine_banner VERSION=0 RAILS_ENV=production
 
 For Redmine 1.x, use the following command:
 
 * rake db:migrate_plugins NAME=redmine_banner VERSION=0 RAILS_ENV=production
 
-For Redmine 2.x, use the following command:
-
-* rake redmine:plugins:migrate NAME=redmine_banner VERSION=0 RAILS_ENV=production
 
 === Usage for site wide banner
 
@@ -64,6 +65,12 @@ For Redmine 2.x, use the following command:
  https://github.com/akiko-pusu/redmine_banner/wiki/How-to-use-this-plugin-previous-version-(1.xx,-1.0.x...)
 
 == Changelog
+
+=== 0.1.0
+
+* Fixed bug: Global banner timer does not work. (r-labs: #1337)
+* Feature: Add related link field for more information to Global Banner. (r-labs: #1339)
+* i18n: Update Korean translation file. (r-labs: #1329) Thank you so much, Ki Won Kim.
 
 === 0.0.9
 

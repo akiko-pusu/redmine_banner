@@ -22,3 +22,7 @@ de:
   page_new_issue_only: "Nur auf der Seite für neue Tickets"  
   label_display_authenticated_user_only: "Banner nur bei authentifizierten Benutzern anzeigen."
   lalel_check_if_banner_show_only_login_page: "Option: Banner nur auf der Login Seite anzeigen."
+  setting_banner_related_link: "Zugehöriger Link"
+  setting_banner_related_link_description: "Wenn ein zugehöriger Link definiert ist, wird er an die Informationen angehängt."
+  more_info: "[Weitere Informationen]"
+  label_more_info: "Link zu weiteren Informationen."

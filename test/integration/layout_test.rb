@@ -33,8 +33,8 @@ class LayoutTest < ActionController::IntegrationTest
     
     get '/projects/ecookbook/issues'   
     assert_select 'div#project_banner_area div.banner_info', 0
-       
-    patch '/projects/ecookbook/banner/edit',
+
+    put '/projects/ecookbook/banner/edit',
       :settings => {:enabled =>"1", :style => "warn", :display_part => "all",:banner_description => "Test banner message."}, 
       :project_id => "ecookbook"
     assert_response :redirect  

@@ -2,7 +2,7 @@
 # Author: Maiko de Andrade <maikovisky@gmail.com>
 # Update: Guilherme de Mesquita <guilherme.mesquita@outlook.com>
 pt-BR:
-  banner: "Banners"
+  banner: "Banner"
   setting_banner_display_part: "Local da exibição"
   label_header_only: "Somente no cabeçalho"
   label_footer_only: "Somente no rodapé"
@@ -16,8 +16,8 @@ pt-BR:
   redmine_banner_title: "Ir para definições do Banner."
   button_off: "Desligar"
   banner_off: "Desligar a notificação na sua sessão"
-  permission_manage_banner: "Administrar notificações"
-  project_module_banner: "Notificações"
+  permission_manage_banner: "Administrar Banners"
+  project_module_banner: "Banners"
   page_overview_only: "Somente visão geral"
   page_all: "Em toda página"
   page_overview_and_issues: "Visão geral e Tarefas"

@@ -66,6 +66,12 @@ For Redmine 1.x, use the following command:
 
 == Changelog
 
+=== 0.1.1
+
+* Support Redmine 3.x.
+* Update some translation files. Bulgarian, German. Thank you so much, Ivan Cenov, Daniel Felix.
+* Change column type of banner_description from string to text.Thank you so much Namezero. (#44)
+
 === 0.1.0
 
 * Fixed bug: Global banner timer does not work. (r-labs: #1337)

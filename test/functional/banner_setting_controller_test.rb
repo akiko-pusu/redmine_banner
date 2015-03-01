@@ -32,10 +32,6 @@ class BannerSettingControllerTest < ActionController::TestCase
     get :plugin, :id => "redmine_banner"   
     assert_response :success 
     assert_template 'settings/plugin'
-    #assert_tag :tag => 'input', :attributes => { :type => 'checkbox',
-    #                                             :name => 'settings[use_timer]',
-    #                                             :checked => nil
-    #                                              }
     assert_select 'input[type=checkbox][id=settings_use_timer][value=true]'
     assert_select 'h2', /Redmine Banner plugin/, "#{@response.body}"
   end
@@ -49,10 +45,6 @@ class BannerSettingControllerTest < ActionController::TestCase
     get :plugin, :id => "redmine_banner"   
     assert_response :success 
     assert_template 'settings/plugin'
-    #assert_tag :tag => 'input', :attributes => { :type => 'checkbox',
-    #                                             :name => 'settings[use_timer]',
-    #                                             :value => 'true'
-    #                                              }
     assert_select 'input[type=checkbox][id=settings_use_timer][value=true]'
     assert_select 'h2', /Redmine Banner plugin/
   end
@@ -112,19 +104,5 @@ class BannerSettingControllerTest < ActionController::TestCase
     assert_response :redirect
     assert_not_nil flash[:error]
   end
-
-# This should not be happened in 64bit.
-#  def test_post_banner_settings_with_out_of_range_format
-#    # set bad format
-#    post :plugin, :id => "redmine_banner",
-#      :settings => {:end_ymd => "2039-01-01", :end_min => "03", :start_min => "03", :start_hour => "20", 
-#      :enable => "true", :type => "warn", :display_part => "both", 
-#      :start_ymd => "2038-03-12", :use_timer => "true",
-#      :banner_description => "exp. Information about upcoming Service Interruption.", 
-#      :end_hour => "23"}
-#    assert_response :redirect
-#    assert_redirected_to :controller => 'settings', :action => 'plugin', :id => "redmine_banner"
-#    assert_not_nil flash[:error]
-#  end 
   
 end

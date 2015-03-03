@@ -117,6 +117,6 @@ class LayoutTest < Redmine::IntegrationTest
     # Should include more link.
     get "/"
     assert_select 'div#banner_more_info'
-    assert_select 'div#banner_more_info a[href=http://www.redmine.org/]'
+    assert_select 'div#banner_more_info a[href="http://www.redmine.org/"]'
   end
 end

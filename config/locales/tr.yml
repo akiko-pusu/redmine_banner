@@ -1,0 +1,28 @@
+# Turkish strings by Adnan Topçu for Rails i18n
+tr:
+  banner: "Banner"
+  setting_banner_display_part: "Gösterme konumu".
+  label_header_only: "Sadece üst"
+  label_footer_only: "Sadece alt"
+  label_both: "Hem üst hem alt"
+  label_banner_message: "Banner mesajı"
+  label_message_type: "Mesaj tipi"
+  label_start_datetime: "Gösterim başlangıç zamanı"
+  label_end_datetime: "Bösterim bitiş zamanı"
+  label_use_timer: "Zamanlayıcı kullan"
+  error_banner_date_range: "Gösterim başlama zamanı bitiş zamanından önce olmalıdır."..
+  redmine_banner_title: "Banner ayarlarına git."
+  button_off: "Kapalı"
+  banner_off: "Banner mesajını kendi oturumun için kapat. (Eğer yönetici genel banner mesajını güncellerse tekrar aç.)"
+  permission_manage_banner: "Banner'i yönet"
+  project_module_banner: "Banner"
+  page_overview_only: "Genel Sayfası sadece"
+  page_all: "Tüm sayfalar"
+  page_overview_and_issues: "Genel ve işler"
+  page_new_issue_only: "Yeni İş açma yalnızca"
+  label_display_authenticated_user_only: "Sadece kimlik doğrulaması olan kullanıcılarda çıksın."
+  lalel_check_if_banner_show_only_login_page: "Opsiyon: Sadece oturum açma ekranında çıksın."
+  setting_banner_related_link: "İlgili bağlantı"
+  setting_banner_related_link_description: "tanımlıysa, daha fazla bilgi bağlantısı eklenir."
+  more_info: "[Daha fazla bilgi]"
+  label_more_info: "Daha fazla bilgi için bağlantı."

@@ -20,4 +20,10 @@ it:
   page_all: "Tutta la pagina"
   page_overview_and_issues: "Visione e segnalazioni"
   page_new_issue_only: "Solo nuova segnalazione"
+  label_display_authenticated_user_only: "Mostra banner solo agli utenti autenticati."
+  lalel_check_if_banner_show_only_login_page: "Opzione: mostra solo nella pagina di login."
+  setting_banner_related_link: "Link collegato"
+  setting_banner_related_link_description: "Se definito, viene allegato il link per ulteriori informazioni."
+  more_info: "[Piu' Info]"
+  label_more_info: "Link per ulteriori informazioni."
     

@@ -1,6 +1,6 @@
 require 'redmine'
 require 'banner_application_hooks'
-require 'settings_controller_patch'
+require 'banner_settings_controller_patch'
 require 'banner_projects_helper_patch'
 
 Redmine::Plugin.register :redmine_banner do
@@ -37,8 +37,8 @@ Redmine::Plugin.register :redmine_banner do
   
   Rails.configuration.to_prepare do
     require_dependency 'projects_helper'
-    unless SettingsController.included_modules.include?(SettingsControllerPatch)   
-      SettingsController.send(:include, SettingsControllerPatch)
+    unless SettingsController.included_modules.include?(BannerSettingsControllerPatch)
+      SettingsController.send(:include, BannerSettingsControllerPatch)
     end  
     unless ProjectsHelper.included_modules.include? BannerProjectsHelperPatch
       ProjectsHelper.send(:include, BannerProjectsHelperPatch)

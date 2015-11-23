@@ -5,7 +5,7 @@
 # 
 # TODO Store banner settings to banner's own model (table).   
 #
-module SettingsControllerPatch
+module BannerSettingsControllerPatch
   unloadable
   include BannerHelper
 

@@ -1,7 +1,7 @@
 # Turkish strings by Adnan Topçu for Rails i18n
 tr:
   banner: "Banner"
-  setting_banner_display_part: "Gösterme konumu".
+  setting_banner_display_part: "Gösterme konumu"
   label_header_only: "Sadece üst"
   label_footer_only: "Sadece alt"
   label_both: "Hem üst hem alt"
@@ -10,7 +10,7 @@ tr:
   label_start_datetime: "Gösterim başlangıç zamanı"
   label_end_datetime: "Bösterim bitiş zamanı"
   label_use_timer: "Zamanlayıcı kullan"
-  error_banner_date_range: "Gösterim başlama zamanı bitiş zamanından önce olmalıdır."..
+  error_banner_date_range: "Gösterim başlama zamanı bitiş zamanından önce olmalıdır."
   redmine_banner_title: "Banner ayarlarına git."
   button_off: "Kapalı"
   banner_off: "Banner mesajını kendi oturumun için kapat. (Eğer yönetici genel banner mesajını güncellerse tekrar aç.)"

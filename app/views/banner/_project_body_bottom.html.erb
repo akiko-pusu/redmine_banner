@@ -6,15 +6,15 @@
     display_part = banner.display_part
     return '' unless BannerHelper.is_action_to_display?(@_controller, display_part)
 %>
-<div id="project_banner_area" class="banner_area">
+<div class="project_banner_area" class="banner_area">
 <div class="banner banner_<%= banner.style %>" id="banner_content">
   <%= textilizable banner.banner_description %>
 </div>
  
-<% 
+<%
 if authorize_for(:banner, :edit)
 %> 
-  <div id="banner_edit">
+  <div class="banner_edit">
 <%= link_to l(:button_edit), 
   {:controller => 'projects', :action => "settings", :id => @project, :tab => 'banner'}, 
   {:class => 'icon banner-icon-edit', :title => l(:button_edit)} %>
@@ -37,6 +37,6 @@ if authorize_for(:banner, :edit)
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#project_banner_area').prependTo('div#content');
+    $('.project_banner_area').prependTo('div.content');
   });  
 </script>

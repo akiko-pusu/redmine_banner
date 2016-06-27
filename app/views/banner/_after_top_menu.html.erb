@@ -1,9 +1,12 @@
-<% 
--%>
-<%= render :partial=>'banner/body_bottom' %>
+<%= render partial: 'banner/body_bottom' %>
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('.banner_area').first().insertAfter($('#top-menu'));
+  $(document).ready(function () {
+    displayTopBanner();
+  });
+
+  $(window).resize(function () {
+    console.log("resize");
+    displayTopBanner();
   });
 </script>
 

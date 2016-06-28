@@ -52,10 +52,10 @@ class BannerSettingControllerTest < ActionController::TestCase
   def test_post_banner_settings_with_good_format
     # set good format
     now = Date.today
-    afterDay = now + 1
+    after_day = now + 1
 
     post :plugin, id: 'redmine_banner',
-                  settings: { end_ymd: afterDay.strftime('%Y-%m-%d'), end_min: '03', start_min: '00', start_hour: '00',
+                  settings: { end_ymd: after_day.strftime('%Y-%m-%d'), end_min: '03', start_min: '00', start_hour: '00',
                               enable: 'true', type: 'warn', display_part: 'both',
                               start_ymd: now.strftime('%Y-%m-%d'), use_timer: 'true',
                               banner_description: 'exp. Information about upcoming Service Interruption.',

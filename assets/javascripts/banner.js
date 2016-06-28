@@ -37,3 +37,11 @@ function checkDateValue(event, confirm_msg, error_msg) {
     }
     return true;
 }
+
+function displayTopBanner() {
+    if (window.matchMedia( '(max-width: 899px)' ).matches) {
+        $('#content').prepend($('.banner_area').first());
+    } else {
+        $('.banner_area').first().insertAfter($('#top-menu'));
+    };
+}

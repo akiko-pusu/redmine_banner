@@ -1,19 +1,19 @@
 <%
-banner_description = @settings['banner_description'];
-banner_description.force_encoding("UTF-8") if banner_description.respond_to?(:force_encoding)
+   banner_description = @settings['banner_description'];
+   banner_description.force_encoding("UTF-8") if banner_description.respond_to?(:force_encoding)
 %>
 <!-- confirmation popup -->
 <script type="text/javascript">
 
-$("#plugin").submit(function(event) {
+  $("#plugin").submit(function(event) {
     var confirm_msg = "<%= l(:text_are_you_sure) %>";
     var date_range_error_msg = "<%=  l(:error_banner_date_range) %>";
     if (!checkDateRange(event, confirm_msg, date_range_error_msg)) {
-       return false;
+      return false;
     } else {
-       this.submit();
+      this.submit();
     }
-});
+  });
 </script>
 <p>
   <%=content_tag(:label, l(:button_activate))%>
@@ -34,23 +34,24 @@ $("#plugin").submit(function(event) {
 </p>
 
 <p>
-<%=content_tag(:label, l(:setting_banner_display_part))%>
-<%= select_tag('settings[display_part]',
-               options_for_select([[l(:label_header_only),'header'],
-          [l(:label_footer_only),'footer'],[l(:label_both),'both']],@settings['display_part'])) %>
-   <%=check_box_tag 'settings[display_only_login_page]', true, @settings['display_only_login_page'] == "true" %>
+  <%=content_tag(:label, l(:setting_banner_display_part))%>
+  <%= select_tag('settings[display_part]',
+                 options_for_select([[l(:label_header_only),'header'],
+                                     [l(:label_footer_only),'footer'],[l(:label_both),'both']],@settings['display_part'])) %>
+  <%=check_box_tag 'settings[display_only_login_page]', true, @settings['display_only_login_page'] == "true" %>
   <%=  l(:lalel_check_if_banner_show_only_login_page) %>
 </p>
 
 <p>
   <%=content_tag(:label, l(:label_banner_message)) %>
-  <%=text_area_tag 'settings[banner_description]',  banner_description,  :size =>"40x3", 
-        :class => 'wiki-edit' ,:required => true  %><br/> 
-</p>       
- <%= wikitoolbar_for "settings_banner_description" %>
+  <%=text_area_tag 'settings[banner_description]',  banner_description,  :size =>"40x3",
+                   :class => 'wiki-edit' ,:required => true  %><br/>
+                   :class => 'wiki-edit' ,:required => true  %><br/>
+</p>
+<%= wikitoolbar_for "settings_banner_description" %>
 
-<%= preview_link url_for(:controller => 'banner', :action => 'preview'), 'plugin', 
-  target='banner_description_preview' %>
+<%= preview_link url_for(:controller => 'banner', :action => 'preview'), 'plugin',
+                 target='banner_description_preview' %>
 
 <div id="banner_description_preview" class="wiki"></div>
 
@@ -71,23 +72,23 @@ $("#plugin").submit(function(event) {
   <p>
     <%=content_tag(:label, l(:label_start_datetime))%>
     <%= text_field_tag 'settings[start_ymd]', @start_datetime.strftime("%Y-%m-%d"), :size => 10 %>
-    <%= select_hour @start_datetime, :prefix => 'settings', :field_name => 'start_hour', 
-      :time_separator => ':', :include_seconds => false %>:
+    <%= select_hour @start_datetime, :prefix => 'settings', :field_name => 'start_hour',
+                    :time_separator => ':', :include_seconds => false %>:
     <%= select_minute @start_datetime, :prefix => 'settings', :field_name => 'start_min', :time_separator => ':', :include_seconds => false %>
     <%= calendar_for('settings_start_ymd') %> (exp. 2012-12-31 11:00)
     <br/>
   </p>
 
-<p>
-  <%=content_tag(:label, l(:label_end_datetime))%>
+  <p>
+    <%=content_tag(:label, l(:label_end_datetime))%>
     <%= text_field_tag 'settings[end_ymd]', @end_datetime.strftime("%Y-%m-%d"), :size => 10 %>
-    <%= select_hour @end_datetime, :prefix => 'settings',:field_name => 'end_hour', 
-      :time_separator => ':', :include_seconds => false,:disabled => !@settings['use_timer'] == "true" %>:
-    <%= select_minute @end_datetime, :prefix => 'settings',:field_name => 'end_min', 
-      :time_separator => ':', :include_seconds => false,:disabled => !@settings['use_timer'] == "true" %>
+    <%= select_hour @end_datetime, :prefix => 'settings',:field_name => 'end_hour',
+                    :time_separator => ':', :include_seconds => false,:disabled => !@settings['use_timer'] == "true" %>:
+    <%= select_minute @end_datetime, :prefix => 'settings',:field_name => 'end_min',
+                      :time_separator => ':', :include_seconds => false,:disabled => !@settings['use_timer'] == "true" %>
     <%= calendar_for('settings_end_ymd') %> (exp. 2013-01-01 11:00)
-    <br/>  
-</p>
+    <br/>
+  </p>
 </div>
 
 <p>

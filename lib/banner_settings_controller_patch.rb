@@ -1,9 +1,9 @@
-# Patch for banner plugin. This affects in "plugin" action of Redmine Settings 
+# Patch for banner plugin. This affects in "plugin" action of Redmine Settings
 # controller.
-# Now banner plugin does not have own model(table). So, datetime informations 
+# Now banner plugin does not have own model(table). So, datetime informations
 # are stored as string and required datetime validation by controller.
-# 
-# TODO Store banner settings to banner's own model (table).   
+#
+# TODO Store banner settings to banner's own model (table).
 #
 module BannerSettingsControllerPatch
   unloadable
@@ -15,85 +15,84 @@ module BannerSettingsControllerPatch
       alias_method_chain(:plugin, :banner_date_validation)
     end
   end
+
   module ClassMethods
     #
-    # Before posting start / end date, do validation check.(In case setting "Use timer".) 
+    # Before posting start / end date, do validation check.(In case setting "Use timer".)
     #
     def plugin_with_banner_date_validation
-      return plugin_without_banner_date_validation unless params[:id] == "redmine_banner"      
-      @plugin = Redmine::Plugin.find(params[:id])
-
-      @partial = @plugin.settings[:partial]
-      @settings = Setting["plugin_#{@plugin.id}"]
-      
-      # date range check
-      current_time = Time.now
-      @start_datetime = current_time
-      @end_datetime = current_time
+      param_id = params[:id]
+      return plugin_without_banner_date_validation if param_id != 'redmine_banner'
+      plugin = Redmine::Plugin.find(param_id)
+      settings = Setting["plugin_#{plugin.id}"]
 
       @banner_updated_on = nil
-      unless Setting.find_by_name('plugin_redmine_banner').blank?
-        @banner_updated_on =  Setting.find_by_name('plugin_redmine_banner').updated_on.localtime
+      if Setting.find_by_name('plugin_redmine_banner').present?
+        @banner_updated_on = Setting.find_by_name('plugin_redmine_banner').updated_on.localtime
       end
 
+      # date range check
+      current_time = Time.now
       begin
-        if !@settings['start_ymd'].blank?
-          s = Date.strptime(@settings['start_ymd'], "%Y-%m-%d")
-          s_year = s.year.to_i
-          s_month = s.month.to_i
-          s_day = s.day.to_i
-          s_hour = @settings['start_hour'].blank? ? current_time.hour.to_i : @settings['start_hour'].to_i 
-          s_min = @settings['start_min'].blank? ? current_time.min.to_i : @settings['start_min'].to_i 
-          @start_datetime = Time.mktime(s_year,s_month, s_day, s_hour, s_min)
-        end
-
-        if !@settings['end_ymd'].blank?
-          e = Date.strptime(@settings['end_ymd'], "%Y-%m-%d")
-          e_year = e.year.to_i
-          e_month = e.month.to_i
-          e_day = e.day.to_i
-          e_hour = @settings['end_hour'].blank? ? current_time.hour.to_i : @settings['end_hour'].to_i 
-          e_min = @settings['end_min'].blank? ? current_time.min.to_i : @settings['end_min'].to_i 
-          @end_datetime = Time.mktime(e_year,e_month,e_day, e_hour, e_min)
-        end
+        # date range check
+        @start_datetime = generate_time(settings, 'start', current_time)
+        @end_datetime   = generate_time(settings, 'end', current_time)
       rescue => ex
-          # Ref. https://github.com/akiko-pusu/redmine_banner/issues/11
-          # Logging when Argument Error
-          logger.warn "Redmine Banner Warning:   #{ex} / Invalid date setting / From #{@settings['start_ymd']} to #{@settings['end_ymd']}. Reset to current datetime. " if logger
-          @start_datetime = current_time
-          @end_datetime = current_time
-          @settings['use_timer'] = "false"
+        # Ref. https://github.com/akiko-pusu/redmine_banner/issues/11
+        # Logging when Argument Error
+        if logger
+          logger.warn "Redmine Banner Warning:  #{ex} / Invalid date setting / From #{settings['start_ymd']} to #{settings['end_ymd']}. Reset to current datetime. "
+        end
+        @start_datetime = current_time
+        @end_datetime = current_time
+        settings['use_timer'] = 'false'
       end
-      
-      if request.post?
-        return plugin_without_banner_date_validation unless params[:settings][:use_timer] == "true"
-        s_string = "#{params[:settings][:start_ymd]} #{params[:settings][:start_hour]}:#{params[:settings][:start_min]}"        
-        e_string = "#{params[:settings][:end_ymd]} #{params[:settings][:end_hour]}:#{params[:settings][:end_min]}"
 
+      if request.post?
+        param_settings = params[:settings]
+        return plugin_without_banner_date_validation if param_settings[:use_timer] != 'true'
         begin
-          s_time = get_time(params[:settings][:start_ymd],
-            params[:settings][:start_hour],
-            params[:settings][:start_min])
-          e_time = get_time(params[:settings][:end_ymd],
-            params[:settings][:end_hour],
-            params[:settings][:end_min])
-          if e_time < s_time
+          unless validate_date_range?(param_settings)
             flash[:error] = l(:error_banner_date_range)
-            redirect_to :action => 'plugin', :id => @plugin.id
+            redirect_to action: 'plugin', id: plugin.id
             return
           end
 
         rescue => ex
           # Argument Error
           # TODO: Exception will happen about 2038 problem. (Fixed on Ruby1.9)
+          s_string = "#{param_settings[:start_ymd]} #{param_settings[:start_hour]}:#{param_settings[:start_min]}"
+          e_string = "#{param_settings[:end_ymd]} #{param_settings[:end_hour]}:#{param_settings[:end_min]}"
+
           flash[:error] = "#{l(:error_banner_date_range)} / #{ex}: From #{s_string} to #{e_string} "
-          redirect_to :action => 'plugin', :id => @plugin.id
-          return        
-        end     
+          redirect_to action: 'plugin', id: plugin.id
+          return
+        end
       end
 
       # Continue to do default action
       plugin_without_banner_date_validation
+    end
+
+    private
+
+    def generate_time(settings, type, current_time)
+      return current_time if settings["#{type}_ymd"].blank?
+
+      # generate time
+      d = Date.strptime(settings["#{type}_ymd"], '%Y-%m-%d')
+      d_year = d.year.to_i
+      d_month = d.month.to_i
+      d_day = d.day.to_i
+      d_hour = settings["#{type}_hour"].blank? ? current_time.hour.to_i : settings["#{type}_hour"].to_i
+      d_min = settings["#{type}_min"].blank? ? current_time.min.to_i : settings["#{type}_min"].to_i
+      Time.mktime(d_year, d_month, d_day, d_hour, d_min)
+    end
+
+    def validate_date_range?(param_settings)
+      s_time = get_time(param_settings[:start_ymd], param_settings[:start_hour], param_settings[:start_min])
+      e_time = get_time(param_settings[:end_ymd], param_settings[:end_hour], param_settings[:end_min])
+      e_time > s_time
     end
   end
 end

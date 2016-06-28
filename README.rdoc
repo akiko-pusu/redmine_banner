@@ -66,6 +66,18 @@ For Redmine 1.x, use the following command:
 
 == Changelog
 
+=== 0.1.2
+
+* Fix style and css selector. (Github: #45)
+* Change global banner style for responsive mode. (Github: #68)
+* Code refactoring.
+* Fix: Prevent deprecation warning. (Github PR: #60) Thanks, Wojciech.
+* Refactor: Rename file to prevent conflict (Github #63 / r-labs: 54).
+* i18n: Update Italian translation file. (Github: #61 / r-labs: 57) Thanks, R-i-c-k-y.
+* i18n: Add Spanish translation file. (Github: #61 / r-labs: 52) Thanks Picazamora!
+* i18n: Update Turkish translation file. (Github: #64) Thank you so much, Adnan.
+* i18n: Update Portuguese translation file. (Github: #50) Thanks, Guilherme.
+
 === 0.1.1
 
 * Support Redmine 3.x.

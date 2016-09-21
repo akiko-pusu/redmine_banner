@@ -6,7 +6,7 @@
     display_part = banner.display_part
     return '' unless BannerHelper.is_action_to_display?(@_controller, display_part)
 %>
-<div class="project_banner_area" class="banner_area">
+<div id="project_banner_area" class="banner_area">
 <div class="banner banner_<%= banner.style %>" id="banner_content">
   <%= textilizable banner.banner_description %>
 </div>

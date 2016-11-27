@@ -10,7 +10,7 @@
    banner_description = Setting.plugin_redmine_banner['banner_description'];
    banner_description.force_encoding("UTF-8") if banner_description.respond_to?(:force_encoding)
 -%>
-<div class="banner_area" class="banner_area global_banner">
+<div class="banner_area global_banner">
 <div class="banner banner_<%= Setting.plugin_redmine_banner['type'] %>" id="banner_content">
   <%= textilizable banner_description %>
 </div>

@@ -16,7 +16,7 @@ class LayoutTest < Redmine::IntegrationTest
 
     get '/projects/ecookbook/issues'
     assert_response :success
-    assert_select 'div.project_banner_area div.banner_info', 0
+    assert_select 'div#project_banner_area div.banner_info', 0
 
     get '/projects/ecookbook'
     assert_response :success
@@ -29,10 +29,10 @@ class LayoutTest < Redmine::IntegrationTest
 
     # overview page
     get '/projects/ecookbook'
-    assert_select 'div.project_banner_area div.banner_info'
+    assert_select 'div#project_banner_area div.banner_info'
 
     get '/projects/ecookbook/issues'
-    assert_select 'div.project_banner_area div.banner_info', 0
+    assert_select 'div#project_banner_area div.banner_info', 0
 
     put '/projects/ecookbook/banner/edit',
         settings: { enabled: '1', style: 'warn', display_part: 'all', banner_description: 'Test banner message.' },
@@ -40,7 +40,7 @@ class LayoutTest < Redmine::IntegrationTest
     assert_response :redirect
 
     get '/projects/ecookbook/issues'
-    assert_select 'div.project_banner_area div.banner_warn'
+    assert_select 'div#project_banner_area div.banner_warn'
   end
 
   ### test for global banner

@@ -33,7 +33,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_response :success
     assert_template 'settings'
     assert_select 'a#tab-banner'
-    assert_select 'div.project_banner_area div.banner_info', false,
+    assert_select 'div#project_banner_area div.banner_info', false,
                   'Banner should be displayed Overview only.'
   end
 
@@ -41,7 +41,7 @@ class ProjectsControllerTest < ActionController::TestCase
   def test_show_overview
     get :show, id: 1
     assert_response :success
-    assert_select 'div.project_banner_area div.banner_info'
+    assert_select 'div#project_banner_area div.banner_info'
   end
 
   def test_show_all
@@ -50,7 +50,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @banner.save!
     get :settings, id: 1
     assert_response :success
-    assert_select 'div.project_banner_area div.banner_warn'
+    assert_select 'div#project_banner_area div.banner_warn'
   end
 
   def test_show_overview_and_issues
@@ -59,7 +59,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @banner.save!
     get :show, id: 1
     assert_response :success
-    assert_select 'div.project_banner_area div.banner_alert'
+    assert_select 'div#project_banner_area div.banner_alert'
   end
 
   def test_show_unknown_display_part
@@ -69,7 +69,7 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_raise(ActiveRecord::RecordInvalid) { @banner.save! }
     get :show, id: 1
     assert_response :success
-    assert_select 'div.project_banner_area div.banner_normal', false
+    assert_select 'div#project_banner_area div.banner_normal', false
   end
 
   def test_show_new_issue
@@ -78,7 +78,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @banner.save!
     get :show, id: 1
     assert_response :success
-    assert_select 'div.project_banner_area div.banner_alert', false
+    assert_select 'div#project_banner_area div.banner_alert', false
   end
 
   def test_banner_should_be_off_with_banner_module_disabled
@@ -91,7 +91,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
     get :settings, id: 1
     assert_response :success
-    assert_select 'div.project_banner_area div.banner_warn', false,
+    assert_select 'div#project_banner_area div.banner_warn', false,
                   'Banner should not be displayed when module is diabled!'
   end
 end

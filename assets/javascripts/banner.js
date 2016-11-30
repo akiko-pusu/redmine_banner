@@ -40,8 +40,8 @@ function checkDateValue(event, confirm_msg, error_msg) {
 
 function displayTopBanner() {
     if (window.matchMedia( '(max-width: 899px)' ).matches) {
-        $('#content').prepend($('.banner_area').first());
+        $('#content').prepend($('div.banner_area.global_banner').first());
     } else {
-        $('.banner_area').first().insertAfter($('#top-menu'));
+        $('div.banner_area.global_banner').first().insertAfter($('#top-menu'));
     };
 }

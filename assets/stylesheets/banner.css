@@ -145,6 +145,16 @@ div.banner_area div.banner_more_info:hover {
     opacity: 0.9;
 }
 
+/*------------ plugin settings -----------------*/
+.tabular.settings > .settings_for_banner > p {
+    padding-left: 200px;
+}
+
+.tabular.settings > .settings_for_banner > p > label {
+    margin-left: -200px;
+    width: 180px;
+}
+
 @media (max-width: 899px) {
     #content > div.banner_area {
         margin-bottom: 8px;

@@ -27,7 +27,7 @@ Redmine::Plugin.register :redmine_banner do
              'end_min' => nil,
              'related_link' => nil
            }
-  menu :admin_menu, :redmine_banner, { controller: 'settings',
+  menu :admin_menu, 'icon redmine_banner', { controller: 'settings',
                                        action: 'plugin', id: :redmine_banner }, caption: :banner
 
   project_module :banner do

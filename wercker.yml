@@ -21,10 +21,9 @@ build:
           pwd
           ls -la .
           ls -la plugins/redmine_banner
-    - script:
-        name: 'Bundle'
-        code: |
-          bundle install --path vendor/bundle --without mysql postgreql rmagick --with test
+    - bundle-install:
+        path: vendor/bundle
+        without: mysql postgreql rmagick
     - script:
         name: 'Bundle Update'
         code: |
@@ -33,7 +32,6 @@ build:
         name: 'Migrate DB'
         code:
           bundle exec rake db:migrate RAILS_ENV=test
-
     - script:
         name: 'Migrate Plugin'
         code:
@@ -41,8 +39,8 @@ build:
     - script:
         name: 'Run Plugin tests'
         code: |
-          bundle exec rake redmine:plugins:test PLUGIN=${PLUGIN_NAME}
+          bundle exec rake redmine_banner:test
     - script:
         name: 'Uninstall Schema tests'
         code: |
-          bundle exec rake redmine:plugins:migrate NAME=${PLUGIN_NAME} VERSION=0 RAILS_ENV=test
+          bundle exec rake redmine:plugins:migrate NAME=redmine_banner VERSION=0 RAILS_ENV=test

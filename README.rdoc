@@ -2,6 +2,8 @@
 
 Plugin to show site-wide message from site administrator, such as maintenance information or notifications.
 
+Build Status: {<img alt="Wercker status" src="https://app.wercker.com/status/d9d99ba1334f550bd82fd6ae5218523f/s/master">}[https://app.wercker.com/akiko-pusu/redmine_banner/runs]
+
 === Plugin installation
 
 ==== For Redmine 2.x:

@@ -10,7 +10,7 @@ es:
   label_start_datetime: "Fecha y hora de inicio"
   label_end_datetime: "Fecha y hora de fin"
   label_use_timer: "Temporizador"
-  error_banner_date_range: "La fecha de inicio debe ser anterior a la den fin."
+  error_banner_date_range: "La fecha de inicio debe ser anterior a la de fin."
   redmine_banner_title: "Ir a la configuración del baner."
   button_off: "Apagado"
   banner_off: "No mostrar el baner en la sesión. (El baner se volvera a encender si el admin lo modifica)"

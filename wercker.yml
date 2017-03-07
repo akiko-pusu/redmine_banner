@@ -1,33 +1,34 @@
-box: ruby
+box: akiko/docker-for-redmine-plugin-test
+dev:
+  steps:
+    - internal/shell:
+        cmd: /bin/sh  #defaults to /bin/bash
+        code: |
+          env
+          sh ./script/redmine-ready.sh
+
 build:
   steps:
     - script:
-        name: check directory
+        name: ready redmine source code and workspace
         code: |
-          pwd
-          ls -la .
+           sh ./script/redmine-ready.sh
+
+test-stable:
+  steps:
     - script:
-        name: download Redmine trunk
+        name: 'check work directory'
         code: |
-          sh ./redmine-ready.sh
+          ls -la
     - script:
-        name: 'Install & Update bundler'
+        name: 'checkout stable'
         code: |
-          gem install simplecov simplecov-rcov yard --no-rdoc --no-ri
-          gem update bundler
+          hg up ${REDMINE_TARGET}
+          hg log --branch ${REDMINE_TARGET} -l 1
     - script:
-        name: check directory again
+        name: 'bundle install'
         code: |
-          pwd
-          ls -la .
-          ls -la plugins/redmine_banner
-    - bundle-install:
-        path: vendor/bundle
-        without: mysql postgreql rmagick
-    - script:
-        name: 'Bundle Update'
-        code: |
-          bundle update
+          bundle install --without mysql postgreql rmagick && bundle update
     - script:
         name: 'Migrate DB'
         code:
@@ -37,10 +38,46 @@ build:
         code:
           bundle exec rake redmine:plugins:migrate RAILS_ENV=test
     - script:
-        name: 'Run Plugin tests'
+        name: 'Run Plugin tests via rake task'
         code: |
-          bundle exec rake redmine_banner:test
+          bundle exec rake ${WERCKER_APPLICATION_NAME}:test
     - script:
         name: 'Uninstall Schema tests'
         code: |
-          bundle exec rake redmine:plugins:migrate NAME=redmine_banner VERSION=0 RAILS_ENV=test
+          bundle exec rake redmine:plugins:migrate NAME=${WERCKER_APPLICATION_NAME} \
+            VERSION=0 RAILS_ENV=test
+
+test-trunk:
+  steps:
+    - script:
+        name: 'check work directory'
+        code: |
+          ls -la
+    - script:
+        name: 'checkout default'
+        code: |
+          hg up default
+          hg log --branch default -l 1
+    - script:
+        name: 'bundle install'
+        code: |
+          bundle update && bundle install --without mysql postgreql rmagick
+    - script:
+        name: 'Migrate DB'
+        code:
+          bundle exec rake db:migrate RAILS_ENV=test
+    - script:
+        name: 'Migrate Plugin'
+        code:
+          bundle exec rake redmine:plugins:migrate RAILS_ENV=test
+    - script:
+        name: 'Run Plugin tests via rake task'
+        code: |
+          bundle exec rake ${WERCKER_APPLICATION_NAME}:test
+    - script:
+        name: 'Uninstall Schema tests'
+        code: |
+          bundle exec rake redmine:plugins:migrate NAME=${WERCKER_APPLICATION_NAME} \
+            VERSION=0 RAILS_ENV=test
+
+

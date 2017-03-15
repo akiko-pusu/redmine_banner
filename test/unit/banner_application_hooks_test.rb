@@ -9,7 +9,7 @@ class BannerApplicationHooksTest < ActiveSupport::TestCase
     target = BannerMessageHooks.instance
     context = {}
     Setting.plugin_redmine_banner['use_timer'] = 'false'
-    assert_equal true, target.is_pass_timer?(context)
+    assert_equal true, target.pass_timer?(context)
   end
 
   def test_is_pass_timer_true_for_passed_time_should_be_false
@@ -25,7 +25,7 @@ class BannerApplicationHooksTest < ActiveSupport::TestCase
     Setting.plugin_redmine_banner['end_ymd'] = '2000-12-31'
     Setting.plugin_redmine_banner['end_hour'] = '12'
     Setting.plugin_redmine_banner['end_min'] = '59'
-    assert_equal false, target.is_pass_timer?(context)
+    assert_equal false, target.pass_timer?(context)
   end
 
   def test_is_pass_timer_true_for_between_time_should_be_true
@@ -41,7 +41,7 @@ class BannerApplicationHooksTest < ActiveSupport::TestCase
     Setting.plugin_redmine_banner['end_ymd'] = '1999-12-31'
     Setting.plugin_redmine_banner['end_hour'] = '01'
     Setting.plugin_redmine_banner['end_min'] = '01'
-    assert(!target.is_pass_timer?(context))
+    assert(!target.pass_timer?(context))
   end
 
   # This should not be happened in 64bit.
@@ -58,7 +58,7 @@ class BannerApplicationHooksTest < ActiveSupport::TestCase
   #    Setting.plugin_redmine_banner['end_ymd'] = "2050-12-31"
   #    Setting.plugin_redmine_banner['end_hour'] = "01"
   #    Setting.plugin_redmine_banner['end_min'] = "01"
-  #    assert_raise(ArgumentError){ target.is_pass_timer?(context) }
+  #    assert_raise(ArgumentError){ target.pass_timer?(context) }
   #  end
 
   def test_should_not_display_header?

@@ -6,6 +6,13 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - init.rb
+
 # Offense count: 3
 Metrics/AbcSize:
   Max: 55
@@ -21,7 +28,7 @@ Metrics/LineLength:
 
 # Offense count: 1
 Metrics/CyclomaticComplexity:
-  Max: 10
+  Max: 12
 
 # Offense count: 1
 Metrics/PerceivedComplexity:

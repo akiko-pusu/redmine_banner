@@ -1,5 +1,16 @@
-require 'simplecov'
-require 'simplecov-rcov'
+begin
+  require 'simplecov'
+  require 'simplecov-rcov'
+rescue LoadError => ex
+  puts <<-"EOS"
+  This test should be called only for redmine banner test.
+    Test exit with LoadError --  #{ex.message}
+  Please move redmine_banner/Gemfile.local to redmine_issue_templates/Gemfile
+  and run bundle install if you want to to run tests.
+  EOS
+  exit
+end
+
 if ENV['JENKINS'] == 'true'
   SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 end

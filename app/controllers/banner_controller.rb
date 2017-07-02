@@ -31,15 +31,14 @@ class BannerController < ApplicationController
   end
 
   def edit
-    unless params[:settings].nil?
-      @banner = Banner.find_or_create(@project.id)
-      banner_params = params[:settings] || {}
-      @banner.update_attributes(banner_params)
-      @banner.save
-      flash[:notice] = l(:notice_successful_update)
-      redirect_to controller: 'projects',
-                  action: 'settings', id: @project, tab: 'banner'
-    end
+    return if params[:settings].nil?
+    @banner = Banner.find_or_create(@project.id)
+    banner_params = params[:settings] || {}
+    @banner.update_attributes(banner_params)
+    @banner.save
+    flash[:notice] = l(:notice_successful_update)
+    redirect_to controller: 'projects',
+                action: 'settings', id: @project, tab: 'banner'
   end
 
   private

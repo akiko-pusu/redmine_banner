@@ -1,5 +1,5 @@
 <% 
-    return unless BannerHelper.enabled?(@project)
+    return unless Banner::BannerHelper.enabled?(@project)
     banner = Banner.where(:project_id => @project.id).first
     return '' unless banner && banner.enable_banner?
        

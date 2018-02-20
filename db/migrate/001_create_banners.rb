@@ -1,4 +1,4 @@
-class CreateBanners < ActiveRecord::Migration
+class CreateBanners < ActiveRecord::Migration[4.2]
   def self.up
     create_table :banners do |t|
       t.column :enabled, :boolean

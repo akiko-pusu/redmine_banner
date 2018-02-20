@@ -1,11 +1,10 @@
 class BannerController < ApplicationController
-  unloadable
   #
   # NOTE: Authorized user can turn off banner while their in session. (Changed from version 0.0.9)
   #       If Administrator hope to disable site wide banner, please go to settings page and uncheck
   #       eabned checkbox.
-  before_filter :require_login, only: [:off]
-  before_filter :find_user, :find_project, :authorize, except: [:preview, :off]
+  before_action :require_login, only: [:off]
+  before_action :find_user, :find_project, :authorize, except: [:preview, :off]
 
   def preview
     @text = params[:settings][:banner_description]

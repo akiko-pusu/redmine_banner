@@ -12,9 +12,10 @@ module Banners
     end
 
     def action_to_display?(controller, display_part)
+      return true if display_part == 'all'
+
       action_name = controller.action_name
       controller_name = controller.controller_name
-      return true if display_part == 'all'
 
       case display_part
       when 'overview' then

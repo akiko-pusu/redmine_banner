@@ -31,9 +31,9 @@ class BannerController < ApplicationController
 
   def edit
     return if params[:settings].nil?
+
     @banner = Banner.find_or_create(@project.id)
-    banner_params = params[:settings] || {}
-    @banner.update_attributes(banner_params)
+    @banner.safe_attributes = banner_params
     @banner.save
     flash[:notice] = l(:notice_successful_update)
     redirect_to controller: 'projects',
@@ -50,5 +50,9 @@ class BannerController < ApplicationController
     @project = Project.find(params[:project_id])
   rescue ActiveRecord::RecordNotFound
     render_404
+  end
+
+  def banner_params
+    params.require(:settings).permit('banner_description', 'style', 'start_date', 'end_date', 'enabled', 'use_timer', 'display_part')
   end
 end

@@ -1,47 +1,50 @@
 require 'redmine'
-require 'banner/application_hooks'
-require 'banner/settings_controller_patch'
-require 'banner/projects_helper_patch'
+require 'banners/application_hooks'
+require 'banners/settings_controller_patch'
+require 'banners/projects_helper_patch'
+
+# NOTE: Keep error message for a while to support Redmine3.x users.
+def issue_template_version_message(original_message = nil)
+  <<-"USAGE"
+  ==========================
+  #{original_message}
+  If you use Redmine3.x, please use Redmine Banner version 0.1.x or clone via
+  'v0.1.x-support-Redmine3' branch.
+  You can download older version from here: https://github.com/akiko-pusu/redmine_banner/releases
+  ==========================
+  USAGE
+end
 
 Redmine::Plugin.register :redmine_banner do
-  name 'Redmine Banner plugin'
-  author 'Akiko Takano'
-  author_url 'http://twitter.com/akiko_pusu'
-  description 'Plugin to show site-wide message, such as maintenacne informations or notifications.'
-  version '0.1.2-dev'
-  requires_redmine version_or_higher: '3.4'
-  url 'https://github.com/akiko-pusu/redmine_banner'
+  begin
+    name 'Redmine Banner plugin'
+    author 'Akiko Takano'
+    author_url 'http://twitter.com/akiko_pusu'
+    description 'Plugin to show site-wide message, such as maintenacne informations or notifications.'
+    version '0.2.0-dev'
+    requires_redmine version_or_higher: '4.0'
+    url 'https://github.com/akiko-pusu/redmine_banner'
 
-  settings partial: 'settings/redmine_banner',
-           default: {
-             'enable' => 'false',
-             'banner_description' => 'exp. Information about upcoming Service Interruption.',
-             'type' => 'info',
-             'display_part' => 'both',
-             'use_timer' => 'false',
-             'start_ymd' => nil,
-             'start_hour' => nil,
-             'start_min' => nil,
-             'end_ymd' => nil,
-             'end_hour' => nil,
-             'end_min' => nil,
-             'related_link' => nil
-           }
-  menu :admin_menu, 'icon redmine_banner', { controller: 'settings',
-                                             action: 'plugin', id: :redmine_banner }, caption: :banner
+    settings partial: 'settings/redmine_banner', default: {
+      enable: 'false',
+      banner_description: 'exp. Information about upcoming Service Interruption.',
+      type: 'info',
+      display_part: 'both',
+      use_timer: 'false',
+      start_ymd: nil,
+      start_hour: nil,
+      start_min: nil,
+      end_ymd: nil,
+      end_hour: nil,
+      end_min: nil,
+      related_link: nil
+    }
+    menu :admin_menu, 'icon redmine_banner', { controller: 'settings', action: 'plugin', id: :redmine_banner }, caption: :banner
 
-  project_module :banner do
-    permission :manage_banner,
-               { banner: [:show, :edit, :project_banner_off] }, require: :member
+    project_module :banner do
+      permission :manage_banner, { banner: %I[show edit project_banner_off] }, require: :member
+    end
+  rescue ::Redmine::PluginRequirementError => e
+    raise ::Redmine::PluginRequirementError.new(issue_template_version_message(e.message)) # rubocop:disable Style/RaiseArgs
   end
-
-  # Rails.configuration.to_prepare do
-  #   require_dependency 'projects_helper'
-  #   unless SettingsController.included_modules.include?(BannerSettingsControllerPatch)
-  #     SettingsController.send(:include, BannerSettingsControllerPatch)
-  #   end
-  #   unless ProjectsHelper.included_modules.include? BannerProjectsHelperPatch
-  #     ProjectsHelper.send(:include, BannerProjectsHelperPatch)
-  #   end
-  # end
 end

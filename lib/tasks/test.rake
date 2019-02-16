@@ -1,3 +1,5 @@
+require 'rake/testtask'
+
 namespace :redmine_banner do
   desc 'Run test for redmine_banner plugin.'
   task :test do |task_name|

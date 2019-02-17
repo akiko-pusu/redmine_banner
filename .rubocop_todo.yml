@@ -32,7 +32,7 @@ Metrics/CyclomaticComplexity:
 
 # Offense count: 1
 Metrics/PerceivedComplexity:
-  Max: 10
+  Max: 12
 
 # Avoid methods longer than 10 lines of code
 MethodLength:
@@ -45,4 +45,5 @@ Documentation:
 
 EndOfLine:
   Enabled: false
+
 

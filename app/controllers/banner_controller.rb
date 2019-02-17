@@ -16,7 +16,7 @@ class BannerController < ApplicationController
   #
   def off
     session[:pref_banner_off] = Time.now.to_i
-    render
+    render action: '_off', layout: false
   rescue => e
     logger.warn("Message for the log file / When off banner #{e.message}")
     render text: ''
@@ -26,7 +26,7 @@ class BannerController < ApplicationController
     @banner = Banner.find_or_create(@project.id)
     @banner.enabled = false
     @banner.save
-    render text: ''
+    render action: '_project_banner_off', layout: false
   end
 
   def edit

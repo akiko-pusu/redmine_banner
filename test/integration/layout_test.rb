@@ -24,8 +24,8 @@ class LayoutTest < Redmine::IntegrationTest
 
   def test_project_banner_visible_when_module_on
     log_user('admin', 'admin')
-    post '/projects/ecookbook/modules',
-         enabled_module_names: %w(issue_tracking banner), commit: 'Save', id: 'ecookbook'
+    patch '/projects/ecookbook',
+          params: { project: { enabled_module_names: %w[issue_tracking banner] }, commit: 'Save', id: 'ecookbook' }
 
     # overview page
     get '/projects/ecookbook'
@@ -35,8 +35,7 @@ class LayoutTest < Redmine::IntegrationTest
     assert_select 'div#project_banner_area div.banner_info', 0
 
     put '/projects/ecookbook/banner/edit',
-        settings: { enabled: '1', style: 'warn', display_part: 'all', banner_description: 'Test banner message.' },
-        project_id: 'ecookbook'
+        params: { settings: { enabled: '1', style: 'warn', display_part: 'all', banner_description: 'Test banner message.' }, project_id: 'ecookbook' }
     assert_response :redirect
 
     get '/projects/ecookbook/issues'
@@ -49,12 +48,12 @@ class LayoutTest < Redmine::IntegrationTest
     log_user('admin', 'admin')
 
     post '/settings/plugin/redmine_banner',
-         settings: {
+         params: { settings: {
            enable: 'true', type: 'warn', display_part: 'both',
            use_timer: 'false',
            banner_description: 'h1. Test data.',
            display_only_login_page: 'true'
-         }
+         } }
 
     # Session is cleared
     reset!
@@ -67,13 +66,13 @@ class LayoutTest < Redmine::IntegrationTest
 
     log_user('admin', 'admin')
     post '/settings/plugin/redmine_banner',
-         settings: {
+         params: { settings: {
            enable: 'true', type: 'warn', display_part: 'both',
            use_timer: 'false',
            banner_description: 'h1. Test data.',
            display_only_login_page: 'true',
            only_authenticated: 'true'
-         }
+         } }
 
     # Session is cleared
     reset!
@@ -91,28 +90,28 @@ class LayoutTest < Redmine::IntegrationTest
     log_user('admin', 'admin')
 
     post '/settings/plugin/redmine_banner',
-         settings: {
+         params: { settings: {
            enable: 'true', type: 'warn', display_part: 'both',
            use_timer: 'false',
            banner_description: 'h1. Test data.',
            display_only_login_page: 'false',
            only_authenticated: 'false',
            related_link: ''
-         }
+         } }
 
     get '/'
     assert_select 'div.banner_more_info', 0
 
     # Update setting.
     post '/settings/plugin/redmine_banner',
-         settings: {
+         params: { settings: {
            enable: 'true', type: 'warn', display_part: 'both',
            use_timer: 'false',
            banner_description: 'h1. Test data.',
            display_only_login_page: 'false',
            only_authenticated: 'false',
            related_link: 'http://www.redmine.org/'
-         }
+         } }
 
     # Should include more link.
     get '/'

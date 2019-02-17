@@ -6,14 +6,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../../lib/banners/applicatio
 
 class BannerApplicationHooksTest < ActiveSupport::TestCase
   def test_is_pass_timer_false_should_be_true
-    target = BannerMessageHooks.instance
+    target = Banners::BannerMessageHooks.instance
     context = {}
     Setting.plugin_redmine_banner['use_timer'] = 'false'
     assert_equal true, target.pass_timer?(context)
   end
 
   def test_is_pass_timer_true_for_passed_time_should_be_false
-    target = BannerMessageHooks.instance
+    target = Banners::BannerMessageHooks.instance
     context = {}
     # Test: passed time set - should retuen false.
     Setting.plugin_redmine_banner['use_timer'] = 'true'
@@ -29,7 +29,7 @@ class BannerApplicationHooksTest < ActiveSupport::TestCase
   end
 
   def test_is_pass_timer_true_for_between_time_should_be_true
-    target = BannerMessageHooks.instance
+    target = Banners::BannerMessageHooks.instance
     context = {}
     Setting.plugin_redmine_banner['use_timer'] = 'true'
 
@@ -62,7 +62,7 @@ class BannerApplicationHooksTest < ActiveSupport::TestCase
   #  end
 
   def test_should_not_display_header?
-    target = BannerMessageHooks.instance
+    target = Banners::BannerMessageHooks.instance
     context = {}
     Setting.plugin_redmine_banner['enable'] = 'true'
     Setting.plugin_redmine_banner['display_part'] = 'footer'
@@ -71,7 +71,7 @@ class BannerApplicationHooksTest < ActiveSupport::TestCase
   end
 
   def test_should_display_header?
-    target = BannerMessageHooks.instance
+    target = Banners::BannerMessageHooks.instance
     context = {}
     Setting.plugin_redmine_banner['enable'] = 'true'
     Setting.plugin_redmine_banner['display_part'] = 'header'
@@ -94,7 +94,7 @@ class BannerApplicationHooksTest < ActiveSupport::TestCase
   end
 
   def test_should_display_footer?
-    target = BannerMessageHooks.instance
+    target = Banners::BannerMessageHooks.instance
     context = {}
     Setting.plugin_redmine_banner['enable'] = 'true'
     Setting.plugin_redmine_banner['display_part'] = 'header'

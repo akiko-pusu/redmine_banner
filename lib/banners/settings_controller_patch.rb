@@ -9,9 +9,6 @@ module Banners
   module SettingsControllerPatch
     extend ActiveSupport::Concern
     include BannerHelper
-    # included do
-    #   alias_method_chain(:plugin, :banner_date_validation)
-    # end
 
     #
     # Before posting start / end date, do validation check.(In case setting "Use timer".)

@@ -4,7 +4,7 @@ Plugin to show site-wide message from site administrator, such as maintenance
 information or notifications.
 
 [![Plugin info at redmine.org](https://img.shields.io/badge/Redmine-plugin-green.svg?)](http://www.redmine.org/plugins/redmine_banner)
-[![CircleCI](https://circleci.com/gh/akiko-pusu/redmine_banner/tree/master.svg?style=shield)](https://circleci.com/gh/akiko-pusu/redmine_issue_banner/tree/master)
+[![CircleCI](https://circleci.com/gh/akiko-pusu/redmine_banner/tree/master.svg?style=shield)](https://circleci.com/gh/akiko-pusu/redmine_banner/tree/master)
 [![Sider](https://img.shields.io/badge/Special%20Thanks!-Sider-blue.svg?)](https://sider.review/features)
 
 ## Plugin installation

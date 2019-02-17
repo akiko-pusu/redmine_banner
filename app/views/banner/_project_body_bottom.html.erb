@@ -1,27 +1,19 @@
-<% 
-    return unless BannerHelper.enabled?(@project)
-    banner = Banner.where(:project_id => @project.id).first
-    return '' unless banner && banner.enable_banner?
-       
-    display_part = banner.display_part
-    return '' unless BannerHelper.action_to_display?(@_controller, display_part)
-%>
 <div id="project_banner_area" class="banner_area">
 <div class="banner banner_<%= banner.style %>" id="banner_content">
   <%= textilizable banner.banner_description %>
 </div>
- 
+
 <%
 if authorize_for(:banner, :edit)
-%> 
+%>
   <div class="banner_edit">
-<%= link_to l(:button_edit), 
-  {:controller => 'projects', :action => "settings", :id => @project, :tab => 'banner'}, 
+<%= link_to l(:button_edit),
+  {:controller => 'projects', :action => "settings", :id => @project, :tab => 'banner'},
   {:class => 'icon banner-icon-edit', :title => l(:button_edit)} %>
-    
-<a class="icon banner-icon-off" 
-   href="#" 
-   onclick="if (confirm('<%= l(:text_are_you_sure) %> ')) {  
+
+<a class="icon banner-icon-off"
+   href="#"
+   onclick="if (confirm('<%= l(:text_are_you_sure) %> ')) {
    $.ajax({
           url: '<%= url_for(:controller => :banner, :action => 'project_banner_off', :project_id => @project) %>',
           type: 'get',
@@ -29,14 +21,18 @@ if authorize_for(:banner, :edit)
               $('#project_banner_area').remove(); return false;
           }
         });
-   }" 
-   title="<%= l(:banner_off) %>"><%= l(:button_off) %></a> 
+   }"
+   title="<%= l(:banner_off) %>"><%= l(:button_off) %></a>
   </div>
 <% end %>
-  
+
 </div>
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('#project_banner_area').prependTo('div#content');
-  });  
+  document.addEventListener('DOMContentLoaded', function() {
+    var content = document.getElementById('content');
+    content.insertBefore(
+      document.getElementById('project_banner_area'),
+      content.firstChild
+    );
+  });
 </script>

@@ -1,7 +1,20 @@
-Rails.application.routes.draw do 
-  match 'projects/:project_id/banner/:action', :controller => 'banner', :via => [:get, :post, :patch, :put]
-  match 'projects/:project_id/banner/project_banner_off', :to => 'banner#project_banner_off', :via => [:get, :post]
-  match 'banner/preview', :to => 'banner#preview',:via => [:get, :post]
-  match 'banner/off', :to => 'banner#off', :via => [:get, :post]
-  match 'projects/:project_id/banner/preview', :to => 'banner#preview', :via => [:get, :post]
+Rails.application.routes.draw do
+  concern :previewable do
+    post 'preview', on: :collection
+    get 'preview', on: :collection
+  end
+
+  resources :projects do
+    resources :banner do
+      patch 'edit', on: :member
+      put 'edit', on: :collection
+      post 'project_banner_off', on: :collection
+      get 'project_banner_off', on: :collection
+    end
+  end
+
+  resources :banner, only: %i[preview off], concerns: [:previewable] do
+    post 'off', on: :collection
+    get 'off', on: :collection
+  end
 end

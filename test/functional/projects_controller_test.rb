@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
+require File.expand_path('../test_helper', __dir__)
 require 'projects_controller'
 
 # Re-raise errors caught by the controller.
@@ -7,13 +7,10 @@ class ProjectsController; def rescue_action(e)
                           end
 end
 
-class ProjectsControllerTest < ActionController::TestCase
+class ProjectsControllerTest < Redmine::ControllerTest
   fixtures :projects, :users, :roles, :members, :member_roles,
            :trackers, :projects_trackers, :enabled_modules, :banners
   def setup
-    @controller = ProjectsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
     # as project admin
     @request.session[:user_id] = 2
     Role.find(1).add_permission! :manage_banner
@@ -29,9 +26,8 @@ class ProjectsControllerTest < ActionController::TestCase
   end
 
   def test_settings
-    get :settings, id: 1
+    get :settings, params: { id: 1 }
     assert_response :success
-    assert_template 'settings'
     assert_select 'a#tab-banner'
     assert_select 'div#project_banner_area div.banner_info', false,
                   'Banner should be displayed Overview only.'
@@ -39,7 +35,7 @@ class ProjectsControllerTest < ActionController::TestCase
 
   # project 1 is enabled banner and type is info, display_part is overview only.
   def test_show_overview
-    get :show, id: 1
+    get :show, params: { id: 1 }
     assert_response :success
     assert_select 'div#project_banner_area div.banner_info'
   end
@@ -48,7 +44,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @banner.display_part = 'all'
     @banner.style = 'warn'
     @banner.save!
-    get :settings, id: 1
+    get :settings, params: { id: 1 }
     assert_response :success
     assert_select 'div#project_banner_area div.banner_warn'
   end
@@ -57,7 +53,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @banner.display_part = 'overview_and_issues'
     @banner.style = 'alert'
     @banner.save!
-    get :show, id: 1
+    get :show, params: { id: 1 }
     assert_response :success
     assert_select 'div#project_banner_area div.banner_alert'
   end
@@ -67,7 +63,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @banner.style = 'normal'
 
     assert_raise(ActiveRecord::RecordInvalid) { @banner.save! }
-    get :show, id: 1
+    get :show, params: { id: 1 }
     assert_response :success
     assert_select 'div#project_banner_area div.banner_normal', false
   end
@@ -76,7 +72,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @banner.display_part = 'new_issue'
     @banner.style = 'alert'
     @banner.save!
-    get :show, id: 1
+    get :show, params: { id: 1  }
     assert_response :success
     assert_select 'div#project_banner_area div.banner_alert', false
   end
@@ -89,7 +85,7 @@ class ProjectsControllerTest < ActionController::TestCase
     @project.disable_module!(:banner)
     assert !@project.reload.enabled_module_names.include?(:banner)
 
-    get :settings, id: 1
+    get :settings, params: { id: 1 }
     assert_response :success
     assert_select 'div#project_banner_area div.banner_warn', false,
                   'Banner should not be displayed when module is diabled!'

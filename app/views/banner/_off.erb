@@ -1,0 +1,8 @@
+var elements = document.getElementsByClassName('global_banner');
+elements = Array.from(elements);
+elements.forEach(function(element) {
+    element.classList.add('fadeout');
+    setTimeout(function(){
+        element.style.display = "none";
+    }, 500);
+});

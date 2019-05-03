@@ -17,4 +17,4 @@ module Banners
   end
 end
 
-ProjectsHelper.prepend Banners::ProjectsHelperPatch
+ProjectsController.helper(Banners::ProjectsHelperPatch)

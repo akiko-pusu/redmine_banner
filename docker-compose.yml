@@ -22,4 +22,4 @@ services:
       - .:/tmp/redmine/plugins/redmine_banner
     ports:
       - 3000:3000
-      xxxxxx
+

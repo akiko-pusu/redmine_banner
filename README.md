@@ -22,7 +22,7 @@ information or notifications.
 
 Try this:
 
-* rake db:migrate_plugins NAME=redmine_banner VERSION=0
+* rake redmine:plugins:migrate NAME=redmine_banner VERSION=0
     RAILS_ENV=production
 
 ## Usage for site wide banner

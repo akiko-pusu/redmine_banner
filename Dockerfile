@@ -21,10 +21,9 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 ### install default sys packeges ###
 
 RUN apt-get update
-RUN apt-get install -qq -y \
+RUN apt-get install -qq -y --no-install-recommends \
     git vim subversion      \
-    sqlite3 default-libmysqlclient-dev
-RUN apt-get install -qq -y build-essential libc6-dev
+    sqlite3 && rm -rf /var/lib/apt/lists/*
 
 RUN cd /tmp && svn co http://svn.redmine.org/redmine/branches/4.0-stable/ redmine
 WORKDIR /tmp/redmine
@@ -44,9 +43,8 @@ development:\n\
 
 RUN gem update bundler
 RUN bundle install --without postgresql rmagick mysql
-RUN bundle exec rake db:migrate
-RUN bundle exec rake redmine:plugins:migrate
-RUN bundle exec rake generate_secret_token
+RUN bundle exec rake db:migrate && bundle exec rake redmine:plugins:migrate \
+  && bundle exec rake generate_secret_token
 RUN VERSION=$(cd plugins/redmine_banner && git rev-parse --short HEAD) && \
   bundle exec rails runner \
   "Setting.send('plugin_redmine_banner=', {enable: 'true', type: 'info', display_part: 'both', banner_description: 'This is a test message for Global Banner. (${COMMIT_BRANCH}:${COMMIT_SHA})'}.stringify_keys)"

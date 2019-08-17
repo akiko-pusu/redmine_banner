@@ -1,6 +1,18 @@
+#
+# docker build --build-arg=COMMIT=$(git rev-parse --short HEAD) \
+# --build-arg=BRANCH=$(git name-rev --name-only HEAD) -t akiko/redmine_banner:latest .
+#
+#
 FROM ruby:2.5
 LABEL maintainer="AKIKO TAKANO / (Twitter: @akiko_pusu)" \
   description="Image to run Redmine simply with sqlite to try/review plugin."
+
+ARG BRANCH="master"
+ARG COMMIT="unknown"
+
+ENV COMMIT_SHA=${COMMIT}
+ENV COMMIT_BRANCH=${BRANCH}
+
 
 ### get Redmine source
 ### Replace shell with bash so we can source files ###
@@ -27,16 +39,17 @@ RUN echo $'test:\n\
 development:\n\
   adapter: sqlite3\n\
   database: /tmp/data/redmine_development.sqlite3\n\
-  encoding: utf8mb4\n\
-development_mysql:\n\
-  adapter: mysql2\n\
-  host: mysql\n\
-  password: pasword\n\
-  database: redemine_development\n\
-  username: root\n'\
+  encoding: utf8mb4\n'\
 >> config/database.yml
 
 RUN gem update bundler
-RUN bundle install --without postgresql rmagick
+RUN bundle install --without postgresql rmagick mysql
 RUN bundle exec rake db:migrate
+RUN bundle exec rake redmine:plugins:migrate
+RUN bundle exec rake generate_secret_token
+RUN VERSION=$(cd plugins/redmine_banner && git rev-parse --short HEAD) && \
+  bundle exec rails runner \
+  "Setting.send('plugin_redmine_banner=', {enable: 'true', type: 'info', display_part: 'both', banner_description: 'This is a test message for Global Banner. (${COMMIT_BRANCH}:${COMMIT_SHA})'}.stringify_keys)"
 
+EXPOSE  3000
+CMD ["rails", "server", "-b", "0.0.0.0"]

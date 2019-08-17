@@ -83,7 +83,7 @@ workflows:
           path: .
           region: AWS_REGION
           repo: redmine_banner
-
+          extra-build-args: '--build-arg COMMIT=$CIRCLE_SHA1 --build-arg=BRANCH=$CIRCLE_BRANCH'
           requires:
             - test
 

@@ -45,8 +45,7 @@ RUN gem update bundler
 RUN bundle install --without postgresql rmagick mysql
 RUN bundle exec rake db:migrate && bundle exec rake redmine:plugins:migrate \
   && bundle exec rake generate_secret_token
-RUN VERSION=$(cd plugins/redmine_banner && git rev-parse --short HEAD) && \
-  bundle exec rails runner \
+RUN bundle exec rails runner \
   "Setting.send('plugin_redmine_banner=', {enable: 'true', type: 'info', display_part: 'both', banner_description: 'This is a test message for Global Banner. (${COMMIT_BRANCH}:${COMMIT_SHA})'}.stringify_keys)"
 
 EXPOSE  3000

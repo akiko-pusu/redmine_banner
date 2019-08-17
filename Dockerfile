@@ -17,6 +17,7 @@ RUN apt-get install -qq -y build-essential libc6-dev
 RUN cd /tmp && svn co http://svn.redmine.org/redmine/branches/4.0-stable/ redmine
 WORKDIR /tmp/redmine
 
+COPY . /tmp/redmine/plugins/redmine_banner/
 
 # add database.yml (for development, development with mysql, test)
 RUN echo $'test:\n\

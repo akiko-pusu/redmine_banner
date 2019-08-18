@@ -48,5 +48,9 @@ RUN bundle exec rake db:migrate && bundle exec rake redmine:plugins:migrate \
 RUN bundle exec rails runner \
   "Setting.send('plugin_redmine_banner=', {enable: 'true', type: 'info', display_part: 'both', banner_description: 'This is a test message for Global Banner. (${COMMIT_BRANCH}:${COMMIT_SHA})'}.stringify_keys)"
 
+# Change Admin's password to 'redmine_banner_${COMMIT_SHA}'
+RUN bundle exec rails runner \
+  "User.find_by_login('admin').update!(password: 'redmine_banner_${COMMIT_SHA}', must_change_passwd: false)"
+
 EXPOSE  3000
 CMD ["rails", "server", "-b", "0.0.0.0"]

@@ -1,0 +1,150 @@
+swagger: "2.0"
+info:
+  description: |
+    Here is a API to handle Redmine's site wide banner.
+    Now prototype version.
+  version: "1.0.0-α"
+  title: "GlobalBanner API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "akiko.pusu@gmail.com"
+schemes:
+  - "http"
+  - "https"
+host: "localhost:3000"
+paths:
+  /banners/api/global_banner.json:
+    get:
+      summary: "Show Global Banner setting"
+      description: |
+        Show Global Banner setting as JSON format stored in a settings table.
+
+        Only Redmine Administrator or user assigned to group named **"GlobalBanner_Admin"** can use this api.
+        The way to authenticate follows Redmine itself.
+        - Exp. User parameter ?key=YOUR_API_KEY or HTTP Header: X-Redmine-API-Key and so on.
+        - Please see: http://www.redmine.org/projects/redmine/wiki/Rest_api#Authentication
+      parameters:
+      - name: "X-Redmine-API-Key"
+        in: "header"
+        description: "Your API KEY"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Response in success"
+          schema:
+            type: "object"
+            properties:
+              banner_description:
+                type: "string"
+                example: "This is a sample message."
+              display_part:
+                type: "string"
+                example: "both"
+              enable:
+                type: "string"
+                example: "true"
+              end_hour:
+                type: "string"
+                example: "16"
+              end_min:
+                type: "string"
+                example: "31"
+              end_ymd:
+                type: "string"
+                example: "2019-08-21"
+              related_link:
+                type: "string"
+                example: "http://localhost:3000/news"
+              start_hour:
+                type: "string"
+                example: "16"
+              start_min:
+                type: "string"
+                example: "31"
+              start_ymd:
+                type: "string"
+                example: "2019-08-20"
+              type:
+                type: "string"
+                example: "info"
+              use_timer:
+                type: "string"
+                example: "true"
+    put:
+      summary: "Update Global Banner setting"
+      description: |
+        Update Global Banner setting as JSON format stored in a settings table.
+
+        Only Redmine Administrator or user assigned to group named **"GlobalBanner_Admin"** can use this api.
+        The way to authenticate follows Redmine itself.
+        - Exp. User parameter ?key=YOUR_API_KEY or HTTP Header: X-Redmine-API-Key and so on.
+        - Please see: http://www.redmine.org/projects/redmine/wiki/Rest_api#Authentication
+      consumes:
+        - application/json
+      parameters:
+        - name: "X-Redmine-API-Key"
+          in: "header"
+          description: "Your API KEY"
+          required: true
+          type: "string"
+        - in: body
+          name: global_banner
+          description: Data to update Global Banner.
+          schema:
+            type: object
+            required:
+              - banner_description
+              - display_part
+              - type
+            properties:
+              banner_description:
+                type: string
+                example: "Message for Global Banner"
+              display_part:
+                type: "string"
+                example: "both"
+              enable:
+                type: "string"
+                example: "true"
+              end_hour:
+                type: "string"
+                example: "16"
+              end_min:
+                type: "string"
+                example: "31"
+              end_ymd:
+                type: "string"
+                example: "2019-08-21"
+              related_link:
+                type: "string"
+                example: "http://localhost:3000/news"
+              start_hour:
+                type: "string"
+                example: "16"
+              start_min:
+                type: "string"
+                example: "31"
+              start_ymd:
+                type: "string"
+                example: "2019-08-20"
+              type:
+                type: "string"
+                example: "info"
+              use_timer:
+                type: "string"
+                example: "true"
+      responses:
+        200:
+          description: "Response in success."
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "OK"
+              message:
+                type: "string"
+                example: "updatig the global banner"
+
+

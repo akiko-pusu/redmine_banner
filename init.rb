@@ -4,7 +4,7 @@ require 'banners/settings_controller_patch'
 require 'banners/projects_helper_patch'
 
 # NOTE: Keep error message for a while to support Redmine3.x users.
-def issue_template_version_message(original_message = nil)
+def banner_version_message(original_message = nil)
   <<-"USAGE"
   ==========================
   #{original_message}
@@ -45,6 +45,6 @@ Redmine::Plugin.register :redmine_banner do
       permission :manage_banner, { banner: %I[show edit project_banner_off] }, require: :member
     end
   rescue ::Redmine::PluginRequirementError => e
-    raise ::Redmine::PluginRequirementError.new(issue_template_version_message(e.message)) # rubocop:disable Style/RaiseArgs
+    raise ::Redmine::PluginRequirementError.new(banner_version_message(e.message)) # rubocop:disable Style/RaiseArgs
   end
 end

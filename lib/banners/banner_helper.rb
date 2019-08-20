@@ -1,7 +1,11 @@
 module Banners
   module BannerHelper
     def get_time(ymd, h, m)
-      d = Date.strptime(ymd, '%Y-%m-%d')
+      begin
+        d = Date.strptime(ymd, '%Y-%m-%d')
+      rescue
+        d = Date.current
+      end
       Time.mktime(d.year, d.month, d.day, h.to_i, m.to_i)
     end
 

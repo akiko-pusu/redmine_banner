@@ -91,4 +91,3 @@ module Banners
   end
 end
 
-SettingsController.prepend Banners::SettingsControllerPatch

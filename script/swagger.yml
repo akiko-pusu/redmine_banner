@@ -71,6 +71,17 @@ paths:
               use_timer:
                 type: "string"
                 example: "true"
+        401:
+          description: "Response in Unauthorized."
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "401"
+              message:
+                type: "string"
+                example: "Unauthorized"
     put:
       summary: "Update Global Banner setting"
       description: |
@@ -146,5 +157,26 @@ paths:
               message:
                 type: "string"
                 example: "updatig the global banner"
-
+        401:
+          description: "Response in Unauthorized."
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "401"
+              message:
+                type: "string"
+                example: "Unauthorized"
+        500:
+          description: "Response in internal error."
+          schema:
+            type: "object"
+            properties:
+              status:
+                type: "string"
+                example: "500"
+              message:
+                type: "string"
+                example: "Internal Server Error"
 

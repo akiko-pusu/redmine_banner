@@ -44,6 +44,12 @@ Redmine::Plugin.register :redmine_banner do
     project_module :banner do
       permission :manage_banner, { banner: %I[show edit project_banner_off] }, require: :member
     end
+
+    Rails.configuration.to_prepare do
+      unless SettingsController.included_modules.include?(Banners::SettingsControllerPatch)
+        SettingsController.send(:prepend, Banners::SettingsControllerPatch)
+      end
+    end
   rescue ::Redmine::PluginRequirementError => e
     raise ::Redmine::PluginRequirementError.new(banner_version_message(e.message)) # rubocop:disable Style/RaiseArgs
   end

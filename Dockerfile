@@ -8,7 +8,7 @@ LABEL maintainer="AKIKO TAKANO / (Twitter: @akiko_pusu)" \
   description="Image to run Redmine simply with sqlite to try/review plugin."
 
 ARG BRANCH="master"
-ARG COMMIT="unknown"
+ARG COMMIT="commit_sha"
 
 ENV COMMIT_SHA=${COMMIT}
 ENV COMMIT_BRANCH=${BRANCH}
@@ -49,6 +49,7 @@ RUN bundle exec rails runner \
   "Setting.send('plugin_redmine_banner=', {enable: 'true', type: 'info', display_part: 'both', banner_description: 'This is a test message for Global Banner. (${COMMIT_BRANCH}:${COMMIT_SHA})'}.stringify_keys)"
 
 # Change Admin's password to 'redmine_banner_${COMMIT_SHA}'
+# Default is 'redmine_banner_commit_sha'
 RUN bundle exec rails runner \
   "User.find_by_login('admin').update!(password: 'redmine_banner_${COMMIT_SHA}', must_change_passwd: false)"
 

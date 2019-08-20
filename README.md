@@ -129,6 +129,25 @@ NOTE: Mainly, maintenance, bugfix and refactoring only. There is no additional f
 
 * First release
 
+### Quick try with using Docker
+
+You can try quickly this plugin with Docker environment.
+Please try:
+
+```bash
+# Admin password is 'redmine_banner_commit_sha'
+$ https://github.com/akiko-pusu/redmine_banner
+$ docker-compose up web -d
+
+# or
+#
+# Admin password is 'redmine_banner_{COMMIT}'
+$ docker build --build-arg=COMMIT=$(git rev-parse --short HEAD) \
+  --build-arg=BRANCH=$(git name-rev --name-only HEAD) -t akiko/redmine_banner:latest .
+
+$ docker run -p 3000:3000 akiko/redmine_banner:latest
+```
+
 ### Repository
 
 * <https://github.com/akiko-pusu/redmine_banner>

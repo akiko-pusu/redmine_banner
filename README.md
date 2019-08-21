@@ -7,10 +7,12 @@ information or notifications.
 [![CircleCI](https://circleci.com/gh/akiko-pusu/redmine_banner/tree/master.svg?style=shield)](https://circleci.com/gh/akiko-pusu/redmine_banner/tree/master)
 [![Sider](https://img.shields.io/badge/Special%20Thanks!-Sider-blue.svg?)](https://sider.review/features)
 
+<img src='assets/images/banner-screenshot.png' width='500px'>
+
 ## Plugin installation
 
 1. Copy the plugin directory into the $REDMINE_ROOT/plugins directory. Please
-    note that plugin's folder name should be "redmine_banner". If
+    note that plugin's folder name should be **"redmine_banner"**. If
     changed, some migration task will be failed.
 2. Do migration task.
 

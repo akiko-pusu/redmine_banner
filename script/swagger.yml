@@ -33,44 +33,7 @@ paths:
         200:
           description: "Response in success"
           schema:
-            type: "object"
-            properties:
-              banner_description:
-                type: "string"
-                example: "This is a sample message."
-              display_part:
-                type: "string"
-                example: "both"
-              enable:
-                type: "string"
-                example: "true"
-              end_hour:
-                type: "string"
-                example: "16"
-              end_min:
-                type: "string"
-                example: "31"
-              end_ymd:
-                type: "string"
-                example: "2019-08-21"
-              related_link:
-                type: "string"
-                example: "http://localhost:3000/news"
-              start_hour:
-                type: "string"
-                example: "16"
-              start_min:
-                type: "string"
-                example: "31"
-              start_ymd:
-                type: "string"
-                example: "2019-08-20"
-              type:
-                type: "string"
-                example: "info"
-              use_timer:
-                type: "string"
-                example: "true"
+            $ref: '#/definitions/global_banner_body'
         401:
           description: "Response in Unauthorized."
           schema:
@@ -102,49 +65,9 @@ paths:
         - in: body
           name: global_banner
           description: Data to update Global Banner.
+          required: true
           schema:
-            type: object
-            required:
-              - banner_description
-              - display_part
-              - type
-            properties:
-              banner_description:
-                type: string
-                example: "Message for Global Banner"
-              display_part:
-                type: "string"
-                example: "both"
-              enable:
-                type: "string"
-                example: "true"
-              end_hour:
-                type: "string"
-                example: "16"
-              end_min:
-                type: "string"
-                example: "31"
-              end_ymd:
-                type: "string"
-                example: "2019-08-21"
-              related_link:
-                type: "string"
-                example: "http://localhost:3000/news"
-              start_hour:
-                type: "string"
-                example: "16"
-              start_min:
-                type: "string"
-                example: "31"
-              start_ymd:
-                type: "string"
-                example: "2019-08-20"
-              type:
-                type: "string"
-                example: "info"
-              use_timer:
-                type: "string"
-                example: "true"
+            $ref: '#/definitions/global_banner_body'
       responses:
         200:
           description: "Response in success."
@@ -179,4 +102,72 @@ paths:
               message:
                 type: "string"
                 example: "Internal Server Error"
+
+definitions:
+  global_banner_body:
+    type: "object"
+    properties:
+      global_banner:
+        $ref: "#/definitions/Globel_banner" # Storeを呼び出す
+  Globel_banner:
+    type: "object"
+    required:
+      - banner_description
+      - display_part
+      - type
+    properties:
+      banner_description:
+        type: string
+        example: "Message for Global Banner"
+      display_part:
+        type: "string"
+        example: "both"
+        enum: [header, footer, both]
+        description: >
+            Display part:
+             * `header` - Display banner on the top
+             * `footer` - Display banner on the bottom
+             * `both`   - Display banner both header and footer
+      enable:
+        type: "string"
+        example: "true"
+        enum: [true, false]
+      end_hour:
+        type: integer
+        example: 16
+        maximum: 23
+      end_min:
+        type: integer
+        example: 31
+        maximum: 59
+      end_ymd:
+        type: "string"
+        example: "2019-08-21"
+      related_link:
+        type: "string"
+        example: "http://localhost:3000/news"
+      start_hour:
+        type: integer
+        example: 16
+        maximum: 23
+      start_min:
+        type: integer
+        example: 31
+        maximum: 59
+      start_ymd:
+        type: "string"
+        example: "2019-08-20"
+      type:
+        type: "string"
+        example: "info"
+        enum: [info, warn, alert, normal, nodata]
+        description: >
+            type:
+             * `info` - Info style. (Pale blue)
+             * `warn` - Warning style. (Yellow)
+             * `alert`   - Alert style. (Pale red)
+             * `normal`  - White and without status icon.
+             * `nodata`  - Redmine's style.
+      use_timer:
+        type: "string"
 

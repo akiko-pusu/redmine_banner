@@ -11,7 +11,13 @@ module Banners
       end
 
       def register_banner
-        global_banner_params = build_params
+        begin
+          global_banner_params = build_params
+        rescue ActionController::ParameterMissing, ActionController::UnpermittedParameters => e
+          logger.warn("Global Banner Update failed. Caused: #{e.message}")
+          response_bad_request(e.message)
+          return
+        end
 
         retval = Setting.send('plugin_redmine_banner=', global_banner_params.stringify_keys)
 
@@ -27,16 +33,17 @@ module Banners
 
       # TODO: Validation is required
       def build_params
-        JSON.parse(request.body.read)
+        valid_params(params)
       end
 
       def global_banner_json
-        Setting['plugin_redmine_banner'].to_json
+        data = Setting['plugin_redmine_banner'].to_json
+        { global_banner: data }
       end
 
       # 400 Bad Request
-      def response_bad_request
-        render status: 400, json: { status: 400, message: 'Bad Request' }
+      def response_bad_request(error_message)
+        render status: 400, json: { status: 400, message: 'Bad Request', reason: error_message }
       end
 
       # 401 Unauthorized
@@ -57,7 +64,22 @@ module Banners
 
       def banner_admin?(user)
         banner_admin_group = Group.find_by_lastname('GlobalBanner_Admin')
+        return false if banner_admin_group.blank?
+
         banner_admin_group.users.include?(user)
+      end
+
+      def valid_params(params)
+        params.require(:global_banner).permit(
+          :banner_description,
+          :display_part,
+          :enable,
+          :end_hour, :end_min, :end_ymd,
+          :related_link,
+          :start_hour, :start_min, :start_ymd,
+          :type,
+          :use_timer
+        )
       end
     end
   end

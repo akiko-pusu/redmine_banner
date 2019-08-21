@@ -23,7 +23,7 @@ module Banners
         retval = Setting.send('plugin_redmine_banner=', global_banner_params.stringify_keys)
 
         if retval
-          render status: 200, json: { status: 'OK', message: 'updatig the global banner' }
+          render status: 200, json: { status: 'OK', message: 'updating the global banner' }
         else
           response_bad_request("Can't save data to settings table.")
         end
@@ -40,8 +40,7 @@ module Banners
       end
 
       def global_banner_json
-        data = Setting['plugin_redmine_banner'].to_json
-        { global_banner: data }
+        { global_banner: Setting['plugin_redmine_banner'] }
       end
 
       # 400 Bad Request

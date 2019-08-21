@@ -58,6 +58,28 @@ jobs:
             cp -r coverage/${CIRCLE_PROJECT_REPONAME}_test /tmp/coverage/
       - store_artifacts:
           path: /tmp/coverage
+  deploy_heroku:
+    machine:
+      image: circleci/classic:edge
+    steps:
+      - checkout
+      - run:
+          name: 'Install Heroku CLI, if necessary'
+          command: |
+            curl https://cli-assets.heroku.com/install.sh | sh
+      - run:
+          name: 'Build Docker Image'
+          command: |
+            heroku -v
+            docker build --build-arg=COMMIT=${CIRCLE_SHA1} \
+                --build-arg=BRANCH=${CIRCLE_BRANCH} -t registry.heroku.com/${HEROKU_APP_NAME}/web .
+      - run:
+          name: 'Release Docker Image'
+          command: |
+            docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
+            docker push registry.heroku.com/${HEROKU_APP_NAME}/web
+            #heroku container:push web --app ${HEROKU_APP_NAME}
+            heroku container:release web --app ${HEROKU_APP_NAME}
 
 workflows:
   build_test_push:
@@ -86,5 +108,17 @@ workflows:
           extra-build-args: '--build-arg COMMIT=$CIRCLE_SHA1 --build-arg=BRANCH=$CIRCLE_BRANCH'
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - master
+      - deploy_heroku:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore:
+                - dev
+                - master
 
 

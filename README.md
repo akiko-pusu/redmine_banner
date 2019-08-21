@@ -49,6 +49,19 @@ Please use ver **0.1.x** or ``v0.1.x-support-Redmine3`` branch in case using Red
 
 ## Changelog
 
+### 0.2.1
+
+* Fix: Prevent conflict with CKEditor. (GitHub: #111)
+* Code refactoring.
+* Add feature to update Global Banner via API. (Alpha / Related: #86 #113)
+  * Not only Redmine admin but also user who assigned group named **GlobalBanner_Admin** can also update Global banner via API.
+  * Even prptotype version.
+  * Please see [swagger.yml](script/swagger.yml) to try update global banner via API.
+* Update CI Setting
+  * Add step to build and push image to AWS ECR.
+  * Add steps to build and deploy to Heroku Container registry as release container service.
+* Add how to try banner via Docker in README.
+
 ### 0.2.0
 
 * Support Redmine 4.x.

@@ -167,7 +167,6 @@ definitions:
              * `warn` - Warning style. (Yellow)
              * `alert`   - Alert style. (Pale red)
              * `normal`  - White and without status icon.
-             * `nodata`  - Redmine's style.
       use_timer:
         type: "string"
 

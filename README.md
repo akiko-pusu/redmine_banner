@@ -148,6 +148,25 @@ $ docker build --build-arg=COMMIT=$(git rev-parse --short HEAD) \
 $ docker run -p 3000:3000 akiko/redmine_banner:latest
 ```
 
+### Run test
+
+Please see wercker.yml for more details.
+
+```bash
+% cd REDMINE_ROOT_DIR
+% cp plugins/redmine_banner/Gemfile.local plugins/redmine_banner/Gemfile
+% bundle install --with test
+% export RAILS_ENV=test
+% bundle exec ruby -I"lib:test" -I plugins/redmine_banner/test plugins/ \
+  redmine_banner/test/controller/global_banner_controller_test.rb
+```
+
+or
+
+```bash
+% bundle exec rails redmine_banner:test
+```
+
 ### Repository
 
 * <https://github.com/akiko-pusu/redmine_banner>

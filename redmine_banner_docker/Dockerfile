@@ -13,7 +13,6 @@ ARG COMMIT="commit_sha"
 ENV COMMIT_SHA=${COMMIT}
 ENV COMMIT_BRANCH=${BRANCH}
 
-RUN mkdir /app
 
 ### get Redmine source
 ### Replace shell with bash so we can source files ###
@@ -26,19 +25,19 @@ RUN apt-get install -qq -y --no-install-recommends \
     git vim subversion      \
     sqlite3 && rm -rf /var/lib/apt/lists/*
 
-RUN cd /app && svn co http://svn.redmine.org/redmine/branches/4.0-stable/ redmine
-WORKDIR /app/redmine
+RUN cd /tmp && svn co http://svn.redmine.org/redmine/branches/4.0-stable/ redmine
+WORKDIR /tmp/redmine
 
-COPY . /app/redmine/plugins/redmine_banner/
+COPY . /tmp/redmine/plugins/redmine_banner/
 
 # add database.yml (for development, development with mysql, test)
 RUN echo $'test:\n\
   adapter: sqlite3\n\
-  database: /app/data/redmine_test.sqlite3\n\
+  database: /tmp/data/redmine_test.sqlite3\n\
   encoding: utf8mb4\n\
 development:\n\
   adapter: sqlite3\n\
-  database: /app/data/redmine_development.sqlite3\n\
+  database: /tmp/data/redmine_development.sqlite3\n\
   encoding: utf8mb4\n'\
 >> config/database.yml
 
@@ -55,5 +54,4 @@ RUN bundle exec rails runner \
   "User.find_by_login('admin').update!(password: 'redmine_banner_${COMMIT_SHA}', must_change_passwd: false)"
 
 EXPOSE  3000
-RUN ls /app/redmine
 CMD ["rails", "server", "-b", "0.0.0.0"]

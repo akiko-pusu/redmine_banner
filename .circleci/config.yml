@@ -2,7 +2,10 @@
 #
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
-version: 2
+orbs:
+  aws-ecr: circleci/aws-ecr@6.2.0
+
+version: 2.1
 
 general:
   artifacts:
@@ -55,12 +58,37 @@ jobs:
             cp -r coverage/${CIRCLE_PROJECT_REPONAME}_test /tmp/coverage/
       - store_artifacts:
           path: /tmp/coverage
+  deploy_heroku:
+    machine:
+      image: circleci/classic:edge
+    steps:
+      - checkout
+      - run:
+          name: 'Install Heroku CLI, if necessary'
+          command: |
+            curl https://cli-assets.heroku.com/install.sh | sh
+      - run:
+          name: 'Build Docker Image'
+          command: |
+            heroku -v
+            docker build --build-arg=COMMIT=${CIRCLE_SHA1} \
+                --build-arg=BRANCH=${CIRCLE_BRANCH} -t registry.heroku.com/${HEROKU_APP_NAME}/web .
+      - run:
+          name: 'Release Docker Image'
+          command: |
+            docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
+            docker push registry.heroku.com/${HEROKU_APP_NAME}/web
+            #heroku container:push web --app ${HEROKU_APP_NAME}
+            heroku container:release web --app ${HEROKU_APP_NAME}
 
 workflows:
-  version: 2
-  build_and_test:
+  build_test_push:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              ignore:
+                - /ignore-build-.*/
       - test:
           requires:
             - build
@@ -68,4 +96,28 @@ workflows:
             branches:
               ignore:
                 - /v0.1.x-support-Redmine3.*/
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          create-repo: true
+          dockerfile: Dockerfile
+          path: .
+          region: AWS_REGION
+          repo: redmine_banner
+          extra-build-args: '--build-arg COMMIT=$CIRCLE_SHA1 --build-arg=BRANCH=$CIRCLE_BRANCH'
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+      - deploy_heroku:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore:
+                - master
+
 

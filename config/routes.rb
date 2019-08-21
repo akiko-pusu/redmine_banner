@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   concern :previewable do
     post 'preview', on: :collection
@@ -16,5 +18,14 @@ Rails.application.routes.draw do
   resources :banner, only: %i[preview off], concerns: [:previewable] do
     post 'off', on: :collection
     get 'off', on: :collection
+  end
+
+  namespace 'banners' do
+    namespace 'api' do
+      resource :global_banner, only: %i[register_banner] do
+        put '/', to: 'global_banner#register_banner', on: :member
+        get '/', to: 'global_banner#show', on: :member
+      end
+    end
   end
 end

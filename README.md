@@ -49,6 +49,19 @@ Please use ver **0.1.x** or ``v0.1.x-support-Redmine3`` branch in case using Red
 
 ## Changelog
 
+### 0.2.1
+
+* Fix: Prevent conflict with CKEditor. (GitHub: #111)
+* Code refactoring.
+* Add feature to update Global Banner via API. (Alpha / Related: #86 #113)
+  * Not only Redmine admin but also user who assigned group named **GlobalBanner_Admin** can also update Global banner via API.
+  * Even prptotype version.
+  * Please see [swagger.yml](script/swagger.yml) to try update global banner via API.
+* Update CI Setting
+  * Add step to build and push image to AWS ECR.
+  * Add steps to build and deploy to Heroku Container registry as release container service.
+* Add how to try banner via Docker in README.
+
 ### 0.2.0
 
 * Support Redmine 4.x.
@@ -128,6 +141,44 @@ NOTE: Mainly, maintenance, bugfix and refactoring only. There is no additional f
 ### 0.0.1
 
 * First release
+
+### Quick try with using Docker
+
+You can try quickly this plugin with Docker environment.
+Please try:
+
+```bash
+# Admin password is 'redmine_banner_commit_sha'
+$ https://github.com/akiko-pusu/redmine_banner
+$ docker-compose up web -d
+
+# or
+#
+# Admin password is 'redmine_banner_{COMMIT}'
+$ docker build --build-arg=COMMIT=$(git rev-parse --short HEAD) \
+  --build-arg=BRANCH=$(git name-rev --name-only HEAD) -t akiko/redmine_banner:latest .
+
+$ docker run -p 3000:3000 akiko/redmine_banner:latest
+```
+
+### Run test
+
+Please see wercker.yml for more details.
+
+```bash
+% cd REDMINE_ROOT_DIR
+% cp plugins/redmine_banner/Gemfile.local plugins/redmine_banner/Gemfile
+% bundle install --with test
+% export RAILS_ENV=test
+% bundle exec ruby -I"lib:test" -I plugins/redmine_banner/test plugins/ \
+  redmine_banner/test/controller/global_banner_controller_test.rb
+```
+
+or
+
+```bash
+% bundle exec rails redmine_banner:test
+```
 
 ### Repository
 

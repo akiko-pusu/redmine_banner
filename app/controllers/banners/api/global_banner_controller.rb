@@ -17,9 +17,7 @@ module Banners
         begin
           global_banner_params = build_params
         rescue ActionController::ParameterMissing, ActionController::UnpermittedParameters => e
-          logger.warn("Global Banner Update failed. Caused: #{e.message}")
-          response_bad_request(e.message)
-          return
+          response_bad_request(e.message) && (return)
         end
 
         retval = Setting.send('plugin_redmine_banner=', global_banner_params.stringify_keys)
@@ -27,13 +25,15 @@ module Banners
         if retval
           render status: 200, json: { status: 'OK', message: 'updatig the global banner' }
         else
-          render status: 400, json: { status: 400, message: 'Bad Request' }
+          response_bad_request("Can't save data to settings table.")
         end
       rescue StandardError => e
-        logger.warn("Global Banner Update failed. Caused: #{e.message}")
-        response_internal_server_error
+        response_internal_server_error(e.message)
       end
 
+      private
+
+      # TODO: Private methods should be refactoring.
       # TODO: Validation is required
       def build_params
         valid_params(params)
@@ -45,8 +45,11 @@ module Banners
       end
 
       # 400 Bad Request
-      def response_bad_request(error_message)
-        render status: 400, json: { status: 400, message: 'Bad Request', reason: error_message }
+      def response_bad_request(error_message = nil)
+        json_data = { status: 400, message: 'Bad Request' }
+        json_data.merge!(reason: error_message) if error_message.present?
+        logger.warn("Global Banner Update failed. Caused: #{json_data}")
+        render status: 400, json: json_data
       end
 
       # 401 Unauthorized
@@ -55,8 +58,11 @@ module Banners
       end
 
       # 500 Internal Server Error
-      def response_internal_server_error
-        render status: 500, json: { status: 500, message: 'Internal Server Error' }
+      def response_internal_server_error(error_message = nil)
+        json_data = { status: 500, message: 'Internal Server Error' }
+        json_data.merge!(reason: error_message) if error_message.present?
+        logger.warn("Global Banner Update failed. Caused: #{json_data}")
+        render status: 500, json: json_data
       end
 
       def require_banner_admin

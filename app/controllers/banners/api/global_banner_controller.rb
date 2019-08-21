@@ -3,6 +3,9 @@
 module Banners
   module Api
     class GlobalBannerController < ApplicationController
+      # TODO: This group should be customize.
+      GLOBAL_BANNER_ADMIN_GROUP = 'GlobalBanner_Admin'
+
       before_action :require_login, :require_banner_admin
       accept_api_auth :show, :register_banner
 
@@ -63,7 +66,7 @@ module Banners
       end
 
       def banner_admin?(user)
-        banner_admin_group = Group.find_by_lastname('GlobalBanner_Admin')
+        banner_admin_group = Group.find_by_lastname(GLOBAL_BANNER_ADMIN_GROUP)
         return false if banner_admin_group.blank?
 
         banner_admin_group.users.include?(user)

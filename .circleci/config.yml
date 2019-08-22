@@ -89,6 +89,7 @@ workflows:
             branches:
               ignore:
                 - /ignore-build-.*/
+                - master
       - test:
           requires:
             - build
@@ -104,20 +105,17 @@ workflows:
           dockerfile: Dockerfile
           path: .
           region: AWS_REGION
-          repo: redmine_banner
+          repo: akiko/redmine_banner
           extra-build-args: '--build-arg COMMIT=$CIRCLE_SHA1 --build-arg=BRANCH=$CIRCLE_BRANCH'
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - master
-      - deploy_heroku:
           requires:
             - build
           filters:
             branches:
-              ignore:
-                - master
+              only:
+                - ecs-trial
+      - deploy_heroku:
+          requires:
+            - test
+
 
 

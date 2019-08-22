@@ -1,26 +1,24 @@
 version: '3.2'
 services:
   # start service for redmine with plugin
-  # 1. $ docker-compose build --force-rm --no-cache
+  # 1. Build
+  # $ docker-compose build --force-rm --no-cache
+  #   or
+  # $ docker build --build-arg=COMMIT=$(git rev-parse --short HEAD) \
+  #    --build-arg=BRANCH=$(git name-rev --name-only HEAD) \
+  #    -t akiko/redmine_banner:latest .
+  #
   # 2. $ docker-compose up -d web
   #
   #
   web:
     build:
       context: .
-    image: redmine_sqlite3
+    image: akiko/redmine_banner:latest
     container_name: redmine_sqlite3
-    command: >
-      bash -c "bundle &&
-           bundle exec rake db:migrate &&
-           bundle exec rake redmine:plugins:migrate &&
-           bundle exec rake generate_secret_token &&
-           bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       RAILS_ENV: development
     volumes:
       - .:/app/redmine/plugins/redmine_banner
     ports:
       - "3000:3000"
-
-

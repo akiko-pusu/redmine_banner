@@ -72,14 +72,46 @@ jobs:
           command: |
             heroku -v
             docker build --build-arg=COMMIT=${CIRCLE_SHA1} \
-                --build-arg=BRANCH=${CIRCLE_BRANCH} -t registry.heroku.com/${HEROKU_APP_NAME}/web .
+                --build-arg=BRANCH=${CIRCLE_BRANCH} -t registry.heroku.com/${HEROKU_APP_NAME}/web \
+                -f script/Dockerfile_heroku .
+      - run:
+          name: heroku maintenance on
+          command: heroku maintenance:on --app ${HEROKU_APP_NAME}
       - run:
           name: 'Release Docker Image'
           command: |
             docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
             docker push registry.heroku.com/${HEROKU_APP_NAME}/web
-            #heroku container:push web --app ${HEROKU_APP_NAME}
             heroku container:release web --app ${HEROKU_APP_NAME}
+      - run:
+          name: heroku db migrate
+          command: |
+            heroku run rails db:migrate --app ${HEROKU_APP_NAME}
+            heroku run rails redmine:plugins:migrate --app ${HEROKU_APP_NAME}
+      - run:
+          name: update pass
+          command: |
+            heroku config:set BANNER_VER="redmine_banner_${CIRCLE_SHA1}" --app ${HEROKU_APP_NAME}
+            heroku run rails runner \
+              'api_key=ENV["BANNER_API_KEY"]; pass=ENV["BANNER_VER"]; admin=User.find_by_login("admin"); \
+                admin.update!(password: pass, must_change_passwd: false); Setting.rest_api_enabled = "1"; \
+                Token.where(action: "api").where(user_id: admin.id).first.update_attributes(value: api_key); exit' \
+                --app ${HEROKU_APP_NAME}
+      - run:
+          name: update message
+          no_output_timeout: 15m
+          command: |
+            heroku run rails runner 'version=ENV["BANNER_VER"]; Setting.send("plugin_redmine_banner=", \
+                 {enable: "true", type: "info", display_part: "both", banner_description: \
+                 "This is a test message for Global Banner. \
+                 (#{version} / Redmine trunk: #{Redmine::VERSION::REVISION})"}.stringify_keys); \
+                  exit' --app ${HEROKU_APP_NAME}
+
+      - run:
+          name: heroku maintenance off
+          command: |
+            heroku config:unset BANNER_VER --app ${HEROKU_APP_NAME}
+            heroku maintenance:off --app ${HEROKU_APP_NAME}
 
 workflows:
   build_test_push:

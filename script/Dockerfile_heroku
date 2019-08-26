@@ -1,0 +1,52 @@
+#
+# docker build ./script Dokerfile_heroku \
+#  --build-arg=COMMIT=$(git rev-parse --short HEAD) \
+# --build-arg=BRANCH=$(git name-rev --name-only HEAD) -t akiko/redmine_banner:latest .
+#
+#
+FROM ruby:2.5
+LABEL maintainer="AKIKO TAKANO / (Twitter: @akiko_pusu)" \
+  description="Image to run Redmine simply with sqlite to try/review plugin."
+
+ARG BRANCH="master"
+ARG COMMIT="commit_sha"
+
+ENV COMMIT_SHA=${COMMIT}
+ENV COMMIT_BRANCH=${BRANCH}
+
+RUN mkdir /app
+
+### get Redmine source
+### Replace shell with bash so we can source files ###
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+### install default sys packeges ###
+
+RUN apt-get update
+RUN apt-get install -qq -y --no-install-recommends \
+    git vim subversion postgresql-client \
+    sqlite3 && rm -rf /var/lib/apt/lists/*
+
+RUN cd /app && svn co http://svn.redmine.org/redmine/trunk redmine
+WORKDIR /app/redmine
+
+COPY . /app/redmine/plugins/redmine_banner/
+
+RUN echo $'test:\n\
+  adapter: sqlite3\n\
+  database: /app/data/redmine_test.sqlite3\n\
+  encoding: utf8mb4\n\
+production:\n\
+  adapter: postgresql\n\
+  database: redmine\n\
+  host: localhost\n\
+  username: postgres\n\
+  password: postgres\n'\
+>> config/database.yml
+
+RUN gem update bundler
+RUN bundle install --without rmagick mysql
+RUN bundle exec rake generate_secret_token
+
+EXPOSE  3000
+CMD ["rails", "server", "-b", "0.0.0.0"]

@@ -72,14 +72,38 @@ jobs:
           command: |
             heroku -v
             docker build --build-arg=COMMIT=${CIRCLE_SHA1} \
-                --build-arg=BRANCH=${CIRCLE_BRANCH} -t registry.heroku.com/${HEROKU_APP_NAME}/web .
+                --build-arg=BRANCH=${CIRCLE_BRANCH} -t registry.heroku.com/${HEROKU_APP_NAME}/web \
+                -f script/Dockerfile_heroku .
+      - run:
+          name: heroku maintenance on
+          command: heroku maintenance:on --app ${HEROKU_APP_NAME}
       - run:
           name: 'Release Docker Image'
           command: |
             docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
             docker push registry.heroku.com/${HEROKU_APP_NAME}/web
-            #heroku container:push web --app ${HEROKU_APP_NAME}
             heroku container:release web --app ${HEROKU_APP_NAME}
+      - run:
+          name: heroku db migrate
+          command: |
+            heroku run rails db:migrate --app ${HEROKU_APP_NAME}
+            heroku run rails redmine:plugins:migrate --app ${HEROKU_APP_NAME}
+            heroku run rails generate_secret_token --app ${HEROKU_APP_NAME}
+      - run:
+          name: update message
+          command: |
+            REDMINE_VERSION=`svn info | grep Rev`
+            heroku run rails runner "Setting.send('plugin_redmine_banner=', \
+                 {enable: 'true', type: 'info', display_part: 'both', banner_description: \
+                 'This is a test message for Global Banner. \
+                  (${CIRCLE_BRANCH}:${CIRCLE_SHA1} - Redmine trunk: \
+                  ${REDMINE_VERSION})'}.stringify_keys)"
+            heroku rails runner \
+                "User.find_by_login('admin').update!(password: \
+                'redmine_banner_${CIRCLE_SHA1}', must_change_passwd: false)"
+      - run:
+          name: heroku maintenance off
+          command: heroku maintenance:off --app ${HEROKU_APP_NAME}
 
 workflows:
   build_test_push:

@@ -90,22 +90,10 @@ jobs:
             heroku run rails redmine:plugins:migrate --app ${HEROKU_APP_NAME}
       - run:
           name: update pass
-          command: |
-            heroku config:set BANNER_VER="redmine_banner_${CIRCLE_SHA1}" --app ${HEROKU_APP_NAME}
-            heroku run rails runner \
-              'api_key=ENV["BANNER_API_KEY"]; pass=ENV["BANNER_VER"]; admin=User.find_by_login("admin"); \
-                admin.update!(password: pass, must_change_passwd: false); Setting.rest_api_enabled = "1"; \
-                Token.where(action: "api").where(user_id: admin.id).first.update_attributes(value: "redmine_osaka"); exit' \
-                --app ${HEROKU_APP_NAME}
-      - run:
-          name: update message
           no_output_timeout: 15m
           command: |
-            heroku run rails runner 'Setting.send("plugin_redmine_banner=", \
-                 {enable: "true", type: "info", display_part: "both", banner_description: \
-                 "This is a test message for Global Banner. \
-                 (Redmine trunk: #{Redmine::VERSION::REVISION})"}.stringify_keys); \
-                  exit' --app ${HEROKU_APP_NAME}
+            heroku config:set BANNER_VER="redmine_banner_${CIRCLE_SHA1}" --app ${HEROKU_APP_NAME}
+            heroku run rails runner plugins/redmine_banner/script/heroku_runner.rb --app ${HEROKU_APP_NAME}
 
       - run:
           name: heroku maintenance off

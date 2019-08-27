@@ -4,6 +4,7 @@
 #
 orbs:
   aws-ecr: circleci/aws-ecr@6.2.0
+  heroku: circleci/heroku@0.0.8
 
 version: 2.1
 
@@ -83,6 +84,10 @@ jobs:
             docker login --username=_ --password=$HEROKU_AUTH_TOKEN registry.heroku.com
             docker push registry.heroku.com/${HEROKU_APP_NAME}/web
             heroku container:release web --app ${HEROKU_APP_NAME}
+  migrate_heroku:
+    executor: heroku/default
+    steps:
+      - heroku/install
       - run:
           name: heroku db migrate
           command: |
@@ -136,6 +141,14 @@ workflows:
       - deploy_heroku:
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - heroku-config
+                - dev
+      - migrate_heroku:
+          requires:
+            - deploy_heroku
 
 
 

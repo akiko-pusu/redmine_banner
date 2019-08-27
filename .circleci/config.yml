@@ -95,16 +95,16 @@ jobs:
             heroku run rails runner \
               'api_key=ENV["BANNER_API_KEY"]; pass=ENV["BANNER_VER"]; admin=User.find_by_login("admin"); \
                 admin.update!(password: pass, must_change_passwd: false); Setting.rest_api_enabled = "1"; \
-                Token.where(action: "api").where(user_id: admin.id).first.update_attributes(value: api_key); exit' \
+                Token.where(action: "api").where(user_id: admin.id).first.update_attributes(value: "redmine_osaka"); exit' \
                 --app ${HEROKU_APP_NAME}
       - run:
           name: update message
           no_output_timeout: 15m
           command: |
-            heroku run rails runner 'version=ENV["BANNER_VER"]; Setting.send("plugin_redmine_banner=", \
+            heroku run rails runner 'Setting.send("plugin_redmine_banner=", \
                  {enable: "true", type: "info", display_part: "both", banner_description: \
                  "This is a test message for Global Banner. \
-                 (#{version} / Redmine trunk: #{Redmine::VERSION::REVISION})"}.stringify_keys); \
+                 (Redmine trunk: #{Redmine::VERSION::REVISION})"}.stringify_keys); \
                   exit' --app ${HEROKU_APP_NAME}
 
       - run:

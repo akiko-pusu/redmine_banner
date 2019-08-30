@@ -33,9 +33,9 @@ WORKDIR /app/redmine
 
 COPY . /app/redmine/plugins/redmine_banner/
 
-#RUN cd /app/redmine/plugins && git clone https://github.com/ishikawa999/redmine_message_customize.git
+RUN cd /app/redmine/plugins && git clone https://github.com/ishikawa999/redmine_message_customize.git
 
-RUN cd /app/redmine/public/themes && git clone https://github.com/akiko-pusu/redmine_theme_kodomo.git
+#RUN cd /app/redmine/public/themes && git clone https://github.com/akiko-pusu/redmine_theme_kodomo.git
 
 WORKDIR /app/redmine
 

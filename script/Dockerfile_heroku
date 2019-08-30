@@ -13,6 +13,7 @@ ARG COMMIT="commit_sha"
 
 ENV COMMIT_SHA=${COMMIT}
 ENV COMMIT_BRANCH=${BRANCH}
+ENV LANG C.UTF-8
 
 RUN mkdir /app
 
@@ -31,6 +32,12 @@ RUN cd /app && svn co http://svn.redmine.org/redmine/trunk redmine
 WORKDIR /app/redmine
 
 COPY . /app/redmine/plugins/redmine_banner/
+
+#RUN cd /app/redmine/plugins && git clone https://github.com/ishikawa999/redmine_message_customize.git
+
+RUN cd /app/redmine/public/themes && git clone https://github.com/akiko-pusu/redmine_theme_kodomo.git
+
+WORKDIR /app/redmine
 
 RUN echo $'test:\n\
   adapter: sqlite3\n\

@@ -145,6 +145,7 @@ workflows:
             branches:
               only:
                 - heroku-config
+                - osaka-demo
                 - dev
       - migrate_heroku:
           requires:

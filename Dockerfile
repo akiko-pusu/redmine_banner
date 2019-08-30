@@ -31,6 +31,14 @@ WORKDIR /app/redmine
 
 COPY . /app/redmine/plugins/redmine_banner/
 
+WORKDIR /app/redmine/plugins
+RUN git clone https://github.com/ishikawa999/redmine_message_customize.git
+
+WORKDIR /app/redmine/public/themes
+RUN git clone https://github.com/akiko-pusu/redmine_theme_kodomo.git
+
+WORKDIR /app/redmine
+
 # add database.yml (for development, development with mysql, test)
 RUN echo $'test:\n\
   adapter: sqlite3\n\

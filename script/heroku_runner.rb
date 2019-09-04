@@ -35,12 +35,26 @@ token.update_attributes(value: api_key) unless token.blank?
 banner_user.api_token = token
 banner_user.save
 
+# Load message file
+ja_kodomo_file = "#{Rails.root}/public/themes/redmine_theme_kodomo/i18n/message_ja.yml"
+custom_message_setting = CustomMessageSetting.find_or_default
+custom_message_setting.update_with_custom_messages_yaml(File.read(ja_kodomo_file))
+
 description = 'This is a test message for Global Banner. '
 description += "(#{version} / Redmine trunk: #{Redmine::VERSION::REVISION || Redmine::VERSION})"
 
-puts version
-puts description
+# Add banner message
+message = {
+  enable: 'true',
+  type: 'info',
+  display_part: 'both',
+  banner_description: description
+}
 
-Setting.send('plugin_redmine_banner=',
-             { enable: 'true', type: 'info', display_part: 'both',
-               banner_description: description }.stringify_keys)
+banner_setting = Setting.find_or_default('plugin_redmine_banner')
+banner_setting.value = message.stringify_keys
+banner_setting.save
+
+# Apply theme
+Setting.ui_theme = 'redmine_theme_kodomo'
+Setting.app_title = 'こどもれっどまいん'

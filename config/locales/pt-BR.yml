@@ -23,7 +23,7 @@ pt-BR:
   page_overview_and_issues: "Visão geral e Tarefas"
   page_new_issue_only: "Somente para novas tarefas"
   label_display_authenticated_user_only: "Mostrar somente para usuários autenticados"
-  lalel_check_if_banner_show_only_login_page: "Mostrar somente na página de Login"
+  label_check_if_banner_show_only_login_page: "Mostrar somente na página de Login"
   setting_banner_related_link: "Link relacionado"
   setting_banner_related_link_description: "Se definido, link para mais informações é anexado."
   more_info: "[Mais Informações]"

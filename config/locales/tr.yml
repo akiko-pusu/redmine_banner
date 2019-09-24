@@ -21,7 +21,7 @@ tr:
   page_overview_and_issues: "Genel ve işler"
   page_new_issue_only: "Yeni İş açma yalnızca"
   label_display_authenticated_user_only: "Sadece kimlik doğrulaması olan kullanıcılarda çıksın."
-  lalel_check_if_banner_show_only_login_page: "Opsiyon: Sadece oturum açma ekranında çıksın."
+  label_check_if_banner_show_only_login_page: "Opsiyon: Sadece oturum açma ekranında çıksın."
   setting_banner_related_link: "İlgili bağlantı"
   setting_banner_related_link_description: "tanımlıysa, daha fazla bilgi bağlantısı eklenir."
   more_info: "[Daha fazla bilgi]"

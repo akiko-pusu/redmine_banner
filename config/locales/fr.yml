@@ -21,7 +21,7 @@ fr:
   page_overview_and_issues: "Aperçus et demandes"
   page_new_issue_only: "Nouvelles demandes seulement"
   label_display_authenticated_user_only: "Afficher la bannière uniquement pour les personnes authentifiées."
-  lalel_check_if_banner_show_only_login_page: "Option : Afficher uniquement sur la page de connexion."
+  label_check_if_banner_show_only_login_page: "Option : Afficher uniquement sur la page de connexion."
   setting_banner_related_link: "Lien apparenté"
   setting_banner_related_link_description: "Si défini, le lien sera ajouté dans la bannière."
   more_info: "[Plus d'informations]"

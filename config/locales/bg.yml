@@ -21,7 +21,7 @@ bg:
   page_overview_and_issues: "Общ изглед и задачи"
   page_new_issue_only: "Само нови задачи"
   label_display_authenticated_user_only: "Показване на банери само за регистрирани потребители (logged in)."
-  lalel_check_if_banner_show_only_login_page: "По избор: Показване само на страницата за вход в Redmine."
+  label_check_if_banner_show_only_login_page: "По избор: Показване само на страницата за вход в Redmine."
   setting_banner_related_link: "Връзка"
   setting_banner_related_link_description: "Добавя връзка към повече информация, ако е дефинирана."
   more_info: "[Повече информация]"

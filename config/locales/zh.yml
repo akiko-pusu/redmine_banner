@@ -21,7 +21,7 @@ zh:
   page_overview_and_issues: "概述页面和问题页面"
   page_new_issue_only: "仅新建问题页面"  
   label_display_authenticated_user_only: "仅对授权用户显示对应的Banner信息"
-  lalel_check_if_banner_show_only_login_page: "选项：仅在登陆页面上显示。"
+  label_check_if_banner_show_only_login_page: "选项：仅在登陆页面上显示。"
   setting_banner_related_link: "相关链接"
   setting_banner_related_link_description: "若定义，点击相关链接展开更多信息。"
   more_info: "[更多…]"

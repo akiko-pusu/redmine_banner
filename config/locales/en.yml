@@ -21,7 +21,7 @@ en:
   page_overview_and_issues: "Overview and Issues"
   page_new_issue_only: "New issue only"
   label_display_authenticated_user_only: "Show banner only for authenticated users."
-  lalel_check_if_banner_show_only_login_page: "Option: Display only at the login page."
+  label_check_if_banner_show_only_login_page: "Option: Display only at the login page."
   setting_banner_related_link: "Related link"
   setting_banner_related_link_description: "If defined, link for more information is appended."
   more_info: "[More Info]"

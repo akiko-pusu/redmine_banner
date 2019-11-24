@@ -21,7 +21,7 @@ ja:
   page_overview_and_issues: "概要とチケットトラッキングのページ"
   page_new_issue_only: "新規チケットのページ"
   label_display_authenticated_user_only: "ログインユーザのみ表示"
-  lalel_check_if_banner_show_only_login_page: "オプション: ログインページのみ表示"
+  label_check_if_banner_show_only_login_page: "オプション: ログインページのみ表示"
   setting_banner_related_link: "関連リンク"
   setting_banner_related_link_description: "関連／詳細情報へのリンクをメッセージに追加します。"
   more_info: "[詳細]"

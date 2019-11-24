@@ -21,4 +21,4 @@ ko:
   page_overview_and_issues: "초기화면과 일감"
   page_new_issue_only: "새로운 일감만"  
   label_display_authenticated_user_only: "인증된 사용자만 배너 보임"
-  lalel_check_if_banner_show_only_login_page: "옵션: 로그인 페이지에서만 보임"
+  label_check_if_banner_show_only_login_page: "옵션: 로그인 페이지에서만 보임"

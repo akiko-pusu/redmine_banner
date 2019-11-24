@@ -21,7 +21,7 @@ es:
   page_overview_and_issues: "Vista general y tareas"
   page_new_issue_only: "Solo en nueva tarea"
   label_display_authenticated_user_only: "Mostrar solo el baner solo a los usuarios autenticados."
-  lalel_check_if_banner_show_only_login_page: "Opción: Mostrar solo en la pagina de acceso."
+  label_check_if_banner_show_only_login_page: "Opción: Mostrar solo en la pagina de acceso."
   setting_banner_related_link: "Enlace relacionado"
   setting_banner_related_link_description: "Si se define, Enlace para obtener información adjunta."
   more_info: "[Más info]"

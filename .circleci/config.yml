@@ -108,7 +108,7 @@ workflows:
           extra-build-args: '--build-arg COMMIT=$CIRCLE_SHA1 --build-arg=BRANCH=$CIRCLE_BRANCH'
           requires:
             - test
-          tag: 'lates,$CIRCLE_BUILD_NUM'
+          tag: '$CIRCLE_BUILD_NUM'
           filters:
             branches:
               only:

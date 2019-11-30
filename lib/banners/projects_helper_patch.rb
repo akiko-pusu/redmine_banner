@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'projects_helper'
 
 module Banners
@@ -24,4 +26,6 @@ module Banners
   end
 end
 
-ProjectsController.helper(Banners::ProjectsHelperPatch)
+unless ProjectsHelper.included_modules.include?(Banners::ProjectsHelperPatch)
+  ProjectsHelper.prepend(Banners::ProjectsHelperPatch)
+end

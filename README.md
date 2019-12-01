@@ -51,6 +51,15 @@ Please use ver **0.1.x** or ``v0.1.x-support-Redmine3`` branch in case using Red
 
 ## Changelog
 
+### 0.2.2
+
+
+This is bugfix release against 0.2.1.
+Updating to 0.2.2 is highly recommended!
+
+* Fix: Prevent conflict with other plugins. (GitHub: #121)
+* French translation update by sparunakian (GitHub: #117)
+
 ### 0.2.1
 
 * Fix: Prevent conflict with CKEditor. (GitHub: #111)

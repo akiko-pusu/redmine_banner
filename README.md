@@ -51,8 +51,14 @@ Please use ver **0.1.x** or ``v0.1.x-support-Redmine3`` branch in case using Red
 
 ## Changelog
 
-### 0.2.2
+### 0.3.0
 
+* Add feature: Give the ability to specific users to manage the site-wide banner. (GitHub: #86 / #113)
+  * Administrator can assign a group to manage global banner via UI.
+* Code refactoring for maintainability.
+* Change not to use SettingsController's patch to the update global banner.
+
+### 0.2.2
 
 This is bugfix release against 0.2.1.
 Updating to 0.2.2 is highly recommended!

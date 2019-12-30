@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 require File.expand_path('../test_helper', __dir__)
 require 'projects_controller'
 
 # Re-raise errors caught by the controller.
-class ProjectsController; def rescue_action(e)
-                            raise e
-                          end
+class ProjectsController
+  def rescue_action(error)
+    raise error
+  end
 end
 
 class ProjectsControllerTest < Redmine::ControllerTest
@@ -72,7 +75,7 @@ class ProjectsControllerTest < Redmine::ControllerTest
     @banner.display_part = 'new_issue'
     @banner.style = 'alert'
     @banner.save!
-    get :show, params: { id: 1  }
+    get :show, params: { id: 1 }
     assert_response :success
     assert_select 'div#project_banner_area div.banner_alert', false
   end
@@ -83,7 +86,7 @@ class ProjectsControllerTest < Redmine::ControllerTest
     @banner.save!
     # turn off banner module
     @project.disable_module!(:banner)
-    assert !@project.reload.enabled_module_names.include?(:banner)
+    assert_not @project.reload.enabled_module_names.include?(:banner)
 
     get :settings, params: { id: 1 }
     assert_response :success

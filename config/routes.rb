@@ -20,6 +20,11 @@ Rails.application.routes.draw do
     get 'off', on: :collection
   end
 
+  resources :global_banner, only: %i[show] do
+    get '/', to: 'global_banner#show', on: :collection
+    post '/', to: 'global_banner#update', on: :collection
+  end
+
   namespace 'banners' do
     namespace 'api' do
       resource :global_banner, only: %i[register_banner] do

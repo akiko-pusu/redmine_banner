@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path(File.dirname(__FILE__) + '/../test_helper')
 
 class LayoutTest < Redmine::IntegrationTest
@@ -35,7 +37,7 @@ class LayoutTest < Redmine::IntegrationTest
     assert_select 'div#project_banner_area div.banner_info', 0
 
     put '/projects/ecookbook/banner/edit',
-        params: { settings: { enabled: '1', style: 'warn', display_part: 'all', banner_description: 'Test banner message.' }, project_id: 'ecookbook' }
+        params: { setting: { enabled: '1', style: 'warn', display_part: 'all', banner_description: 'Test banner message.' }, project_id: 'ecookbook' }
     assert_response :redirect
 
     get '/projects/ecookbook/issues'
@@ -47,26 +49,29 @@ class LayoutTest < Redmine::IntegrationTest
     User.current = nil
     log_user('admin', 'admin')
 
-    post '/settings/plugin/redmine_banner',
-         params: { settings: {
-           enable: 'true', type: 'warn', display_part: 'both',
+    post '/global_banner',
+         params: { setting: {
+           enable: 'true', type: 'warn',
+           display_part: 'both',
            use_timer: 'false',
-           banner_description: 'h1. Test data.',
-           display_only_login_page: 'true'
+           display_only_login_page: 'true',
+           banner_description: 'h1. Test data.....'
          } }
 
     # Session is cleared
     reset!
     User.current = nil
 
-    get '/login'
-    assert_select 'div.banner_area'
     get '/projects'
+
     assert_select 'div.banner_area', 0
 
+    get '/login'
+    assert_select 'div.banner_area'
+
     log_user('admin', 'admin')
-    post '/settings/plugin/redmine_banner',
-         params: { settings: {
+    post '/global_banner',
+         params: { setting: {
            enable: 'true', type: 'warn', display_part: 'both',
            use_timer: 'false',
            banner_description: 'h1. Test data.',
@@ -89,8 +94,8 @@ class LayoutTest < Redmine::IntegrationTest
     User.current = nil
     log_user('admin', 'admin')
 
-    post '/settings/plugin/redmine_banner',
-         params: { settings: {
+    post '/global_banner',
+         params: { setting: {
            enable: 'true', type: 'warn', display_part: 'both',
            use_timer: 'false',
            banner_description: 'h1. Test data.',
@@ -103,8 +108,8 @@ class LayoutTest < Redmine::IntegrationTest
     assert_select 'div.banner_more_info', 0
 
     # Update setting.
-    post '/settings/plugin/redmine_banner',
-         params: { settings: {
+    post '/global_banner',
+         params: { setting: {
            enable: 'true', type: 'warn', display_part: 'both',
            use_timer: 'false',
            banner_description: 'h1. Test data.',

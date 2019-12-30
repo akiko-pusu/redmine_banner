@@ -160,16 +160,17 @@ Please try:
 
 ```bash
 # Admin password is 'redmine_banner_commit_sha'
-$ https://github.com/akiko-pusu/redmine_banner
-$ docker-compose up web -d
+% git clone https://github.com/akiko-pusu/redmine_banner
+% cd redmine_banner
+% docker-compose up web -d
 
 # or
 #
 # Admin password is 'redmine_banner_{COMMIT}'
-$ docker build --build-arg=COMMIT=$(git rev-parse --short HEAD) \
+% docker build --build-arg=COMMIT=$(git rev-parse --short HEAD) \
   --build-arg=BRANCH=$(git name-rev --name-only HEAD) -t akiko/redmine_banner:latest .
 
-$ docker run -p 3000:3000 akiko/redmine_banner:latest
+% docker run -p 3000:3000 akiko/redmine_banner:latest
 ```
 
 ### Run test
@@ -181,8 +182,8 @@ Please see wercker.yml for more details.
 % cp plugins/redmine_banner/Gemfile.local plugins/redmine_banner/Gemfile
 % bundle install --with test
 % export RAILS_ENV=test
-% bundle exec ruby -I"lib:test" -I plugins/redmine_banner/test plugins/ \
-  redmine_banner/test/controller/global_banner_controller_test.rb
+% bundle exec ruby -I"lib:test" -I plugins/redmine_banner/test \
+  plugins/redmine_banner/test/functional/banner_controller_test.rb
 ```
 
 or

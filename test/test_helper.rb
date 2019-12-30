@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 begin
   require 'simplecov'
   require 'simplecov-rcov'
-rescue LoadError => ex
-  puts <<-"EOS"
+rescue LoadError => e
+  puts <<-"MESSAGE"
   This test should be called only for redmine banner test.
-    Test exit with LoadError --  #{ex.message}
+    Test exit with LoadError --  #{e.message}
   Please move redmine_banner/Gemfile.local to redmine_banner/Gemfile
   and run bundle install if you want to to run tests.
-  EOS
+  MESSAGE
   exit
 end
 

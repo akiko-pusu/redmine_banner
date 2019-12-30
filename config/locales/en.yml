@@ -1,7 +1,7 @@
 # English strings go here for Rails i18n
 en:
   banner: "Banner"
-  setting_banner_display_part: "Display Location" 
+  setting_banner_display_part: "Display Location"
   label_header_only: "Header only"
   label_footer_only: "Footer only"
   label_both: "Both Header / Footer"
@@ -10,7 +10,7 @@ en:
   label_start_datetime: "Start datetime"
   label_end_datetime: "End datetime"
   label_use_timer: "Use timer"
-  error_banner_date_range: "Start date should be prior to End date."  
+  error_banner_date_range: "Start date should be prior to End date."
   redmine_banner_title: "Go to Banner Setting."
   button_off: "Off"
   banner_off: "Turn off banner message in your session. (Turn on banner again if Admin updates global banner message.)"
@@ -26,3 +26,5 @@ en:
   setting_banner_related_link_description: "If defined, link for more information is appended."
   more_info: "[More Info]"
   label_more_info: "Link to more information."
+  banner_admin_group: "Banner Admin Group"
+  description_for_banner_admin_group: "Specify a group that can manage the global banner without admin rights."

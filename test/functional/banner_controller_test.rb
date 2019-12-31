@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.expand_path('../test_helper', __dir__)
 class BannerControllerTest < Redmine::ControllerTest
   fixtures :projects, :users, :roles, :trackers, :members, :member_roles,
@@ -46,7 +48,7 @@ class BannerControllerTest < Redmine::ControllerTest
   end
 
   def test_preview_banner
-    get :preview, params: { settings: { banner_description: 'h1. Test data.' } }
+    get :preview, params: { setting: { banner_description: 'h1. Test data.' } }
     assert_select 'h1', /Test data\./, @response.body.to_s
   end
 
@@ -58,8 +60,8 @@ class BannerControllerTest < Redmine::ControllerTest
 
     Role.find(1).remove_permission! :manage_banner
     post :edit, params: { project_id: 1,
-                settings: { enabled: '1', description: 'Edit test', use_timer: false,
-                            display_part: 'all', style: 'alert' } }
+                          settings: { enabled: '1', description: 'Edit test', use_timer: false,
+                                      display_part: 'all', style: 'alert' } }
     assert_response 403
   end
 
@@ -77,16 +79,16 @@ class BannerControllerTest < Redmine::ControllerTest
 
     # set non existing project
     post :edit, params: { project_id: 100,
-                settings: { enabled: '1', description: 'Edit test', use_timer: false,
-                            display_part: 'all', style: 'alert' } }
+                          settings: { enabled: '1', description: 'Edit test', use_timer: false,
+                                      display_part: 'all', style: 'alert' } }
     assert_response 404
   end
 
   def test_redirect_post
     @request.session[:user_id] = 1
     post :edit, params: { project_id: 1,
-                settings: { enabled: '1', description: 'Edit test',
-                            display_part: 'all', style: 'alert' } }
+                          setting: { enabled: '1', description: 'Edit test',
+                                     display_part: 'all', style: 'alert' } }
     assert_response :redirect
     assert_redirected_to controller: 'projects',
                          action: 'settings', id: @project, tab: 'banner'

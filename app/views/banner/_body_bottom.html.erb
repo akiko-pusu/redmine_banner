@@ -1,32 +1,46 @@
-<%
-   # TODO: Display logic should be moved from view....
-   s = session[:pref_banner_off]
-   t = Setting.find_by_name('plugin_redmine_banner')
-   if !t.blank? && !s.blank? && t.updated_on.to_i < s
-     return ''
-   end
-
-   # TODO: This is workaround for SQLite3
-   banner_description = Setting.plugin_redmine_banner['banner_description'];
-   banner_description.force_encoding("UTF-8") if banner_description.respond_to?(:force_encoding)
--%>
 <div class="banner_area global_banner">
-<div class="banner banner_<%= Setting.plugin_redmine_banner['type'] %>" id="banner_content">
-  <%= textilizable banner_description %>
+<div class="banner banner_<%= setting['type'] %>" id="banner_content">
+  <%= textilizable setting['banner_description'] %>
 </div>
   <div class="banner_edit">
     <%= link_to l(:button_edit),
-  {:controller => 'settings', :action => 'plugin', :id => 'redmine_banner'}, 
-  {:class => 'icon banner-icon-edit', :title => l(:button_edit)} if User.current.admin? %>
+  { controller: 'global_banner', action: 'show' },
+  { class: 'icon banner-icon-edit', title: l(:button_edit)} if User.current.admin? %>
 <%= link_to  l(:button_off),
-  {:controller => 'banner', :action => 'off',:moderate => 'yes', :remote=>true},
-  {:class => 'icon banner-icon-off', :title => l(:banner_off)}  if User.current.logged? %>
+  { controller: 'banner', action: 'off', moderate: 'yes', remote: true },
+  { class: 'icon banner-icon-off', title: l(:banner_off)} if User.current.logged? %>
   </div>
 
-  <% if Setting.plugin_redmine_banner['related_link'].present? %>
+  <% if setting['related_link'].present? %>
   <div class="banner_more_info">
-    <%= link_to l(:more_info), Setting.plugin_redmine_banner['related_link'],
-           {:class => 'icon external', :title => l(:label_more_info)} %>
+    <%= link_to l(:more_info), setting['related_link'],
+           { class: 'icon external', title: l(:label_more_info)} %>
   </div>
   <% end %>
 </div>
+
+<% if setting['display_part'] == 'header' %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    displayTopBanner();
+  });
+
+  $(window).resize(function () {
+    console.log("resize");
+    displayTopBanner();
+  });
+</script>
+<% end %>
+
+<% if setting['display_part'] == 'both' %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    displayTopAndBottomBanner();
+  });
+
+  $(window).resize(function () {
+    console.log("resize");
+    displayTopBanner();
+  });
+</script>
+<% end %>

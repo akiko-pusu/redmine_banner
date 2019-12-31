@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class BannerController < ApplicationController
   #
   # NOTE: Authorized user can turn off banner while their in session. (Changed from version 0.0.9)
   #       If Administrator hope to disable site wide banner, please go to settings page and uncheck
   #       eabned checkbox.
   before_action :require_login, only: [:off]
-  before_action :find_user, :find_project, :authorize, except: [:preview, :off]
+  before_action :find_user, :find_project, :authorize, except: %i[preview off]
 
   def preview
-    @text = params[:settings][:banner_description]
+    @text = params[:setting][:banner_description]
     render partial: 'common/preview'
   end
 
@@ -17,8 +19,8 @@ class BannerController < ApplicationController
   def off
     session[:pref_banner_off] = Time.now.to_i
     render action: '_off', layout: false
-  rescue => e
-    logger.warn("Message for the log file / When off banner #{e.message}")
+  rescue StandardError => e
+    logger&.warn("Message for the log file / When off banner #{e.message}")
     render text: ''
   end
 
@@ -30,7 +32,7 @@ class BannerController < ApplicationController
   end
 
   def edit
-    return if params[:settings].nil?
+    return if params[:setting].nil?
 
     @banner = Banner.find_or_create(@project.id)
     @banner.safe_attributes = banner_params
@@ -53,6 +55,6 @@ class BannerController < ApplicationController
   end
 
   def banner_params
-    params.require(:settings).permit('banner_description', 'style', 'start_date', 'end_date', 'enabled', 'use_timer', 'display_part')
+    params.require(:setting).permit('banner_description', 'style', 'start_date', 'end_date', 'enabled', 'use_timer', 'display_part')
   end
 end

@@ -12,6 +12,7 @@ Metrics/BlockLength:
     - '**/*.rake'
     - 'spec/**/*.rb'
     - init.rb
+    - config/routes.rb
 
 # Offense count: 3
 Metrics/AbcSize:
@@ -23,7 +24,7 @@ Metrics/ClassLength:
   Max: 200
 
 # "Line is too long"を無効
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 
 # Offense count: 1
@@ -45,5 +46,4 @@ Documentation:
 
 EndOfLine:
   Enabled: false
-
 

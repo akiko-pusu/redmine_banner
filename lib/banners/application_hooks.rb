@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module Banners
   class BannerHeaderHooks < Redmine::Hook::ViewListener
     include ApplicationHelper
-    include BannerHelper
 
     def view_layouts_base_html_head(_context = {})
       o = stylesheet_link_tag('banner', plugin: 'redmine_banner')
@@ -16,99 +17,83 @@ module Banners
   class ProjectBannerMessageHooks < Redmine::Hook::ViewListener
     def view_layouts_base_content(context = {})
       project = context[:project]
-      return unless Banners::BannerHelper.enabled?(project)
+      return unless enabled?(project)
 
       banner = Banner.where(project_id: project.id).first
-      return '' unless banner && banner.enable_banner?
+      return '' unless banner&.enable_banner?
 
       display_part = banner.display_part
-      return '' unless Banners::BannerHelper.action_to_display?(context[:controller], display_part)
+      return '' unless action_to_display?(context[:controller], display_part)
 
       locals_params = { display_part: display_part, banner: banner }
       context[:controller].send(
         :render_to_string, partial: 'banner/project_body_bottom', locals: locals_params
       )
     end
-  end
-
-  class BannerMessageHooks < Redmine::Hook::ViewListener
-    include BannerHelper
-
-    # Override for conditional render_on
-    # Ref. http://www.redmine.org/boards/3/topics/4316
-    #
-    def self.render_on(hook, options = {})
-      define_method hook do |context|
-        context[:controller].send(:render_to_string, { locals: context }.merge(options)) if !options.include?(:if) || evaluate_if_option(options[:if], context)
-      end
-    end
-
-    def pass_timer?(_context)
-      banner_setting = Setting.plugin_redmine_banner
-      return true unless banner_setting['use_timer'] == 'true'
-
-      now = Time.now
-      start_date = get_time(
-        banner_setting['start_ymd'],
-        banner_setting['start_hour'],
-        banner_setting['start_min']
-      )
-
-      end_date = get_time(
-        banner_setting['end_ymd'],
-        banner_setting['end_hour'],
-        banner_setting['end_min']
-      )
-      now.between?(start_date, end_date)
-    end
-
-    def should_display_header?(context)
-      # When Disabled, false.
-      return false if Setting.plugin_redmine_banner['display_part'] == 'footer'
-
-      pass_timer?(context)
-    end
-
-    def should_display_footer?(context)
-      # When Disabled, false.
-      return false if Setting.plugin_redmine_banner['display_part'] == 'header'
-
-      pass_timer?(context)
-    end
-
-    render_on :view_layouts_base_body_bottom, partial: 'banner/body_bottom',
-                                              if: :should_display_footer?
 
     private
 
-    def evaluate_if_option(if_option, context)
-      return false unless should_display(context)
+    def enabled?(project)
+      return false if project.nil?
 
-      case if_option
-      when Symbol
-        send(if_option, context)
-      when Method, Proc
-        if_option.call(context)
-      end
+      project.module_enabled? :banner
     end
 
-    def should_display(context)
-      banner_setting = Setting.plugin_redmine_banner
-      return false if ((context[:controller].class.name != 'AccountController') &&
-          (context[:controller].action_name != 'login')) &&
-                      (banner_setting['display_only_login_page'] == 'true')
+    def action_to_display?(controller, display_part)
+      return true if display_part == 'all'
 
-      return false if !User.current.logged? && banner_setting['only_authenticated'] == 'true'
-      return false unless banner_setting['enable'] == 'true'
+      action_name = controller.action_name
+      controller_name = controller.controller_name
 
-      true
+      case display_part
+      when 'overview'
+        return true if controller_name == 'projects' && action_name == 'show'
+      when 'overview_and_issues'
+        return true if controller_name == 'issues' || (controller_name == 'projects' && action_name == 'show')
+      when 'new_issue'
+        return true if controller_name == 'issues' && action_name == 'new'
+      else
+        false
+      end
     end
   end
 
-  # TODO: view_layouts_base_after_top_menu is not supported Redmine itself.
-  # Now use javascript to insert after top-menu. (Submitted ticket: http://www.redmine.org/issues/9915)
-  class BannerTopMenuHooks < BannerMessageHooks
-    render_on :view_layouts_base_body_bottom, partial: 'banner/after_top_menu',
-                                              if: :should_display_header?
+  class BannerMessageHooks < Redmine::Hook::ViewListener
+    def pass_timer?(global_banner)
+      return true unless global_banner.use_timer?
+
+      Time.zone.now.between?(global_banner.start_time, global_banner.end_time)
+    end
+
+    def view_layouts_base_body_bottom(context = {})
+      global_banner = GlobalBanner.find_or_default
+
+      # In case global_banner is not stored.
+      return if global_banner.updated_on.blank? || global_banner.disable?
+      return unless pass_timer?(global_banner)
+
+      setting = global_banner.value
+      return unless should_display_on_current_page?(context, setting)
+
+      banner_description = setting['banner_description']
+      banner_description.force_encoding('UTF-8') if banner_description.respond_to?(:force_encoding)
+
+      locals_params = { setting: setting.merge(banner_description: banner_description),
+                        updated_on: global_banner.updated_on }
+
+      context[:controller].send(
+        :render_to_string, partial: 'banner/body_bottom', locals: locals_params
+      )
+    end
+
+    def should_display_on_current_page?(context, setting)
+      return false if ((context[:controller].class.name != 'AccountController') &&
+          (context[:controller].action_name != 'login')) &&
+                      (setting['display_only_login_page'] == 'true')
+
+      return false if !User.current.logged? && setting['only_authenticated'] == 'true'
+
+      true
+    end
   end
 end

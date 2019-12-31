@@ -2,9 +2,6 @@
 #
 # Check https://circleci.com/docs/2.0/language-ruby/ for more details
 #
-orbs:
-  aws-ecr: circleci/aws-ecr@6.2.0
-
 version: 2.1
 
 general:
@@ -96,23 +93,6 @@ workflows:
             branches:
               ignore:
                 - /v0.1.x-support-Redmine3.*/
-      - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          create-repo: true
-          dockerfile: Dockerfile
-          path: .
-          region: AWS_REGION
-          repo: redmine_banner
-          extra-build-args: '--build-arg COMMIT=$CIRCLE_SHA1 --build-arg=BRANCH=$CIRCLE_BRANCH'
-          requires:
-            - test
-          tag: '$CIRCLE_BUILD_NUM'
-          filters:
-            branches:
-              only:
-                - master
       - deploy_heroku:
           requires:
             - build

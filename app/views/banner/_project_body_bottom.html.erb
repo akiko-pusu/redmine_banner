@@ -8,17 +8,17 @@ if authorize_for(:banner, :edit)
 %>
   <div class="banner_edit">
 <%= link_to l(:button_edit),
-  {:controller => 'projects', :action => "settings", :id => @project, :tab => 'banner'},
-  {:class => 'icon banner-icon-edit', :title => l(:button_edit)} %>
+  { controller: 'projects', action: "settings", id: @project, tab: 'banner' },
+  { class: 'icon banner-icon-edit', title: l(:button_edit) } %>
 
 <a class="icon banner-icon-off"
    href="#"
    onclick="if (confirm('<%= l(:text_are_you_sure) %> ')) {
    $.ajax({
-          url: '<%= url_for(:controller => :banner, :action => 'project_banner_off', :project_id => @project) %>',
+          url: '<%= url_for(controller: :banner, action: 'project_banner_off', project_id: @project) %>',
           type: 'get',
           success: function(data){
-              $('#project_banner_area').remove(); return false;
+            $('#project_banner_area').remove(); return false;
           }
         });
    }"
@@ -29,7 +29,7 @@ if authorize_for(:banner, :edit)
 </div>
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function() {
-    var content = document.getElementById('content');
+    let content = document.getElementById('content');
     content.insertBefore(
       document.getElementById('project_banner_area'),
       content.firstChild

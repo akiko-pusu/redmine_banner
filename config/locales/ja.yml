@@ -26,5 +26,6 @@ ja:
   setting_banner_related_link_description: "関連／詳細情報へのリンクをメッセージに追加します。"
   more_info: "[詳細]"
   label_more_info: "詳細はこちら。"
-  
-  
+  banner_admin_group: "バナー管理者グループ"
+  description_for_banner_admin_group: "バナー管理者グループのユーザは、Redmine全体の管理者権限なしでもグローバルバナーを編集できるようになります。"
+

@@ -62,11 +62,6 @@ span.banner_alert {
   background-image: url("../images/alert-msg.png");
 }
 
-#top-menu a.redmine-banner {
-  background: url("../images/alert-msg.png") no-repeat;
-  color: transparent;
-}
-
 span.use_timer {
   background: url("../images/icon-timer.png") no-repeat right center;
   padding-right: 20px;

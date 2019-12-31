@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require File.expand_path('../test_helper', __dir__)
-class GlobalBannerControllerTest < Redmine::IntegrationTest
+class ApiGlobalBannerControllerTest < Redmine::IntegrationTest
   fixtures :users
 
   def setup
-    @user = User.find_by_login('admin')
+    @user = User.find_by(login: 'admin')
 
     @banner_admin_group = Group.create(name: 'GlobalBanner_Admin')
     @non_admin_user = User.find(2)

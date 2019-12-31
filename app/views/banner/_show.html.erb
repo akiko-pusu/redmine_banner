@@ -1,44 +1,42 @@
 <% banner = @banner %>
-<div id="banner_settings">
-<%= labelled_form_for :settings, banner,
-                             :url => {:controller => 'banner',
-                             :action => 'edit', :project_id => @project, :tab => 'banner',
-                             :setting_id => banner.id},
-                             :html => {:id => 'banner' } do |f| %>
-    <%= error_messages_for 'banner' %>
-    <div class="box tabular">
+<div id="banner_setting">
+<%= labelled_form_for :setting, banner,
+  url: { controller: 'banner',action: 'edit', project_id: @project, tab: 'banner', setting_id: banner.id },
+  html: { id: 'banner' } do |f| %>
+<%= error_messages_for 'banner' %>
+<div class="box tabular">
 
-<p><%= f.check_box :enabled, :label => l(:button_activate) %></p>
+<p><%= f.check_box :enabled, label: l(:button_activate) %></p>
 
 <p>
-  <%=content_tag(:label, l(:label_message_type))%>
-  <%= radio_button_tag 'settings[style]', "info", banner['style'] == "info" %> <span class="banner_info">Info</span><br/>
-  <%= radio_button_tag 'settings[style]', "warn", banner['style'] == "warn" %> <span class="banner_warn">Warn</span><br/>
-  <%= radio_button_tag 'settings[style]', "alert", banner['style'] == "alert" %> <span class="banner_alert">Alert </span><br/>
-  <%= radio_button_tag 'settings[style]', "normal", banner['style'] == "normal" %> <span class="banner_normal">Normal </span><br/>
-  <%= radio_button_tag 'settings[style]', "nodata", banner['style'] == "nodata" %> <span class="banner_normal">Nodata (Like Redmine.org style) </span>
+  <%= content_tag(:label, l(:label_message_type))%>
+  <%= radio_button_tag 'setting[style]', "info", banner['style'] == "info" %> <span class="banner_info">Info</span><br/>
+  <%= radio_button_tag 'setting[style]', "warn", banner['style'] == "warn" %> <span class="banner_warn">Warn</span><br/>
+  <%= radio_button_tag 'setting[style]', "alert", banner['style'] == "alert" %> <span class="banner_alert">Alert </span><br/>
+  <%= radio_button_tag 'setting[style]', "normal", banner['style'] == "normal" %> <span class="banner_normal">Normal </span><br/>
+  <%= radio_button_tag 'setting[style]', "nodata", banner['style'] == "nodata" %> <span class="banner_normal">Nodata (Like Redmine.org style) </span>
 </p>
 
 <p>
 <%= content_tag(:label, l(:setting_banner_display_part))%>
-<%= select_tag('settings[display_part]',
+<%= select_tag('setting[display_part]',
                options_for_select([[l(:page_overview_only),'overview'],
                 [l(:page_new_issue_only),'new_issue'],
-                [l(:page_overview_and_issues),'overview_and_issues'],[l(:page_all),'all']],
+                [l(:page_overview_and_issues),'overview_and_issues'], [l(:page_all),'all']],
               banner['display_part'])) %>
 <br/>Now project banner is displayed at the top only, but you can select which page to show banner.
 </p>
 
 <p>
   <%=content_tag(:label, l(:label_banner_message)) %>
-  <%=text_area_tag 'settings[banner_description]',  banner['banner_description'],  :size =>"40x3",
-        :class => 'wiki-edit' ,:required => true  %><br/>
- <%= wikitoolbar_for "settings_banner_description" %>
+  <%=text_area_tag 'setting[banner_description]',  banner['banner_description'], size: '40x3',
+        class: 'wiki-edit', required: true  %><br/>
+ <%= wikitoolbar_for "setting_banner_description" %>
 
 <div id="banner_description_preview" class="wiki"></div>
 
-    </div>
-    <%= submit_tag l(:button_save) %>
+</div>
+<%= submit_tag l(:button_save) %>
 <% end %>
 </div>
 

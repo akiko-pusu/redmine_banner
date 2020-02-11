@@ -28,4 +28,7 @@ ja:
   label_more_info: "詳細はこちら。"
   banner_admin_group: "バナー管理者グループ"
   description_for_banner_admin_group: "バナー管理者グループのユーザは、Redmine全体の管理者権限なしでもグローバルバナーを編集できるようになります。"
-
+  setting_banner_display_for: "表示対象"
+  label_anonymous_only: "ログインしていないユーザのみ"
+  label_authenticated_only: "ログインユーザのみ"
+  label_display_all: "全てのユーザ"

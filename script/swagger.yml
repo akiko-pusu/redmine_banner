@@ -119,6 +119,15 @@ definitions:
       banner_description:
         type: string
         example: "Message for Global Banner"
+      display_for:
+        type: "string"
+        example: "all"
+        enum: [all, anonymous, authenticated]
+        description: >
+            Display for:
+             * `all` - For all users
+             * `anonymous` - For anonymous users
+             * `authenticated` - For authenticated users
       display_part:
         type: "string"
         example: "both"

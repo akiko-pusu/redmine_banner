@@ -28,3 +28,7 @@ en:
   label_more_info: "Link to more information."
   banner_admin_group: "Banner Admin Group"
   description_for_banner_admin_group: "Specify a group that can manage the global banner without admin rights."
+  setting_banner_display_for: "Display for"
+  label_anonymous_only: "Anonymous users"
+  label_authenticated_only: "Authenticated users"
+  label_display_all: "All"

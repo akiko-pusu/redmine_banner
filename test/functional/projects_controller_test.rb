@@ -28,26 +28,20 @@ class ProjectsControllerTest < Redmine::ControllerTest
     @banner.save!
   end
 
-  def test_settings
-    get :settings, params: { id: 1 }
-    assert_response :success
-    assert_select 'a#tab-banner'
-    assert_select 'div#project_banner_area div.banner_info', false,
-                  'Banner should be displayed Overview only.'
-  end
-
   # project 1 is enabled banner and type is info, display_part is overview only.
   def test_show_overview
     get :show, params: { id: 1 }
     assert_response :success
-    assert_select 'div#project_banner_area div.banner_info'
+    assert_select '#main-menu ul li a.banner'
+    assert_select 'div#project_banner_area div.banner_info', true,
+                  'Banner should be displayed Overview only.'
   end
 
   def test_show_all
     @banner.display_part = 'all'
     @banner.style = 'warn'
     @banner.save!
-    get :settings, params: { id: 1 }
+    get :show, params: { id: 1 }
     assert_response :success
     assert_select 'div#project_banner_area div.banner_warn'
   end

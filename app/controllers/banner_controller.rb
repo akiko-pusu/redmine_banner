@@ -31,15 +31,24 @@ class BannerController < ApplicationController
     render action: '_project_banner_off', layout: false
   end
 
+  def show
+    @banner = Banner.find_or_create(@project.id)
+    render layout: !request.xhr?
+  end
+
   def edit
     return if params[:setting].nil?
 
     @banner = Banner.find_or_create(@project.id)
     @banner.safe_attributes = banner_params
-    @banner.save
-    flash[:notice] = l(:notice_successful_update)
-    redirect_to controller: 'projects',
-                action: 'settings', id: @project, tab: 'banner'
+
+    if @banner.save
+      flash[:notice] = l(:notice_successful_update)
+    else
+      flash[:error] = @banner.errors.messages
+    end
+    redirect_to action: 'show'
+    nil
   end
 
   private

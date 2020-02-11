@@ -36,8 +36,8 @@ class LayoutTest < Redmine::IntegrationTest
     get '/projects/ecookbook/issues'
     assert_select 'div#project_banner_area div.banner_info', 0
 
-    put '/projects/ecookbook/banner/edit',
-        params: { setting: { enabled: '1', style: 'warn', display_part: 'all', banner_description: 'Test banner message.' }, project_id: 'ecookbook' }
+    post '/projects/ecookbook/banner',
+         params: { setting: { enabled: '1', style: 'warn', display_part: 'all', banner_description: 'Test banner message.' }, project_id: 'ecookbook' }
     assert_response :redirect
 
     get '/projects/ecookbook/issues'
@@ -75,8 +75,7 @@ class LayoutTest < Redmine::IntegrationTest
            enable: 'true', type: 'warn', display_part: 'both',
            use_timer: 'false',
            banner_description: 'h1. Test data.',
-           display_only_login_page: 'true',
-           only_authenticated: 'true'
+           display_for: 'authenticated'
          } }
 
     # Session is cleared
@@ -100,11 +99,12 @@ class LayoutTest < Redmine::IntegrationTest
            use_timer: 'false',
            banner_description: 'h1. Test data.',
            display_only_login_page: 'false',
-           only_authenticated: 'false',
+           display_for: 'authenticated',
            related_link: ''
          } }
 
     get '/'
+    assert_select 'div.banner_area', 1
     assert_select 'div.banner_more_info', 0
 
     # Update setting.
@@ -114,7 +114,7 @@ class LayoutTest < Redmine::IntegrationTest
            use_timer: 'false',
            banner_description: 'h1. Test data.',
            display_only_login_page: 'false',
-           only_authenticated: 'false',
+           display_for: 'all',
            related_link: 'http://www.redmine.org/'
          } }
 

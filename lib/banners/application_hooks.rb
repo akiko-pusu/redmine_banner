@@ -91,9 +91,17 @@ module Banners
           (context[:controller].action_name != 'login')) &&
                       (setting['display_only_login_page'] == 'true')
 
-      return false if !User.current.logged? && setting['only_authenticated'] == 'true'
+      return should_display_for?(setting)
+    end
 
-      true
+    def should_display_for?(setting)
+      target = setting['display_for'] || 'all'
+      return true if target == 'all'
+
+      return true if target == 'authenticated' && User.current.logged?
+      return true if target == 'anonymous' && User.current.anonymous?
+
+      false
     end
   end
 end

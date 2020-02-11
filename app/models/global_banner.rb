@@ -7,7 +7,7 @@ class GlobalBanner < Setting
   GLOBAL_BANNER_DEFAULT_SETTING = {
     enable: 'false',
     banner_description: 'exp. Information about upcoming Service Interruption.',
-    only_authenticated: nil,
+    display_for: 'all',
     display_only_login_page: nil,
     type: 'info',
     display_part: 'both',

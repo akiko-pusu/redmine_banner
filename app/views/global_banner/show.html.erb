@@ -12,9 +12,12 @@
     </p>
 
     <p>
-      <%= content_tag(:label, l(:label_display_authenticated_user_only))%>
-      <%= hidden_field_tag('setting[only_authenticated]', false).html_safe %>
-      <%= check_box_tag 'setting[only_authenticated]', true, setting['only_authenticated'] == 'true' %>
+      <%= content_tag(:label, l(:setting_banner_display_for, default: 'Display for'))%>
+      <%= select_tag('setting[display_for]',
+                 options_for_select([[l(:label_anonymous_only, default: 'Anonymous'),'anonymous'],
+                                     [l(:label_authenticated_only, default: 'Authenticated'),'authenticated'],
+                                     [l(:label_display_all, default: 'All'), 'all']],
+                                     { selected: setting['display_for'] })) %>
     </p>
 
     <p>
@@ -29,7 +32,9 @@
       <%= content_tag(:label, l(:setting_banner_display_part))%>
       <%= select_tag('setting[display_part]',
                  options_for_select([[l(:label_header_only),'header'],
-                                     [l(:label_footer_only),'footer'],[l(:label_both),'both']],setting['display_part'])) %>
+                                     [l(:label_footer_only),'footer'],
+                                     [l(:label_both),'both']],
+                                     setting['display_part'])) %>
       <%= hidden_field_tag('setting[display_only_login_page]', false).html_safe %>
       <%= check_box_tag 'setting[display_only_login_page]', true, setting['display_only_login_page'] == 'true' %>
       <%= l(:label_check_if_banner_show_only_login_page) %>

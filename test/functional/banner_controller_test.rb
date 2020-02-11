@@ -90,8 +90,7 @@ class BannerControllerTest < Redmine::ControllerTest
                           setting: { enabled: '1', description: 'Edit test',
                                      display_part: 'all', style: 'alert' } }
     assert_response :redirect
-    assert_redirected_to controller: 'projects',
-                         action: 'settings', id: @project, tab: 'banner'
+    assert_redirected_to controller: 'banner', action: 'show'
   end
 
   def test_return_success_when_banner_off_with_manage_permission

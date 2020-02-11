@@ -7,9 +7,9 @@ Rails.application.routes.draw do
   end
 
   resources :projects do
-    resources :banner do
-      patch 'edit', on: :member
-      put 'edit', on: :collection
+    resources :banner, only: %i[show] do
+      get '/', to: 'banner#show', on: :collection
+      post '/', to: 'banner#edit', on: :collection
       post 'project_banner_off', on: :collection
       get 'project_banner_off', on: :collection
     end

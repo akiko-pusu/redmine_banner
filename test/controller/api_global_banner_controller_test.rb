@@ -20,7 +20,7 @@ class ApiGlobalBannerControllerTest < Redmine::IntegrationTest
   def test_get_global_banner_when_api_disable
     Setting.rest_api_enabled = '0'
     get '/banners/api/global_banner.json', headers: { 'X-Redmine-API-Key' => @user.api_key }
-    assert_response 403
+    assert_response :forbidden
   end
 
   def test_get_global_banner_when_api_enable

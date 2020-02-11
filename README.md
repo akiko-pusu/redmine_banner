@@ -51,6 +51,11 @@ Please use ver **0.1.x** or ``v0.1.x-support-Redmine3`` branch in case using Red
 
 ## Changelog
 
+### 0.3.1
+
+* Feature: Enabled to switch who can see the global banner. (#126)
+* Refactor: Change to use project menu to prevent the project setting tab's conflict. (#127)
+
 ### 0.3.0
 
 * Add feature: Give the ability to specific users to manage the site-wide banner. (GitHub: #86 / #113)

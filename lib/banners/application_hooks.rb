@@ -91,7 +91,7 @@ module Banners
           (context[:controller].action_name != 'login')) &&
                       (setting['display_only_login_page'] == 'true')
 
-      return should_display_for?(setting)
+      should_display_for?(setting)
     end
 
     def should_display_for?(setting)

@@ -57,7 +57,7 @@ This is bugfix release against 0.3.1.
 Updating to 0.2.2 is highly recommended!
 
 * Bugfix: HTML problems on redmine_banner 0.3.1. (#134)
-* Bugfix: Global banner off does not work correctry. (Degrade from v0.2x)
+* Bugfix: Global banner off does not work correctly. (Degrade from v0.2x)
 
 ### 0.3.1
 

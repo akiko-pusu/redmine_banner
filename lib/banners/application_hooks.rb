@@ -91,6 +91,7 @@ module Banners
           (context[:controller].action_name != 'login')) &&
                       (setting['display_only_login_page'] == 'true')
 
+      return false if banner_is_off?(context[:controller])
       should_display_for?(setting)
     end
 
@@ -100,6 +101,18 @@ module Banners
 
       return true if target == 'authenticated' && User.current.logged?
       return true if target == 'anonymous' && User.current.anonymous?
+
+      false
+    end
+
+    def banner_is_off?(controller)
+      banner_off_time = controller.session[:pref_banner_off]
+
+      global_banner = GlobalBanner.find_or_default
+
+      if !global_banner.blank? && !banner_off_time.blank? && global_banner.updated_on.to_i < banner_off_time
+        return true
+      end
 
       false
     end

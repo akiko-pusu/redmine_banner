@@ -8,7 +8,7 @@ if authorize_for(:banner, :edit)
 %>
   <div class="banner_edit">
 <%= link_to l(:button_edit),
-  { controller: 'projects', action: "settings", id: @project, tab: 'banner' },
+  { controller: 'banner', action: 'show', project_id: @project },
   { class: 'icon banner-icon-edit', title: l(:button_edit) } %>
 
 <a class="icon banner-icon-off"

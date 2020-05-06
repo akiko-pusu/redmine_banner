@@ -51,6 +51,14 @@ Please use ver **0.1.x** or ``v0.1.x-support-Redmine3`` branch in case using Red
 
 ## Changelog
 
+### 0.3.2
+
+This is bugfix release against 0.3.1.
+Updating to 0.2.2 is highly recommended!
+
+* Bugfix: HTML problems on redmine_banner 0.3.1. (#134)
+* Bugfix: Global banner off does not work correctry. (Degrade from v0.2x)
+
 ### 0.3.1
 
 * Feature: Enabled to switch who can see the global banner. (#126)

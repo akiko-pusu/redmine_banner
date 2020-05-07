@@ -67,6 +67,7 @@ Updating to 0.3.2 is highly recommended!
 
 * Bugfix: HTML problems on redmine_banner 0.3.1. (#134)
 * Bugfix: Global banner off does not work correctly. (Degrade from v0.2x)
+* Update Chinese translation. (GutHub: #131 by iWangJiaxiang)
 
 ### 0.3.1
 

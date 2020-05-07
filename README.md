@@ -51,6 +51,15 @@ Please use ver **0.1.x** or ``v0.1.x-support-Redmine3`` branch in case using Red
 
 ## Changelog
 
+### 0.3.3
+
+This is bugfix release against 0.3.2.
+Updating to 0.3.3 is highly recommended!
+
+* Bugfix: HTML problems on redmine_banner.
+* Bugfix: Fix wrong url to project banner setting.
+*Refactor: Remove unused file.
+
 ### 0.3.2
 
 This is bugfix release against 0.3.1.
@@ -59,6 +68,10 @@ Updating to 0.3.2 is highly recommended!
 * Bugfix: HTML problems on redmine_banner 0.3.1. (#134)
 * Bugfix: Global banner off does not work correctly. (Degrade from v0.2x)
 
+### 0.3.1
+
+* Feature: Enabled to switch who can see the global banner. (#126)
+* Refactor: Change to use project menu to prevent the project setting tab's conflict. (#127)
 ### 0.3.1
 
 * Feature: Enabled to switch who can see the global banner. (#126)

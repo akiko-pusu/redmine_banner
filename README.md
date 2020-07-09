@@ -32,7 +32,6 @@ Try this:
 1. Go to plugin's page and click "Settings" link of Redmine Banner Plugin.
 You can edit banner message and select style for message. Also you can access setting page from administration menu, click "banner" icon.
 
-
 ### Usage for project scope banner
 
 1. Banner can be used as project module. If you want to manage the banner for your project, "Manage Banner" permission is required to your role.
@@ -50,6 +49,12 @@ You can edit banner message and select style for message. Also you can access se
 Please use ver **0.1.x** or ``v0.1.x-support-Redmine3`` branch in case using Redmine3.x.
 
 ## Changelog
+
+### 0.3.4
+
+Maintenance release.
+
+* Update German translation. (GutHub: #142 by @teatower)
 
 ### 0.3.3
 
